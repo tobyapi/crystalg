@@ -4,7 +4,13 @@ A generic algorithm library for crystal-lang.
 
 ## Installation
 
-Add this to your application's `shard.yml`:
+Clone repository manually:
+
+```sh
+$ git clone https://github.com/TobiasGSmollett/crystalg && cd crystalg/
+```
+
+Or add this to your application's `shard.yml`:
 
 ```yaml
 dependencies:
@@ -14,14 +20,16 @@ dependencies:
 
 ## Usage
 
+The fastest way to try it is by using Crystal Playground (`crystal play`):
+
 ```crystal
-require "crystalg"
+require "./crystalg"
 
 include Crystalg::Strings
 
 input = "mississippi"
 hash = RollingHash.new input
-puts hash.count("issi")
+hash.count("issi") # => 2
 ```
 
 ## Development
