@@ -17,6 +17,8 @@ dependencies:
 ```crystal
 require "crystalg"
 
+include Crystalg::Strings
+
 input = "mississippi"
 hash = RollingHash.new input
 puts hash.count("issi")
