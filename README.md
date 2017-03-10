@@ -1,5 +1,4 @@
-# crystalg
-[![Build Status](https://travis-ci.org/TobiasGSmollett/crystalg.svg?branch=master)](https://travis-ci.org/TobiasGSmollett/crystalg)  
+# Crystalg [![Build Status](https://travis-ci.org/TobiasGSmollett/crystalg.svg?branch=master)](https://travis-ci.org/TobiasGSmollett/crystalg)  
 
 A generic algorithm library for crystal-lang.
 
