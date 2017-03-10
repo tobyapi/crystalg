@@ -16,9 +16,11 @@ dependencies:
 
 ```crystal
 require "crystalg"
-```
 
-TODO: Write usage instructions here
+input = "mississippi"
+hash = RollingHash.new input
+puts hash.count("issi")
+```
 
 ## Development
 
