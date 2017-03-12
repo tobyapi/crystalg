@@ -1,7 +1,5 @@
 require "./spec_helper"
 
-include Crystalg::Graph
-
 describe Crystalg do
   # TODO: Write tests
 
