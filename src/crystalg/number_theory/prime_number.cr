@@ -1,16 +1,6 @@
 
 module Crystalg::NumberTheory
-  
-  def is_prime?(n : Int): Bool
-    i = 2
-    while i * i <= n
-      return false if n % i == 0
-      i = i.succ
-    end
-    n != 1
-  end
-  
-  def get_divisor(n : Int): Array(Int32)
+  def get_divisor(n : Int32): Array(Int32)
     result = Array(Int32).new
     i = 1
     while i * i <= n
@@ -23,7 +13,7 @@ module Crystalg::NumberTheory
     result
   end
   
-  def prime_factorize(n : Int): Hash(Int32, Int32)
+  def prime_factorize(n : Int32): Hash(Int32, Int32)
     result = Hash(Int32, Int32).new
     i = 2
     while i * i <= n
@@ -37,6 +27,6 @@ module Crystalg::NumberTheory
     end
     result[n] = 1 if n != 1
     result
-  end
+  end  
 
 end
