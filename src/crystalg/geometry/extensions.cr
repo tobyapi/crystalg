@@ -4,7 +4,7 @@ struct Float
 
   def +(other : Float)
     if (self + other).abs < EPS * (self.abs + other.abs)
-      0.as(Float)
+      0.as Float
     else
       self + other
     end
@@ -25,6 +25,6 @@ struct Float
   end
 
   def sqrt
-    LibM.sqrt max(self, 0.as(Float))
+    Math.sqrt Math.max(self, 0.0)
   end
 end
