@@ -1,10 +1,10 @@
 require "./*"
 
-module Clystalg::Geometry
+module Crystalg::Geometry
   class Point
     getter x, y
 
-    def initialize(@x : Float, @y : Float) end
+    def initialize(@x : Float64, @y : Float64) end
 
     def +(other : Point)
       Point.new(x + other.x, y + other.y)
@@ -23,7 +23,7 @@ module Clystalg::Geometry
     end
     
     def norm : Float
-      (x * x + y * y).sqrt
+      (x * x + y * y).as(Float).sqrt
     end
     
     def dist(other : Point) : Float
