@@ -1,6 +1,7 @@
 require "./*"
 
-module Crystalg::Geometry  
+module Crystalg::Geometry
+
   # a -> b -> c
   enum CCW
     COUNTER_CLOCKWISE = 1

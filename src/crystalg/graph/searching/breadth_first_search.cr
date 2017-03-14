@@ -7,6 +7,10 @@ include Crystalg::DataStructures
 module Crystalg::Graph
   class BFS < Search(Queue(State))    
     def run(graph : Graph, start : NodeID): Array(State)
+      initializer = ->(graph : Graph, start : NodeID, state_container : Queue(State)){
+        initialize_containers(graph, start, state_container)
+      }
+
       edge_filter = ->(adjecent  : Array(Edge), current : State, result : Array(State)){
         adjecent.select do |edge| !result[edge.@to].visited? end
       }
@@ -16,8 +20,8 @@ module Crystalg::Graph
           State.new(edge.@to, current.@cost + 1, current.@node_id, true)
         end
       }
-      
-      run(graph, start, edge_filter, next_state_generator)
+  
+      run(graph, start, initializer, edge_filter, next_state_generator)
     end
   end
 end
