@@ -37,10 +37,19 @@ hash.count("issi") # => 2
 crystal spec
 
 ## To Do
+
+### Testing
+* Projection
+* Reflection
+* Parallel/Orthogonal
+* Intersection
+* Cross Point
+* Distance
+
+### Implementation
 * Graph
   * Bellman-Ford algorithm
   * Warshall Floyd
-  * Kruskal
   * Topological Sort
   * Minimum-Cost Arborescence
   * Articulation Points
@@ -75,22 +84,10 @@ crystal spec
   * Suffix Array
   * Suffix Automaton
 * Number Theory
-  * Prime Factorize
-  * Power
-  * Least Common Multiple
-  * Euler's Phi Function
-  * Extended Euclid Algorithm
   * Stern-Brocot Tree
   * Mobius Function
   * Carmichael Function
 * Computational Geometry
-  * Projection
-  * Reflection
-  * Counter-Clockwise
-  * Parallel/Orthogonal
-  * Intersection
-  * Cross Point
-  * Distance
   * Area
   * Is-Convex
   * Polygon-Point Containment
