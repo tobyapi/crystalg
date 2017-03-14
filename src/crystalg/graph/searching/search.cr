@@ -32,12 +32,13 @@ module Crystalg::Graph
     
     protected def run(
       graph : Crystalg::Graph::Graph,
-      start : NodeID, 
+      start : NodeID,
+      initializer : Graph, NodeID, DataStructure -> Tuple(DataStructure, Array(State)),
       edge_filter : Array(Edge), State, Array(State) -> Array(Edge),
-      state_generator : Array(Edge), State -> Array(State)
+      state_generator : Array(Edge), State -> Array(State)      
       ): Array(State)
 
-      ds, result = initialize_containers(graph, start)
+      ds, result = initializer.call(graph, start, DataStructure.new)
 
       while !(current = ds.pop!).nil?
         adjecent = graph.get_adjecent(current.@node_id)
@@ -50,12 +51,12 @@ module Crystalg::Graph
       result
     end
     
-    private def initialize_containers(graph : Graph, start : NodeID)
-      data_structure = DataStructure.new
+    def initialize_containers(graph : Graph, start : NodeID, state_container : DataStructure)
       result_container = Array(State).new(graph.@size) { |i| State.new(i, 0, -1) }
       result_container[start].visit
-      data_structure.push(result_container[start])
-      { data_structure, result_container }
+      state_container.push(result_container[start])
+      { state_container, result_container }
     end
+    
   end
 end
