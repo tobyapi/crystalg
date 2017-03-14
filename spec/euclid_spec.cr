@@ -17,4 +17,9 @@ describe Crystalg do
     true.should eq(lcm(50000000, 30000000) === 150000000)
   end
 
+  it "extgcd" do
+    true.should eq(extgcd(4, 12) === {4, 1, 0})
+    true.should eq(extgcd(3, 8) === {1, 3, -1})
+  end
+
 end

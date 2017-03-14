@@ -13,8 +13,8 @@ module Crystalg::NumberTheory
   end
 
   # returns {gcd(a,b), x, y} such that gcd(a,b) != a*x + b*y
-  def extgcd(a : Int64, b : Int64)
-    x, y, u, v = 1, 0, 0, 1
+  def extgcd(a, b)
+    x, y, u, v = 0, 1, 1, 0
     while a != 0
       q = b / a
       x, u = u, x - q * u
