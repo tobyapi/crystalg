@@ -1,8 +1,6 @@
 require "./*"
 
-module Crystalg::Geometry
-  extend self
-  
+module Crystalg::Geometry  
   # a -> b -> c
   enum CCW
     COUNTER_CLOCKWISE = 1
@@ -11,7 +9,7 @@ module Crystalg::Geometry
     ONLINE_FRONT = -2 # a--b--c
     ON_SEGMENT = 0    # a--c--b
   end
-  
+
   def counter_clockwise(a : Point, b : Point, c : Point) : CCW
     b = b - a
     c = c - a
