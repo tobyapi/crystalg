@@ -12,7 +12,7 @@ module Crystalg::NumberTheory
     end
     result
   end
-  
+
   def prime_factorize(n : Int32): Hash(Int32, Int32)
     result = Hash(Int32, Int32).new
     i = 2
@@ -27,6 +27,22 @@ module Crystalg::NumberTheory
     end
     result[n] = 1 if n != 1
     result
-  end  
+  end
 
+  def sieve_of_eratosthenes(n : Int32)
+    result = Array(Bool).new(n + 1, true)
+    result[0] = result[1] = false
+    i = 2
+    while i * i <= n
+      if(result[i] == true)
+        j = i * i
+        while j <= n
+          result[j] = false
+          j = j + i
+        end
+      end
+      i = i.succ
+    end
+    result
+  end
 end
