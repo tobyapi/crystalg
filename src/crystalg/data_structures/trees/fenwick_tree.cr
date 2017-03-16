@@ -2,7 +2,7 @@
 module Crystalg::Trees
   class FenwickTree(T)
     def initialize(@size : Int32)
-      @data = Array(T).new(@size * 2 - 1, 0)
+      @data = Array(T).new(@size * 2 - 1, T.zero)
     end
 
     def add(key : Int32, value : T)
@@ -13,8 +13,8 @@ module Crystalg::Trees
     end
 
     def sum(key : Int32): T
-      result = 0
-      while key > 0
+      result = T.zero
+      while key > T.zero
         result = result + @data[key]
         key = key - (key & -key)
       end
