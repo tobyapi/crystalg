@@ -69,7 +69,6 @@ crystal spec
     * Hopcroft-Karp
 * Data Structure
   * Segment Tree
-  * Fenwick Tree
   * Red Black Tree
   * Link-Cut Tree
   * kD Tree
