@@ -16,7 +16,11 @@ module Crystalg::Geometry
     end
     
     def is_parallel?(other : Line)
-      (direction - position).cross(other.direction - other.position).sign == 0
+      (direction - position).cross(other.direction - other.position) == 0
+    end
+    
+    def is_orthogonal?(other : Line)
+      (direction - position).dot(other.direction - other.position) == 0
     end
     
     def is_intersection?(other : Line)
