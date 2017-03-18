@@ -16,11 +16,11 @@ module Crystalg::Geometry
       Point.new(x + (-other.x), y + (-other.y))
     end
 
-    def *(other : Float)
+    def *(other : Number)
       Point.new(x * other, y * other)
     end
 
-    def /(other : Float)
+    def /(other : Number)
       Point.new(x / other, y / other)
     end
     
