@@ -8,7 +8,7 @@ module Crystalg::Geometry
       
     def project(point : Point)
       base = direction - position
-      a + base * ((point - a).dot (base / base.dot base))
+      position + base * ((point - position).dot (base / base.dot base))
     end
     
     def reflect(q : Point)

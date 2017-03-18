@@ -2,6 +2,8 @@ require "./*"
 
 module Crystalg::Geometry
   class Point
+    include Comparable(Point)
+    
     getter x, y
 
     def initialize(@x : Float64, @y : Float64) end
@@ -20,6 +22,14 @@ module Crystalg::Geometry
 
     def /(other : Float)
       Point.new(x / other, y / other)
+    end
+    
+    def <=>(other : Point)
+      if x != other.x
+        x <=> other.x
+      else
+        y <=> other.y
+      end
     end
 
     def norm : Float
