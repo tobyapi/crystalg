@@ -13,7 +13,7 @@ struct Float
   def <=>(other : Float)
     if(self < other - EPS)
       -1
-    elsif (self > other - EPS)
+    elsif (self > other + EPS)
       1
     else
       0
