@@ -39,9 +39,6 @@ crystal spec
 ## To Do
 
 ### Testing
-* Projection
-* Reflection
-* Parallel/Orthogonal
 * Intersection
 * Cross Point
 * Distance
