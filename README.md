@@ -42,6 +42,11 @@ crystal spec
 * Intersection
 * Cross Point
 * Distance
+* Area
+* Is-Convex
+* Polygon-Point Containment
+* Convex Hull
+* Convex Cut
 
 ### Implementation
 * Graph
@@ -84,12 +89,7 @@ crystal spec
   * Mobius Function
   * Carmichael Function
 * Computational Geometry
-  * Area
-  * Is-Convex
-  * Polygon-Point Containment
-  * Convex Hull
   * Diameter of a Convex Polygon
-  * Convex Cut
   * Closest Pair
   * Segment Intersections
   * Circle Intersection
