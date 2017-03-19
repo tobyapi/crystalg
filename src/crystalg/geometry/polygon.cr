@@ -2,11 +2,16 @@ require "./*"
 
 module Crystalg::Geometry
   class Polygon
-    def initialize(@points : Array(Point))
+
+    def initialize(*points : Point)
+      @points = Array(Point).new
+      points.each do |point|
+        @points << point
+      end
     end
     
     private def prv(i : Int32): Point
-      curr(i - 1)
+      cur(i - 1)
     end
     
     private def cur(i : Int32): Point
@@ -14,25 +19,29 @@ module Crystalg::Geometry
     end
     
     private def nxt(i : Int32): Point
-      curr(i + 1)
+      cur(i + 1)
     end
     
     def is_convex?
       @points.each_with_index do |e, i|  
-        return false if counter_clockwise(prv i, cur i, nxt i) == CCW::CLOCKWISE 
+        return false if counter_clockwise(prv(i), cur(i), nxt(i)) == CCW::CLOCKWISE 
       end
       true
     end
     
-    def contain(target : Point)
+    enum Containment 
+       OUT = 0, IN = 1, ON = 2
+    end
+    
+    def contain(target : Point) : Containment
       is_contain? = false
       @points.each_with_index do |e, i|
         a, b = cur(i) - target, nxt(i) - target
         a, b = b, a if a.y > b.y
-        is_contain? ^= true if a.y <= 0 && 0 < b.y && a.cross b < 0
-        return 2 if a.cross b == 0 && a.dot b <= 0 
+        is_contain? ^= true if a.y <= 0 && 0 < b.y && a.cross(b) < 0
+        return Containment::ON if a.cross(b) == 0 && a.dot(b) <= 0 
       end
-      is_contain? ? 1 : 0
+      is_contain? ? Containment::IN : Containment::OUT
     end
     
     def area : Float64

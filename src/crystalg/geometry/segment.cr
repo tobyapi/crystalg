@@ -24,18 +24,26 @@ module Crystalg::Geometry
       return c.distance b if (a - b).dot(c - b) < 0
       (b - a).cross(c - a).abs / b.distance a
     end
+    
+    def distance(other : Segment)
+      return 0.0 if is_intersection? other
+      Math.min(
+        Math.min(distance(other.position), distance other.direction),
+        Math.min(other.distance(position), other.distance direction)
+      )
+    end
 
     def is_intersection?(other : Segment)
       a, b, c, d = position, direction, other.position, other.direction
-      counter_clockwise(a,b,c) * counter_clockwise(a,b,d) <= 0 &&
-      counter_clockwise(c,d,a) * counter_clockwise(c,d,b) <= 0
+      counter_clockwise(a,b,c).value * counter_clockwise(a,b,d).value <= 0 &&
+      counter_clockwise(c,d,a).value * counter_clockwise(c,d,b).value <= 0
     end
 
     def intersection_point(other : Segment)
       q = other.direction - other.position
       d1 = q.cross(position - other.position).abs
       d2 = q.cross(direction - other.position).abs
-      opsition + (direction - position) * (d1 / (d1 + d2))
+      position + (direction - position) * (d1 / (d1 + d2))
     end
   end
 end

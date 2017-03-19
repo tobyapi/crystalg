@@ -39,12 +39,6 @@ crystal spec
 ## To Do
 
 ### Testing
-* Intersection
-* Cross Point
-* Distance
-* Area
-* Is-Convex
-* Polygon-Point Containment
 * Convex Hull
 * Convex Cut
 
