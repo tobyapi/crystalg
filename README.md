@@ -38,10 +38,6 @@ crystal spec
 
 ## To Do
 
-### Testing
-* Convex Hull
-* Convex Cut
-
 ### Implementation
 * Graph
   * Bellman-Ford algorithm
