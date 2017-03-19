@@ -10,6 +10,10 @@ module Crystalg::Geometry
       end
     end
     
+    def initialize(@points : Array(Point))
+          
+    end
+    
     private def prv(i : Int32): Point
       cur(i - 1)
     end
@@ -20,6 +24,12 @@ module Crystalg::Geometry
     
     private def nxt(i : Int32): Point
       cur(i + 1)
+    end
+    
+    def ==(other : Polygon)
+      this, that = self.@points, other.@points
+      return false if this.size != that.size
+      this.sort == that.sort
     end
     
     def is_convex?
@@ -52,7 +62,7 @@ module Crystalg::Geometry
       result.abs / 2.0
     end
 
-    def convex_cut(line : Line)
+    def convex_cut(line : Line): Polygon
       pos, dir = line.position, line.direction
       result = Array(Point).new
       @points.each_with_index do |e, i|  
@@ -60,19 +70,20 @@ module Crystalg::Geometry
         side = Segment.new(e, nxt i)
         result << e if counter_clockwise(pos, dir, e) != CCW::CLOCKWISE
         # TODO : bugfix
-        result << side.intersection_point(Segment.new(pos, dir)) if side.is_intersection? line
+        result << side.intersection_point(Segment.new(pos, dir)) if side.is_intersection? Segment.new(line.position, line.direction)
       end
-      result
+      Polygon.new(result)
     end
     
-    def convex_hull : Array(Point)
+    def convex_hull : Polygon
       points = @points
       points.sort
       result = Array(Point).new
-      (0..points.size).each do |i|
+      (0...points.size).each do |i|
         while result.size > 1
           tail1 = result[result.size - 1]
-          tail2 = resilt[result.size - 2]
+          tail2 = result[result.size - 2]
+          (tail1 - tail2).cross(points[i] - tail1)
           break if (tail1 - tail2).cross(points[i] - tail1) < 0
           result.pop
         end
@@ -80,18 +91,19 @@ module Crystalg::Geometry
       end
       
       t = result.size
-      (0..points.size - 2).reverse_each do
+      (0..points.size - 2).reverse_each do |i|
         tail1 = result[result.size - 1]
-        tail2 = resilt[result.size - 2]
+        tail2 = result[result.size - 2]
         while result.size > t 
           tail1 = result[result.size - 1]
-          tail2 = resilt[result.size - 2]
+          tail2 = result[result.size - 2]
           break if (tail1 - tail2).cross(points[i] - tail1) < 0
           result.pop
         end
         result << points[i]
       end
-      result
+      result.pop
+      Polygon.new(result)
     end
   end
 end
