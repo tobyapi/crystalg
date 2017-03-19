@@ -7,7 +7,7 @@ module Crystalg::Geometry
     def initialize(@position : Point, @direction : Point) end
 
     def on?(c : Point)
-      counter_clockwise(position, direction, c) == 0
+      counter_clockwise(position, direction, c) == CCW::ON_SEGMENT
     end
 
     def is_parallel?(other : Segment)
