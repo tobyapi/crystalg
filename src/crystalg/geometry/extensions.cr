@@ -1,6 +1,7 @@
 EPS = 1e-8
 
 struct Float
+  include Comparable(Float)
 
   def +(other : Float)
     if (self + other).abs < EPS * (self.abs + other.abs)
@@ -18,6 +19,10 @@ struct Float
     else
       0
     end
+  end
+  
+  def ===(other : Float)
+    (self <=> other) == 0
   end
 
   def sign: Int

@@ -24,7 +24,7 @@ module Crystalg::Geometry
     end
     
     def is_intersection?(other : Line)
-      !is_parallel other
+      !is_parallel? other
     end
     
     def intersection_point(other : Line): Point

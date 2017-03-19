@@ -55,4 +55,15 @@ describe Crystalg do
     true.should eq(line1.is_parallel?(line2) === false)
   end
   
+  it "is_intersection?" do
+    line1 = Line.new(Point.new(0.0,0.0),Point.new(3.0,0.0))
+    line2 = Line.new(Point.new(1.0,1.0),Point.new(2.0,-1.0))
+    true.should eq(line1.is_intersection? line2)
+    
+    line2 = Line.new(Point.new(3.0,1.0),Point.new(3.0,-1.0))
+    true.should eq(line1.is_intersection? line2)
+    
+    line2 = Line.new(Point.new(3.0,-2.0),Point.new(5.0,0.0))
+    true.should eq(line1.is_intersection? line2)
+  end
 end
