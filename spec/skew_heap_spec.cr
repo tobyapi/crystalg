@@ -3,8 +3,8 @@ require "./spec_helper"
 include Crystalg::Graph
 
 describe Crystalg do
-  it "LeftistHeap" do
-    heap = LeftistHeap(Int32).new
+  it "SkewHeap" do
+    heap = SkewHeap(Int32).new
     
     heap.push 5
     heap.push 3
@@ -22,6 +22,5 @@ describe Crystalg do
     
     heap.pop
     true.should eq(heap.top === 8)
-    
   end
 end
