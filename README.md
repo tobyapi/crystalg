@@ -64,8 +64,6 @@ crystal spec
   * Red Black Tree
   * Link-Cut Tree
   * kD Tree
-  * Leftist Heap
-  * Skew Heap
 * String Algorithm
   * Knuth-Morris-Pratt
   * Boyer-Moore
