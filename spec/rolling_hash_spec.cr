@@ -12,4 +12,15 @@ describe Crystalg do
            
     true.should eq(hash.count("issi") === 2)
   end
+  
+  it "get_suffix_array" do
+    
+    input = "abracadabra"
+    
+    result = RollingHash.new(input).get_suffix_array
+    
+    ans = [11,10,7,0,3,5,8,1,4,6,9,2]
+    
+    true.should eq(result === ans)
+  end
 end
