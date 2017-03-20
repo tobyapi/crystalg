@@ -2,16 +2,11 @@ require "./*"
 
 module Crystalg::Geometry
   class Polygon
-
     def initialize(*points : Point)
-      @points = Array(Point).new
-      points.each do |point|
-        @points << point
-      end
+      @points = points.to_a
     end
     
     def initialize(@points : Array(Point))
-          
     end
     
     private def prv(i : Int32): Point
