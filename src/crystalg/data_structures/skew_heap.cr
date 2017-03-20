@@ -1,15 +1,14 @@
 
 module Crystalg::DataStructures
-  class LeftistHeap(T)    
+  class SkewHeap(T)
     class Node(T)
-      getter rank, value, left, right
-      setter rank, left, right
+      getter value, left, right
+      setter left, right
       
       @left : (Node(T) | Nil) = nil
       @right : (Node(T) | Nil) = nil
 
       def initialize(@value : T)
-        @rank = 0
       end
     end
     
@@ -20,10 +19,7 @@ module Crystalg::DataStructures
       return a if b.nil?
       a, b = b, a if a.value > b.value
       a.right = merge(a.right, b)
-      if a.right.nil? || a.right.as(Node(T)).rank < a.right.as(Node(T)).rank
-        a.left, a.right = a.right, a.left
-      end
-      a.rank = (a.right.nil? ? 0 : a.right.as(Node(T)).rank) + 1
+      a.left, a.right = a.right, a.left
       a
     end
     
