@@ -41,7 +41,6 @@ crystal spec
 ### Implementation
 * Graph
   * Warshall Floyd
-  * Topological Sort
   * Minimum-Cost Arborescence
   * Articulation Points
   * Bridges
