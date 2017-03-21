@@ -20,9 +20,15 @@ module Crystalg::Graph
 
     abstract def add(edge : Edge)
 
-    def get_adjecent(node_id : NodeID)
+    def get_adjecent(node_id : NodeID) : Array(Edge)
       @graph[node_id].map do |e|
         Edge.new(node_id, e[0], e[1])
+      end
+    end
+    
+    def all_edge : Array(Edge)
+      (0...@size).each do |node_id|
+        get_adjecent node_id
       end
     end
   end
