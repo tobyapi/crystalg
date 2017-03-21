@@ -39,9 +39,9 @@ module Crystalg::Strings
 
       # longest common prefixes array in O(n)
       h = 0
-      (1...n).each do |i|
-        if @rank[i] < n
-          j = @suffix_array[@rank[i]]
+      (0...n).each do |i|
+        if @rank[i] + 1 < n
+          j = @suffix_array[@rank[i] + 1]
           while Math.max(i,j) + h < n && @target[i + h] == @target[j + h]
             h += 1
           end
