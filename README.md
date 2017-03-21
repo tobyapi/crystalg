@@ -69,8 +69,6 @@ crystal spec
   * Trie
   * Suffix Automaton
 * Number Theory
-  * Mobius Function
-  * Carmichael Function
 * Computational Geometry
   * Diameter of a Convex Polygon
   * Closest Pair
