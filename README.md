@@ -60,17 +60,13 @@ crystal spec
     * Minimum Cost Flow
     * Hopcroft-Karp
 * Data Structure
-  * Segment Tree
   * Red Black Tree
   * Link-Cut Tree
   * kD Tree
 * String Algorithm
-  * Knuth-Morris-Pratt
-  * Boyer-Moore
   * Aho-Corasick
   * Baker-Bird
   * Trie
-  * Suffix Array
   * Suffix Automaton
 * Number Theory
   * Stern-Brocot Tree
