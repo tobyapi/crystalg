@@ -40,7 +40,6 @@ crystal spec
 
 ### Implementation
 * Graph
-  * Bellman-Ford algorithm
   * Warshall Floyd
   * Topological Sort
   * Minimum-Cost Arborescence
