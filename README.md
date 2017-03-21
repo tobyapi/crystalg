@@ -69,7 +69,6 @@ crystal spec
   * Trie
   * Suffix Automaton
 * Number Theory
-  * Stern-Brocot Tree
   * Mobius Function
   * Carmichael Function
 * Computational Geometry
