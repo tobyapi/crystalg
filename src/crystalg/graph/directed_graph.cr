@@ -6,6 +6,14 @@ module Crystalg::Graph
       @graph[edge.@from] << {edge.@to, edge.@cost}
     end
 
+    def all_edge : Array(Edge)
+      result = Array(Edge).new
+      (0...@size).each do |node_id|
+        result.concat get_adjecent node_id
+      end
+      result.uniq!
+    end
+
     def topological_sort : Array(NodeID)
       used = Array(Bool).new(@size, false)
       order = Array(NodeID).new

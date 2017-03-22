@@ -12,8 +12,6 @@ describe Crystalg do
 
     answer = [2]
     result = graph.articulation_points
-    puts answer
-    puts result
     true.should eq(result === answer)
   end
 
