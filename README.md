@@ -40,10 +40,8 @@ crystal spec
 
 ### Implementation
 * Graph
-  * Warshall Floyd
   * Minimum-Cost Arborescence
   * Strongly Connected Components
-  * Cycle Detection for a Directed Graph
   * Tree
     * Diameter
     * Height
