@@ -30,5 +30,9 @@ module Crystalg::Graph
       end
       order << u
     end
+
+    def has_cycle?
+      raise "Not Implemented!"
+    end
   end
 end
