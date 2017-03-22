@@ -32,7 +32,7 @@ module Crystalg::Graph
     end
 
     def has_cycle?
-      raise "Not Implemented!"
+      CycleDetection.new(self).has_cycle?
     end
   end
 end
