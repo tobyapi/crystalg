@@ -42,8 +42,6 @@ crystal spec
 * Graph
   * Warshall Floyd
   * Minimum-Cost Arborescence
-  * Articulation Points
-  * Bridges
   * Strongly Connected Components
   * Cycle Detection for a Directed Graph
   * Tree
