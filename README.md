@@ -64,12 +64,9 @@ crystal spec
   * Suffix Automaton
 * Number Theory
 * Computational Geometry
-  * Diameter of a Convex Polygon
   * Closest Pair
   * Segment Intersections
-  * Circle Intersection
-  * Cross Points of a Circle and a Line
-  * Cross Points of Circles
+  * Circles Intersection
   * Tangent to a Circle
   * Common Tangent
   * Intersection of a Circle and a Polygon

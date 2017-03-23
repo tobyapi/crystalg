@@ -36,7 +36,7 @@ describe Crystalg do
     c1 = Circle.new(Point.new(20.0, 30.0), 15.0)
     c2 = Circle.new(Point.new(40.0, 30.0), 30.0)
     result = c1.intersection_area(c2)
-    #true.should eq(result === 608.366)
+    true.should eq(result === 608.366)
   end
 
   it "circumscribed_circle of a triangle" do
