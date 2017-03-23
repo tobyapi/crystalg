@@ -42,11 +42,6 @@ crystal spec
 * Graph
   * Minimum-Cost Arborescence
   * Strongly Connected Components
-  * Tree
-    * Diameter
-    * Height
-    * Lowest Common Ancestor
-    * Heavy-Light Decomposition
   * Flow Alogirithm
     * Edmons-Karp
     * Dinic
@@ -64,12 +59,8 @@ crystal spec
   * Suffix Automaton
 * Number Theory
 * Computational Geometry
-  * Diameter of a Convex Polygon
   * Closest Pair
   * Segment Intersections
-  * Circle Intersection
-  * Cross Points of a Circle and a Line
-  * Cross Points of Circles
   * Tangent to a Circle
   * Common Tangent
   * Intersection of a Circle and a Polygon

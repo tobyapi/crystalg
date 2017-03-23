@@ -4,6 +4,28 @@ include Crystalg
 include Crystalg::Geometry
 
 describe Crystalg do
+  it "intersection" do
+    c1 = Circle.new(Point.new(1.0, 1.0), 1.0)
+    c2 = Circle.new(Point.new(6.0, 2.0), 2.0)
+    true.should eq(c1.intersection(c2) === 4)
+
+    c1 = Circle.new(Point.new(1.0, 2.0), 1.0)
+    c2 = Circle.new(Point.new(4.0, 2.0), 2.0)
+    true.should eq(c1.intersection(c2) === 3)
+
+    c1 = Circle.new(Point.new(1.0, 2.0), 1.0)
+    c2 = Circle.new(Point.new(3.0, 2.0), 2.0)
+    true.should eq(c1.intersection(c2) === 2)
+
+    c1 = Circle.new(Point.new(0.0, 0.0), 1.0)
+    c2 = Circle.new(Point.new(1.0, 0.0), 2.0)
+    true.should eq(c1.intersection(c2) === 1)
+
+    c1 = Circle.new(Point.new(0.0, 0.0), 1.0)
+    c2 = Circle.new(Point.new(0.0, 0.0), 2.0)
+    true.should eq(c1.intersection(c2) === 0)
+  end
+
   it "intersection_points of circle and line" do
     circle = Circle.new(Point.new(2.0, 1.0), 1.0)
 
@@ -36,7 +58,7 @@ describe Crystalg do
     c1 = Circle.new(Point.new(20.0, 30.0), 15.0)
     c2 = Circle.new(Point.new(40.0, 30.0), 30.0)
     result = c1.intersection_area(c2)
-    #true.should eq(result === 608.366)
+    true.should eq(result === 608.366)
   end
 
   it "circumscribed_circle of a triangle" do
