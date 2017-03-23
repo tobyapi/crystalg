@@ -57,7 +57,6 @@ crystal spec
   * Baker-Bird
   * Trie
   * Suffix Automaton
-* Number Theory
 * Computational Geometry
   * Closest Pair
   * Segment Intersections
