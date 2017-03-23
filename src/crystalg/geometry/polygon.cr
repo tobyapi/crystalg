@@ -5,53 +5,61 @@ module Crystalg::Geometry
     def initialize(*points : Point)
       @points = points.to_a
     end
-    
+
     def initialize(@points : Array(Point))
     end
-    
-    private def prv(i : Int32): Point
+
+    def size
+      @points.size
+    end
+
+    def prv(i : Int32): Point
       cur(i - 1)
     end
-    
-    private def cur(i : Int32): Point
+
+    def cur(i : Int32): Point
       @points[i % @points.size]
     end
-    
-    private def nxt(i : Int32): Point
+
+    def nxt(i : Int32): Point
       cur(i + 1)
     end
-    
+
+    def [](i : Int32): Point
+      @points[i]
+    end
+
     def ==(other : Polygon)
       this, that = self.@points, other.@points
       return false if this.size != that.size
       this.sort == that.sort
     end
-    
+
     def is_convex?
-      @points.each_with_index do |e, i|  
-        return false if counter_clockwise(prv(i), cur(i), nxt(i)) == CCW::CLOCKWISE 
+      @points.each_with_index do |e, i|
+        return false if counter_clockwise(prv(i), cur(i), nxt(i)) == CCW::CLOCKWISE
       end
       true
     end
-    
-    enum Containment 
+
+    enum Containment
        OUT = 0, IN = 1, ON = 2
     end
-    
+
     def contain(target : Point) : Containment
       is_contain? = false
       @points.each_with_index do |e, i|
         a, b = cur(i) - target, nxt(i) - target
         a, b = b, a if a.y > b.y
         is_contain? ^= true if a.y <= 0 && 0 < b.y && a.cross(b) < 0
-        return Containment::ON if a.cross(b) == 0 && a.dot(b) <= 0 
+        return Containment::ON if a.cross(b) == 0 && a.dot(b) <= 0
       end
       is_contain? ? Containment::IN : Containment::OUT
     end
-    
+
     def area : Float64
       result : Float64 = 0.0
-      @points.each_with_index do |e, i|  
+      @points.each_with_index do |e, i|
         result = result + (e.x - nxt(i).x) * (e.y + nxt(i).y)
       end
       result.abs / 2.0
@@ -60,7 +68,7 @@ module Crystalg::Geometry
     def convex_cut(line : Line): Polygon
       pos, dir = line.position, line.direction
       result = Array(Point).new
-      @points.each_with_index do |e, i|  
+      @points.each_with_index do |e, i|
         vec = dir - pos
         side = Segment.new(e, nxt i)
         result << e if counter_clockwise(pos, dir, e) != CCW::CLOCKWISE
@@ -69,7 +77,7 @@ module Crystalg::Geometry
       end
       Polygon.new(result)
     end
-    
+
     def convex_hull : Polygon
       points = @points
       points.sort
@@ -84,12 +92,12 @@ module Crystalg::Geometry
         end
         result << points[i]
       end
-      
+
       t = result.size
       (0..points.size - 2).reverse_each do |i|
         tail1 = result[result.size - 1]
         tail2 = result[result.size - 2]
-        while result.size > t 
+        while result.size > t
           tail1 = result[result.size - 1]
           tail2 = result[result.size - 2]
           break if (tail1 - tail2).cross(points[i] - tail1) < 0
@@ -99,6 +107,31 @@ module Crystalg::Geometry
       end
       result.pop
       Polygon.new(result)
+    end
+
+    def diameter : Float64
+      qs = convex_hull
+      n = qs.size
+
+      return 0.0 if n == 2
+
+      i = j = 0
+      (0...n).each do |k|
+        i = k if qs[k] < qs[i]
+        j = k if qs[j] < qs[k]
+      end
+
+      result = 0_f64
+      si, sj = i, j
+      while i != sj && j != si
+        result = Math.max(result, qs[i].distance qs[j])
+        if (qs.nxt(i) - qs.cur(i)).cross(qs.nxt(j) - qs.cur(j)) < 0
+          i = (i + 1) % n
+        else
+          j = (j + 1) % n
+        end
+      end
+      result
     end
   end
 end
