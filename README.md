@@ -42,11 +42,6 @@ crystal spec
 * Graph
   * Minimum-Cost Arborescence
   * Strongly Connected Components
-  * Tree
-    * Diameter
-    * Height
-    * Lowest Common Ancestor
-    * Heavy-Light Decomposition
   * Flow Alogirithm
     * Edmons-Karp
     * Dinic
@@ -66,7 +61,6 @@ crystal spec
 * Computational Geometry
   * Closest Pair
   * Segment Intersections
-  * Circles Intersection
   * Tangent to a Circle
   * Common Tangent
   * Intersection of a Circle and a Polygon
