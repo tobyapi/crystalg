@@ -15,6 +15,16 @@ module Crystalg::Geometry
       (target - center).norm.sign radius <= 0
     end
 
+    # returns number of the common tangents
+    def intersection(other : Circle)
+      dist = center.distance other.center
+      return 4 if dist > radius + other.radius
+      return 3 if dist == radius + other.radius
+      return 2 if dist > (radius - other.radius).abs
+      return 1 if dist == (radius - other.radius).abs
+      0
+    end
+
     def intersection_points(line : Line): Array(Point)
       return Array(Point).new if line.distance(center) <=> radius > 0
       q = line.project center
