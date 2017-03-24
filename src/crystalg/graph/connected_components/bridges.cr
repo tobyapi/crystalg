@@ -1,3 +1,5 @@
+require "../*"
+
 module Crystalg::Graph
   class Bridges
     @k : Int32

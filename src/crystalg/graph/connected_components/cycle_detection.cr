@@ -1,11 +1,13 @@
+require "../*"
+
 module Crystalg::Graph
   class CycleDetection
     private getter used, flag
     private setter used
-    
+
     @used : Array(Int32)
     @flag : Bool
-    
+
     def initialize(@graph : DirectedGraph)
       @used = Array(Int32).new(@graph.@size, 0)
       @flag = false
@@ -23,7 +25,7 @@ module Crystalg::Graph
       end
       used[u] = 1
     end
-    
+
     def has_cycle?
       (0...@graph.@size).each do |node_id|
         dfs node_id

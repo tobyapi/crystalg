@@ -1,13 +1,13 @@
-require "./*"
+require "../*"
 
 module Crystalg::Graph::BellmanFord
   extend self
   INF = 2147483647
-  
+
   def shortest_path(start : Int32, graph : Graph): Array(Int32)
     dist = Array(Int32).new(graph.@size, INF)
     dist[start] = 0
-    loop do 
+    loop do
       update = false
       graph.all_edge.each do |edge|
         if dist[edge.from] != INF && dist[edge.to] > dist[edge.from] + e.cost
@@ -19,7 +19,7 @@ module Crystalg::Graph::BellmanFord
     end
     dist
   end
-  
+
   def has_negative_loop?(graph : Graph)
     dist = Array(Int32).new(graph.@size, 0)
     (0...graph.@size).each do |i|
