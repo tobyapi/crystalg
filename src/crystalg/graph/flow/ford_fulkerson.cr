@@ -1,4 +1,4 @@
-require "../graph"
+require "../representation/adjacency_list/flow_graph"
 
 module Crystlag::Graph
 

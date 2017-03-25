@@ -1,8 +1,11 @@
-module Crystalg::Graph::AdjacencyList
-  alias NodeID = Int32
+require "../graph"
 
+module Crystalg::Graph::AdjacencyList
+  
   # C: type of capacity
-  class FlowGraph(C)
+  class FlowGraph(C) < Graph(C)      
+    getter size
+    
     def initialize(@size)
       @graph = Array(Array(Tuple(NodeID, C))).new(@size) {
         Array(Tuple(NodeID, C)).new

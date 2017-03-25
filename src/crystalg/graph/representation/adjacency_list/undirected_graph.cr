@@ -1,23 +1,34 @@
+require "../graph"
+
 module Crystalg::Graph::AdjacencyList
-  alias NodeID = Int32
 
   # C: type of cost
-  class UndirectedGraph(C)
-    def initialize(@size)
+  class UndirectedGraph(C) < Graph(C)
+    getter size
+    
+    def initialize(@size : Int32)
       @graph = Array(Array(Tuple(NodeID, C))).new(@size) {
         Array(Tuple(NodeID, C)).new
       }
     end
 
     def add(edge : Edge(C))
-      @graph[edge.from] << {edge.to, edge.cost}
-      @graph[edge.to] << {edge.from, edge.cost}
+      @graph[edge.source] << {edge.target, edge.cost}
+      @graph[edge.target] << {edge.source, edge.cost}
     end
 
-    def adjecent(node_id : NodeID) : Array(Edge(C))
+    def adjacent(node_id : NodeID) : Array(Edge(C))
       @graph[node_id].map do |e|
         Edge(C).new(node_id, e[0], e[1])
       end
+    end
+    
+    def articulation_points : Array(NodeID)
+      ArticulationPoints.new(self).all
+    end
+
+    def bridges : Array(Edge(C))
+      Bridges.new(self).all
     end
   end
 end

@@ -1,9 +1,12 @@
-module Crystalg::Graph
+require "./representation/adjacency_list/*"
 
-  class State
+include Crystalg::Graph
+
+module Crystalg::Graph
+  class State(C)
     include Comparable(State)
 
-    def initialize(@node_id : NodeID, @cost : Cost, @from : NodeID, @visited : Bool = false)
+    def initialize(@node_id : NodeID, @cost : C, @from : NodeID, @visited : Bool = false)
     end
 
     def ==(that : self)
@@ -24,23 +27,23 @@ module Crystalg::Graph
     end
   end
 
-  abstract class Search(DataStructure)
+  abstract class Search(T,DataStructure)
 
-    abstract def run(graph : Graph, start : NodeID): Array(State)
+    abstract def run(graph : Graph(T), start : NodeID): Array(State)
 
     protected def run(
-      graph : Crystalg::Graph::Graph,
+      graph : Graph(T),
       start : NodeID,
-      initializer : Graph, NodeID, DataStructure -> Tuple(DataStructure, Array(State)),
-      edge_filter : Array(Edge), State, Array(State) -> Array(Edge),
-      state_generator : Array(Edge), State -> Array(State)
-      ): Array(State)
+      initializer : Graph, NodeID, DataStructure -> Tuple(DataStructure, Array(State(T))),
+      edge_filter : Array(Edge(T)), State, Array(State(T)) -> Array(Edge(T)),
+      state_generator : Array(Edge(T)), State -> Array(State(T))
+      ): Array(State(T))
 
       ds, result = initializer.call(graph, start, DataStructure.new)
 
       while !(current = ds.pop!).nil?
-        adjecent = graph.get_adjecent(current.@node_id)
-        edges = edge_filter.call(adjecent, current, result)
+        adjacent = graph.adjacent(current.@node_id)
+        edges = edge_filter.call(adjacent, current, result)
         next_states = state_generator.call(edges, current)
         next_states.map do |next_state|
           ds.push(result[next_state.@node_id] = next_state)
@@ -50,7 +53,9 @@ module Crystalg::Graph
     end
 
     def initialize_containers(graph : Graph, start : NodeID, state_container : DataStructure)
-      result_container = Array(State).new(graph.@size) { |i| State.new(i, 0, -1) }
+      result_container = Array(State(T)).new(graph.size) { |i| 
+        State.new(i, 0, -1) 
+      }
       result_container[start].visit
       state_container.push(result_container[start])
       { state_container, result_container }

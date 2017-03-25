@@ -1,36 +1,45 @@
-module Crystalg::Graph::Edge
-  alias NodeID = Int32
+module Crystalg::Graph
 
   class Edge(T)
     include Comparable(Edge(T))
 
-    getter from, to, cost
+    getter source, target, cost
 
-    def initialize(@from : NodeID, @to : NodeID, @cost : T)
+    def initialize(@source : NodeID, @target : NodeID, @cost : T)
     end
 
     def <=>(other : Edge(T))
-      if from != other.from
-        from <=> other.from
-      elsif to != other.to
-        to <=> other.to
-      else
+      if cost != other.cost
         cost <=> other.cost
+      elsif source != other.source
+        source <=> other.source
+      else
+        target <=> other.target
       end
+    end
+    
+    def ==(other : Edge(T))
+      (source == other.source || source == other.target) &&
+      (target == other.source || target == other.target) &&
+      cost == other.cost
+    end
+    
+    def ===(other : Edge(T))
+      source == other.source && target == other.target && cost == other.cost
     end
   end
 
   class FlowEdge(U)
-    getter from, to, capacity
+    getter source, target, capacity
 
-    def initialize(@from : NodeID, @to : NodeID, @capacity : U)
+    def initialize(@source : NodeID, @target : NodeID, @capacity : U)
     end
   end
 
   class WeightedFlowEdge(T, U)
-    getter from, to, cost, capacity
+    getter source, target, cost, capacity
 
-    def initialize(@from : NodeID, @to : NodeID, @cost : T, @capacity : U)
+    def initialize(@source : NodeID, @target : NodeID, @cost : T, @capacity : U)
     end
   end
 end

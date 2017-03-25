@@ -5,14 +5,14 @@ include Crystalg::Graph
 describe Crystalg do
 
   it "dijkstra" do
-    graph = DirectedGraph.new(4)
+    graph = DirectedGraph(Int32).new(4)
     graph.add(Edge.new(0,1,1))
     graph.add(Edge.new(0,2,4))
     graph.add(Edge.new(1,2,2))
     graph.add(Edge.new(2,3,1))
     graph.add(Edge.new(1,3,5))
 
-    result = Dijkstra.new.run(graph, 0)
+    result = Dijkstra(Int32).new.run(graph, 0)
 
     ans = [
       State.new(0,0,-1,true),
@@ -24,9 +24,8 @@ describe Crystalg do
     true.should eq(result === ans)
   end
 
-
   it "dijkstra2" do
-    graph = DirectedGraph.new(4)
+    graph = DirectedGraph(Int32).new(4)
     graph.add(Edge.new(0,1,1))
     graph.add(Edge.new(0,2,4))
     graph.add(Edge.new(2,0,1))
@@ -34,7 +33,7 @@ describe Crystalg do
     graph.add(Edge.new(3,1,1))
     graph.add(Edge.new(3,2,5))
 
-    result = Dijkstra.new.run(graph, 1)
+    result = Dijkstra(Int32).new.run(graph, 1)
 
     ans = [
       State.new(0,3,2,true),
