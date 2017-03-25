@@ -5,13 +5,13 @@ include Crystalg::Graph
 describe Crystalg do
 
   it "bfs" do
-    graph = UndirectedGraph.new(4)
+    graph = UndirectedGraph(Int32).new(4)
     graph.add(Edge.new(0,1,1))
     graph.add(Edge.new(0,3,1))
     graph.add(Edge.new(1,3,1))
     graph.add(Edge.new(3,2,1))
 
-    result = BFS.new.run(graph, 0)
+    result = BFS(Int32).new.run(graph, 0)
 
     ans = [
       State.new(0,0,-1,true),

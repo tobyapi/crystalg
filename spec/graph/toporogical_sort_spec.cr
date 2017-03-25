@@ -4,7 +4,7 @@ include Crystalg::Graph
 
 describe Crystalg do
   it "topological_sort" do
-    graph = DirectedGraph.new(6)
+    graph = DirectedGraph(Int32).new(6)
     graph.add(Edge.new(0,1,-1))
     graph.add(Edge.new(1,2,-4))
     graph.add(Edge.new(3,1,2))

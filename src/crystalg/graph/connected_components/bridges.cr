@@ -1,7 +1,7 @@
 require "../*"
 
 module Crystalg::Graph
-  class Bridges
+  class Bridges(T)
     @k : Int32
     @used : Array(Bool)
     @order : Array(Int32)
@@ -13,13 +13,13 @@ module Crystalg::Graph
 
     getter articulation_points
 
-    def initialize(@graph : UndirectedGraph)
+    def initialize(@graph : UndirectedGraph(T))
       @k = 0
       @used = Array(Bool).new(graph.@size, false)
       @order = Array(Int32).new(graph.@size, 0)
       @lowlink = Array(Int32).new(graph.@size, 0)
       @parent = Array(Int32).new(graph.@size, -1)
-      @bridges = Array(Edge).new
+      @bridges = Array(Edge(T)).new
     end
 
     def dfs(u : NodeID, prev : NodeID = -1)
@@ -27,19 +27,19 @@ module Crystalg::Graph
       order[u] = lowlink[u] = @k
       @k += 1
 
-      graph.get_adjecent(u).each do |edge|
-        if !used[edge.@to]
-          parent[edge.@to] = u
-          dfs(edge.@to, u)
-          lowlink[u] = Math.min(lowlink[u], lowlink[edge.@to])
-          bridges << Edge.new(Math.min(u, edge.@to), Math.max(u, edge.@to), edge.@cost) if order[u] < lowlink[edge.@to]
-        elsif edge.@to != prev
-          lowlink[u] = Math.min(lowlink[u], order[edge.@to])
+      graph.adjacent(u).each do |edge|
+        if !used[edge.target]
+          parent[edge.target] = u
+          dfs(edge.target, u)
+          lowlink[u] = Math.min(lowlink[u], lowlink[edge.target])
+          bridges << Edge.new(Math.min(u, edge.target), Math.max(u, edge.target), edge.cost) if order[u] < lowlink[edge.target]
+        elsif edge.target != prev
+          lowlink[u] = Math.min(lowlink[u], order[edge.target])
         end
       end
     end
 
-    def all : Array(Edge)
+    def all : Array(Edge(T))
       bridges.clear
       dfs(0)
       bridges
