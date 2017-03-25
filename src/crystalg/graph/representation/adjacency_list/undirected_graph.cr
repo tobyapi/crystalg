@@ -23,6 +23,16 @@ module Crystalg::Graph::AdjacencyList
       end
     end
     
+    def edges : Array(Edge(C))
+      result = Array(Edge(C)).new
+      (0...@size).each do |node_id|
+        adjacent(node_id).each do |edge|
+          result << edge if edge.source < edge.target
+        end
+      end
+      result.uniq!
+    end
+    
     def articulation_points : Array(NodeID)
       ArticulationPoints.new(self).all
     end

@@ -22,6 +22,14 @@ module Crystalg::Graph::AdjacencyList
       end
     end
     
+    def edges : Array(Edge(C))
+      result = Array(Edge(C)).new
+      (0...@size).each do |node_id|
+        result.concat adjacent node_id
+      end
+      result.uniq!
+    end
+    
     def has_cycle?
       CycleDetection.new(self).has_cycle?
     end
