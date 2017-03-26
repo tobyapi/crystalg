@@ -43,7 +43,6 @@ crystal spec
   * Minimum-Cost Arborescence
   * Strongly Connected Components
   * Flow Alogirithm
-    * Edmons-Karp
     * Minimum Cost Flow
 * Data Structure
   * Red Black Tree
