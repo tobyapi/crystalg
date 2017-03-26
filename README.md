@@ -44,10 +44,7 @@ crystal spec
   * Strongly Connected Components
   * Flow Alogirithm
     * Edmons-Karp
-    * Dinic
-    * Ford-Fulkerson
     * Minimum Cost Flow
-    * Hopcroft-Karp
 * Data Structure
   * Red Black Tree
   * Link-Cut Tree
