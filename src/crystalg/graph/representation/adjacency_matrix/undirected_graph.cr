@@ -1,18 +1,17 @@
 module Crystalg::Graph::AdjacencyMatrix
   alias NodeID = Int32
 
-  # E: type of edge
   # C: type of cost
-  class UndirectedGraph(E,C)
-    def initialize(@size)
+  class UndirectedGraph(C)
+    def initialize(@size : Int32)
       @graph = Array(Array(C)).new(@size) {
         Array(C).new(@size, C::MAX)
       }
     end
 
-    def add(edge : E)
-      @graph[edge.from][edge.to] = edge.cost
-      @graph[edge.to][edge.from] = edge.cost
+    def add(edge : Edge(C))
+      @graph[edge.source][edge.target] = edge.cost
+      @graph[edge.target][edge.source] = edge.cost
     end
   end
 end
