@@ -4,6 +4,7 @@ include Crystalg::Geometry
 
 module Crystalg::Trees
   class KDTree
+    @size : Int32
     def initialize(@points : Array(Point))
       @size = points.size
       @tx = Array(Float64).new(@size, 0.0)
@@ -12,8 +13,8 @@ module Crystalg::Trees
       @miny = Array(Float64).new(@size, 0.0)
       @maxx = Array(Float64).new(@size, 0.0)
       @maxy = Array(Float64).new(@size, 0.0)
-      @count = Array(Float64).new(@size, 0.0)
-      build 0, @size, true, points
+      @count = Array(Int32).new(@size, 0)
+      build 0, @size, true
     end
 
     def build(left : Int32, right : Int32, divx : Bool)
@@ -34,17 +35,17 @@ module Crystalg::Trees
         @maxy[middle] = Math.max(@maxy[middle], @points[i].y)
       end
 
-      build(left, middle, !divx, points)
-      build(middle + 1, right, !divx, points)
+      build(left, middle, !divx)
+      build(middle + 1, right, !divx)
     end
 
     private def sort(left : Int32, right : Int32, divx : Bool = true)
       middle = (left + right) / 2
       loop do
-        k = partition(left, right, mid ,divx)
-        return if k == mid
-        right = k if mid < k
-        left = k + 1 if mid > k
+        k = partition(left, right, middle ,divx)
+        return if k == middle
+        right = k if middle < k
+        left = k + 1 if middle > k
       end
     end
 
@@ -75,12 +76,11 @@ module Crystalg::Trees
     end
 
     def count(bottom_left : Point, top_right : Point)
-      count(0, tx.size, bottom_left, top_right)
+      count(0, @tx.size, bottom_left, top_right)
     end
 
     private def count(left : Int32, right : Int32, bottom_left : Point, top_right : Point)
       return 0 if left >= right
-
       middle = (left + right) / 2
       minx, miny, maxx, maxy = @minx[middle], @miny[middle], @maxx[middle], @maxy[middle]
 
@@ -89,13 +89,13 @@ module Crystalg::Trees
       end
 
       if bottom_left.x <= minx && maxx <= top_right.x && bottom_left.y <= miny && maxy <= top_right.y
-        return count[middle]
+        return @count[middle]
       end
 
       res = 0
       res += count(left, middle, bottom_left, top_right)
-      res += count(mid + 1, right, bottom_left, top_right)
-      res += 1 if minx <= tx[middle] && tx[middle] <= maxx && miny <= ty[middle] && ty[middle] <= maxy
+      res += count(middle + 1, right, bottom_left, top_right)
+      res += 1 if minx <= @tx[middle] && @tx[middle] <= maxx && miny <= @ty[middle] && @ty[middle] <= maxy
       res
     end
   end
