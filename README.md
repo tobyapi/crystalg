@@ -39,24 +39,14 @@ crystal spec
 ## To Do
 
 ### Implementation
-* Sorting
-* Discrete Optimization
-  * Coin Changing
-  * Knapsack Problem
-  * Longest Increasing Sequence
-  * Edit Distance
-  * Traveling Salesman Problem
-  * Chinese Postman Problem
-  * Optimal binary search tree
 * Graph
   * Minimum-Cost Arborescence
   * Strongly Connected Components
-  * Flow Alogirithm
+  * Flow Alogorithm
     * Minimum Cost Flow
 * Data Structure
   * Red Black Tree
   * Link-Cut Tree
-  * kD Tree
 * String Algorithm
   * Aho-Corasick
   * Baker-Bird
