@@ -98,5 +98,31 @@ module Crystalg::Trees
       res += 1 if minx <= @tx[middle] && @tx[middle] <= maxx && miny <= @ty[middle] && @ty[middle] <= maxy
       res
     end
+
+    def nearest_neighbour(target : Point): Point
+      result = nearest_neighbour 0, @points.size, target, true, { Float64::MAX, -1 }
+      @points[result[1]]
+    end
+
+    private def nearest_neighbour(left : Int32, right : Int32, target : Point, divx : Bool, best : Tuple(Float64, Int32)) : Tuple(Float64, Int32)
+      return best if left >= right
+
+      middle = (left + right) / 2
+      dx, dy = target.x - @points[middle].x, target.y - @points[middle].y
+      dist = dx ** 2 + dy ** 2
+      delta = divx ? dx : dy
+
+      best = { dist, middle } if best[0] > dist
+
+      if delta <= 0.0
+        result = nearest_neighbour left, middle, target, !divx, best
+        result = Math.min(result, nearest_neighbour middle + 1, right, target, !divx, best) if delta ** 2 < best[0]
+        result
+      else
+        result = nearest_neighbour middle + 1, right, target, !divx, best
+        result = Math.min(result, nearest_neighbour left, middle, target, !divx, best) if delta ** 2 < best[0]
+        result
+      end
+    end
   end
 end
