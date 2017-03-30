@@ -38,6 +38,10 @@ crystal spec
 
 ## To Do
 
+~ 3/2
+* Aho-Corasick
+* Baker-Bird
+
 ### Implementation
 * Graph
   * Minimum-Cost Arborescence
@@ -48,9 +52,6 @@ crystal spec
   * Red Black Tree
   * Link-Cut Tree
 * String Algorithm
-  * Aho-Corasick
-  * Baker-Bird
-  * Trie
   * Suffix Automaton
 * Computational Geometry
   * Closest Pair
