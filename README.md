@@ -1,4 +1,8 @@
-# Crystalg [![Build Status](https://travis-ci.org/TobiasGSmollett/crystalg.svg?branch=master)](https://travis-ci.org/TobiasGSmollett/crystalg)  [![Dependency Status](https://shards.rocks/badge/github/TobiasGSmollett/crystalg/status.svg)](https://shards.rocks/github/TobiasGSmollett/crystalg)  [![devDependency Status](https://shards.rocks/badge/github/TobiasGSmollett/crystalg/dev_status.svg)](https://shards.rocks/github/TobiasGSmollett/crystalg)
+[![Build Status](https://travis-ci.org/TobiasGSmollett/crystalg.svg?branch=master)](https://travis-ci.org/TobiasGSmollett/crystalg)
+[![Dependency Status](https://shards.rocks/badge/github/TobiasGSmollett/crystalg/status.svg)](https://shards.rocks/github/TobiasGSmollett/crystalg)
+[![devDependency Status](https://shards.rocks/badge/github/TobiasGSmollett/crystalg/dev_status.svg)](https://shards.rocks/github/TobiasGSmollett/crystalg)  [![](https://codescene.io/projects/995/status.svg) Get more details at **codescene.io**.](https://codescene.io/projects/995/jobs/latest-successful/results)
+
+# Crystalg 
 
 A generic algorithm library for crystal-lang.
 
@@ -38,7 +42,7 @@ crystal spec
 
 ## To Do
 
-~ 3/2
+~ 4/2
 * Aho-Corasick
 * Baker-Bird
 
