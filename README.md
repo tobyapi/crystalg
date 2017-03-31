@@ -43,8 +43,7 @@ crystal spec
 ## To Do
 
 ~ 4/2
-* Aho-Corasick
-* Baker-Bird
+* Link-Cut Tree
 
 ### Implementation
 * Graph
@@ -54,7 +53,6 @@ crystal spec
     * Minimum Cost Flow
 * Data Structure
   * Red Black Tree
-  * Link-Cut Tree
 * String Algorithm
   * Suffix Automaton
 * Computational Geometry
