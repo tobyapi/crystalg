@@ -42,9 +42,6 @@ crystal spec
 
 ## To Do
 
-~ 4/2
-* Link-Cut Tree
-
 ### Implementation
 * Graph
   * Minimum-Cost Arborescence
@@ -53,6 +50,7 @@ crystal spec
     * Minimum Cost Flow
 * Data Structure
   * Red Black Tree
+  * Link-Cut Tree
 * String Algorithm
   * Suffix Automaton
 * Computational Geometry
