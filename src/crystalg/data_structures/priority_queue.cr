@@ -4,55 +4,54 @@ module Crystalg::DataStructures
     getter array : Array(A)
     getter size : Int32
     
-    def initialize()
+    def initialize
       @array = Array(A).new
       @size = 0
     end
 
-    def push(val : A) : Nil
-      @array << val
+    def push(val)
+      array << val
       
-      i = @size
+      i = size
       @size += 1
-      while(i > 0)
+      while i > 0
         parent = (i - 1) / 2
-        break if @array[parent] <= val
-        @array[i] = @array[parent]
+        break if array[parent] <= val
+        array[i] = array[parent]
         i = parent
       end
-      @array[i] = val
+      array[i] = val
     end
 
-    def pop : Nil
+    def pop
       @size -= 1
-      x = @array[@size]
+      x = array[size]
       
       i = 0
-      while(i * 2 + 1 < @size)
-        left_child = i * 2 + 1
-        right_child = i * 2 + 2
-        left_child = right_child if left_child < @size && @array[right_child] < @array[left_child]
-        break if @array[left_child] >= x
-        @array[i] = @array[left_child]
+      while i * 2 + 1 < size
+        left_child, right_child = i * 2 + 1, i * 2 + 2
+        left_child = right_child if left_child < size && array[right_child] < array[left_child]
+        break if array[left_child] >= x
+        array[i] = array[left_child]
         i = left_child
       end
-      @array[i] = x
+      array[i] = x
     end
     
-    def pop! : (A | Nil)
-      if !empty?()
+    def pop!
+      if !empty?
         result = top
         pop
         result
       end
     end
     
-    def top() : (A | Nil)
-      @array.first?
+    def top
+      array.first?
     end
     
     def empty?
-      @size == 0
+      size == 0
     end
   end
 end

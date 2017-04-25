@@ -2,33 +2,32 @@
 
 module Crystalg::DataStructures
   class Queue(A)
-    private getter array : Array(A)
-    private setter array
+    private property array : Array(A)
 
     def initialize
       @array = Array(A).new
     end
 
-    def push(val : A) : Nil
-      @array << val
+    def push(val)
+      array << val
     end
 
-    def pop : Nil
-      @array.shift?
+    def pop
+      array.shift?
     end
     
-    def pop! : (A | Nil)
-      result = @array.first?
-      @array.shift?
+    def pop!
+      result = array.first?
+      array.shift?
       result
     end
     
-    def top() : (A | Nil)
-      @array.first?
+    def top
+      array.first?
     end
     
     def empty?
-      @array.empty?
+      array.empty?
     end
   end
 end

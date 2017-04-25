@@ -40,7 +40,7 @@ module Crystalg::Trees
 
     @root : (TreeNode(T) | Empty) = Empty.instance
 
-    private def propagate(t : TreeNode(T)) : TreeNode(T)
+    private def propagate(t)
       t.size = t.left.size + t.right.size + 1
 
       if(t.rev == true)
@@ -53,7 +53,7 @@ module Crystalg::Trees
       t
     end
 
-    private def merge_rec(l : (TreeNode(T) | Empty), r : (TreeNode(T) | Empty)): (TreeNode(T) | Empty)
+    private def merge_rec(l, r)
 
       l = propagate l if !l.is_a? Empty
       r = propagate r if !r.is_a? Empty
@@ -72,11 +72,11 @@ module Crystalg::Trees
       end
     end
 
-    def merge(l : (TreeNode(T) | Empty), r : (TreeNode(T) | Empty)): (TreeNode(T) | Empty)
+    def merge(l, r)
       (@root = merge_rec(l,r))
     end
 
-    def split(k : Int32, t : (TreeNode(T) | Empty) = @root)
+    def split(k, t = @root)
       t = propagate t if !t.is_a? Empty
       return {Empty.instance, Empty.instance} if t.is_a? Empty
       if(k <= t.left.size)
@@ -90,43 +90,43 @@ module Crystalg::Trees
       end
     end
 
-    private def insert(k : Int32, value : T, t : (TreeNode(T) | Empty))
+    private def insert(k, value, t)
       l, r = split k
       t = merge_rec(l, TreeNode.new value)
       t = merge_rec t, r
       t.is_a?(Empty) ? t : propagate(t)
     end
 
-    private def erase(k : Int32, t : (TreeNode(T) | Empty))
-      tmp, c = split k+1, t
+    private def erase(k, t)
+      tmp, c = split k + 1, t
       a, b = split k, tmp
       t = merge_rec a, c
       t = propagate(t) if !t.is_a? Empty
       t
     end
 
-    def insert(k : Int32, value : T)
-      @root = insert(k,value,@root)
+    def insert(k, value)
+      @root = insert k, value, @root
     end
 
-    def erase(k : Int32)
-      @root = erase(k,@root)
+    def erase(key)
+      @root = erase key, @root
     end
 
-    def find(k : Int32, t : (TreeNode(T) | Empty) = @root) : (T | Nil)
+    def find(k, t = @root)
       return nil if t.is_a? Empty
       propagate t
 
-      if(k < t.left.size)
+      if k < t.left.size
         find k, t.left
-      elsif (t.left.size == k)
+      elsif t.left.size == k
         t.value
       else
         find  k - t.left.size - 1, t.right
       end
     end
 
-    def reverse(left_id : Int32, right_id : Int32)
+    def reverse(left_id, right_id)
       tmp, c = split right_id
       a, b = split left_id, tmp
       b.rev ^= true

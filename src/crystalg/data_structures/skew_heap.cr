@@ -14,7 +14,7 @@ module Crystalg::DataStructures
     
     @root : (Node(T) | Nil) = nil
     
-    def merge(a : (Node(T) | Nil), b : (Node(T) | Nil)) : (Node(T) | Nil)
+    def merge(a, b)
       return b if a.nil?
       return a if b.nil?
       a, b = b, a if a.value > b.value
@@ -23,15 +23,16 @@ module Crystalg::DataStructures
       a
     end
     
-    def push(x : T)
-      @root = if @root.nil?
-        Node(T).new x
-      else
-        merge(@root.as(Node(T)), Node(T).new x)
-      end
+    def push(x)
+      @root = 
+        if @root.nil?
+          Node(T).new x
+        else
+          merge(@root.as(Node(T)), Node(T).new x)
+        end
     end
  
-    def top : (T | Nil)
+    def top
       @root.as(Node(T)).value if !@root.nil?
     end
  
