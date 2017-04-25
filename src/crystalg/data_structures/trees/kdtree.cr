@@ -20,11 +20,11 @@ module Crystalg::Trees
       build 0, @size, true
     end
 
-    def build(left, right, divx)
+    private def build(left, right, divx)
       return if left >= right
       middle = (left + right) / 2
 
-      sort(left, right)
+      sort(left, right, divx)
 
       tx[middle], ty[middle] = points[middle].x, points[middle].y
       count[middle] = right - left
@@ -62,7 +62,7 @@ module Crystalg::Trees
         while i <= j && (divx ? points[i].x : points[i].y) < pivot
           i += 1
         end
-        while i <= j && (divx ? points[i].x : points[i].y) > pivot
+        while i <= j && (divx ? points[j].x : points[j].y) > pivot
           j -= 1
         end
         break if i >= j
