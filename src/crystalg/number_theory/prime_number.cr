@@ -1,10 +1,10 @@
 
 module Crystalg::NumberTheory
-  def get_divisor(n : Int32): Array(Int32)
+  def get_divisor(n)
     result = Array(Int32).new
     i = 1
-    while i * i <= n
-      if(n % i == 0)
+    while i**2 <= n
+      if n % i == 0
         result << i
         result << n / i if i != n / i
       end
@@ -13,10 +13,10 @@ module Crystalg::NumberTheory
     result
   end
 
-  def prime_factorize(n : Int32): Hash(Int32, Int32)
+  def prime_factorize(n)
     result = Hash(Int32, Int32).new
     i = 2
-    while i * i <= n
+    while i**2 <= n
       count = 0
       while n % i == 0
         count += 1
@@ -29,16 +29,16 @@ module Crystalg::NumberTheory
     result
   end
 
-  def sieve_of_eratosthenes(n : Int32)
+  def sieve_of_eratosthenes(n)
     result = Array(Bool).new(n + 1, true)
     result[0] = result[1] = false
     i = 2
-    while i * i <= n
-      if(result[i] == true)
-        j = i * i
+    while i**2 <= n
+      if result[i] == true
+        j = i**2
         while j <= n
           result[j] = false
-          j = j + i
+          j += i
         end
       end
       i = i.succ

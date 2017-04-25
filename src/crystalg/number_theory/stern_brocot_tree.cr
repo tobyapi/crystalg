@@ -9,7 +9,7 @@ module Crystalg::NumberTheory
       getter left, right, middle
       def initialize(@left : Fraction, @right : Fraction) end
 
-      def middle : Fraction
+      def middle
         Fraction.new(
           left.numerator + right.numerator,
           left.denominator + right.denominator
@@ -17,19 +17,19 @@ module Crystalg::NumberTheory
       end
     end
 
-    private def rec(x : Int32, range : Node, result : Array(Fraction))
+    private def rec(x, range, result)
       middle = range.middle
       return if middle.numerator + middle.denominator > x
-      rec(x, Node.new(range.left, middle), result)
+      rec x, Node.new(range.left, middle), result
       result << middle
-      rec(x, Node.new(middle, range.right), result)
+      rec x, Node.new(middle, range.right), result
     end
 
-    def run(height : Int32)
+    def run(height)
       left = Fraction.new(0,1)
       right = Fraction.new(1,0)
       result = Array(Fraction).new
-      rec(height, Node.new(left,right), result)
+      rec height, Node.new(left,right), result
       result
     end
   end

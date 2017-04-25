@@ -5,14 +5,14 @@ include Crystalg::DataStructures
 
 module Crystalg::Graph
   class Kruskal(T) < Search(T,PriorityQueue(State(T)))
-    def run(graph : Graph(T), start : NodeID): Array(State(T))
+    def run(graph, start)
       initializer = ->(graph : Graph(T), start : NodeID, state_container : PriorityQueue(State(T))){
         (0...graph.size).each do |i|
           graph.adjacent(i).each do |edge|
             state_container.push(State.new(edge.target, edge.cost, edge.source))
           end
         end
-        result_container = Array(State(T)).new(graph.size) { |i| State(T).new(i, 0, -1) }
+        result_container = Array.new(graph.size) { |i| State(T).new(i, 0, -1) }
         { state_container, result_container }
       }
 
@@ -28,9 +28,7 @@ module Crystalg::Graph
       }
 
       next_state_generator = ->(edges : Array(Edge(T)), current : State(T)){
-        edges.map do |edge|
-          State.new(edge.target, edge.cost, edge.source, true)
-        end
+        edges.map { |edge| State.new(edge.target, edge.cost, edge.source, true) }
       }
 
       run(graph, start, initializer, edge_filter, next_state_generator).select{ |e| e.visited? }

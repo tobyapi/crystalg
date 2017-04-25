@@ -3,6 +3,7 @@ module Crystalg::Strings
 
   class RollingHash
     private PRIME = 1000000007
+    
     def initialize(@str : String)
       @pow = Array(Int64).new(@str.size + 1)
       @phash = Array(Int64).new(@str.size + 1)
@@ -14,19 +15,17 @@ module Crystalg::Strings
       end
     end
 
-    def hash(t : String) : Int64
+    def hash(t)
       acc = 0.to_i64
-      t.each_char_with_index { |ch, i| 
-        acc = ch.bytes.first.to_i64 + acc * PRIME 
-      }
+      t.each_char { |ch| acc = ch.bytes.first.to_i64 + acc * PRIME }
       acc
     end
 
-    def hash(b : Int32, e : Int32) : Int64 
+    def hash(b, e)
       @phash[e] - @phash[b] * @pow[e - b]
     end
 
-    def count(t : String) : Int32
+    def count(t)
       w = t.size
       count = 0
       if w < @str.size
@@ -38,9 +37,9 @@ module Crystalg::Strings
       count
     end
 
-    def lcp(i : Int32, j : Int32) : Int32
+    def lcp(i, j)
       l = 0
-      r = @str.size - Math.max(i,j) + 1
+      r = @str.size - Math.max(i, j) + 1
       while l + 1 < r
         m = (l + r) >> 1
         if hash(i,i+m) == hash(j,j+m) 
@@ -52,7 +51,7 @@ module Crystalg::Strings
       l
     end
     
-    private def compare(i : Int32, j : Int32): Int32
+    private def compare(i, j)
       k = lcp i, j
       if i + k >= @str.size
         -1
@@ -65,13 +64,11 @@ module Crystalg::Strings
       end
     end
     
-    def get_suffix_array : Array(Int32) 
+    def get_suffix_array
       n = @str.size + 1
-      suffix_array = Array(Int32).new(n, 0)
+      suffix_array = Array.new(n, 0)
       (0...n).each { |i| suffix_array[i] = i }
-      suffix_array.sort do |a, b|
-        compare a, b
-      end
+      suffix_array.sort { |a, b| compare a, b }
     end
   end
 end

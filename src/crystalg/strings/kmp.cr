@@ -1,8 +1,7 @@
 
 module Crystalg::Strings
-  def kmp(target : String, pattern : String): Array(Int32)
-    # initialize
-    n = Array(Int32).new(pattern.size+1, 0)
+  def kmp(target, pattern)
+    n = Array.new(pattern.size+1, 0)
     j, n[0] = -1, -1
     (0...pattern.size).each do |i|
       while j >= 0 && pattern[i] != pattern[j]

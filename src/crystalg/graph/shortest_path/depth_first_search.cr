@@ -5,13 +5,13 @@ include Crystalg::DataStructures
 
 module Crystalg::Graph
   class DFS(T) < Search(T, Stack(State(T)))
-    def run(graph : Graph(T), start : NodeID): Array(State(T))
+    def run(graph, start)
       initializer = ->(graph : Graph(T), start : NodeID, state_container : Stack(State(T))){
         initialize_containers(graph, start, state_container)
       }
 
       edge_filter = ->(adjecent  : Array(Edge(T)), current : State(T), result : Array(State(T))){
-        adjecent.select do |edge| !result[edge.target].visited? end
+        adjecent.select { |edge| !result[edge.target].visited? }
       }
 
       next_state_generator = ->(edges : Array(Edge(T)), current : State(T)){

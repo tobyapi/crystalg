@@ -21,9 +21,8 @@ module Crystalg::Strings
           tmp[i] = (@rank[i].to_i64 << 32) + (i + len < n ? @rank[i + len] + 1 : 0)
         end
 
-        @suffix_array = @suffix_array.sort do |a,b|
-          tmp[a] <=> tmp[b]
-        end
+        @suffix_array.sort! { |a,b| tmp[a] <=> tmp[b] }
+        
         (0...n).each do |i|
           j = @suffix_array[i]
           k = @suffix_array[i - 1]
@@ -42,7 +41,7 @@ module Crystalg::Strings
       (0...n).each do |i|
         if @rank[i] + 1 < n
           j = @suffix_array[@rank[i] + 1]
-          while Math.max(i,j) + h < n && @target[i + h] == @target[j + h]
+          while Math.max(i, j) + h < n && @target[i + h] == @target[j + h]
             h += 1
           end
           @lcp[@rank[i]] = h

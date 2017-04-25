@@ -5,7 +5,7 @@ include Crystalg::DataStructures
 
 module Crystalg::Graph
   class Dijkstra(T) < Search(T,PriorityQueue(State(T)))
-    def run(graph : Graph(T), start : NodeID): Array(State(T))
+    def run(graph, start)
       initializer = ->(graph : Graph(T), start : NodeID, state_container : PriorityQueue(State(T))){
         initialize_containers(graph, start, state_container)
       }

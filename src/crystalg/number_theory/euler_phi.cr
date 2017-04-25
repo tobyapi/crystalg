@@ -6,8 +6,8 @@ module Crystalg::NumberTheory
   def phi(n)
     res = n
     i = 2
-    while i * i <= n
-      if(n % i == 0)
+    while i**2 <= n
+      if n % i == 0
         while n % i == 0
           n = n / i
         end
@@ -19,14 +19,14 @@ module Crystalg::NumberTheory
     res
   end
 
-  def phi_list(n): Array(Int32)
+  def phi_list(n)
     result = Array.new(n + 1, 0)
-    (1..n).each do |i| result[i] = i end
+    (1..n).each { |i| result[i] = i }
     (1..n).each do |i|
-      j = i + i
+      j = i * 2
       while j <= n
-        result[j] = result[j] - result[i]
-        j = j + i
+        result[j] -= result[i]
+        j += i
       end
     end
     result

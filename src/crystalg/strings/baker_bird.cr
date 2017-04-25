@@ -9,12 +9,10 @@ module Crystalg::Strings
       @aho_corasick = AhoCorasick.new(size)
     end
     
-    def search(pattern : Array(String)): Array(Tuple(Int32, Int32))
-      pattern.each do |row|
-        @aho_corasick.add row
-      end
-
+    def search(pattern)
+      pattern.each { |row| @aho_corasick.add row }
       acc = Array(Int32).new
+      
       pattern.each do |str|
         node_id = 0
         str.each_char do |char|
@@ -24,9 +22,7 @@ module Crystalg::Strings
       end
 
       til = @text[0].size
-      td = Array(Array(Int32)).new(til) do
-        Array(Int32).new(@text.size, 0)
-      end
+      td = Array.new(til) { Array.new(@text.size, 0) }
 
       @text.each_with_index do |row, i|
         node_id = 0
@@ -37,7 +33,7 @@ module Crystalg::Strings
       end
 
       result = Array(Tuple(Int32, Int32)).new
-      a = Array(Int32).new(acc.size + @text.size + 2, -1)
+      a = Array.new(acc.size + @text.size + 2, -1)
       sl = acc.size + @text.size + 1
       (0...til).each do |i|
         s = acc.dup
@@ -52,7 +48,7 @@ module Crystalg::Strings
           j += 1
           a[k + 1] = j
         end
-        (acc.size + 1 .. sl).each do |k|
+        (acc.size + 1..sl).each do |k|
           result << {k - acc.size * 2 - 1, til - i - pattern[0].size} if a[k] == acc.size
         end
       end

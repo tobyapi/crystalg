@@ -6,15 +6,15 @@ module Crystalg::Geometry
 
     def initialize(@position : Point, @direction : Point) end
 
-    def on?(c : Point)
+    def on?(c)
       counter_clockwise(position, direction, c) == CCW::ON_SEGMENT
     end
 
-    def is_parallel?(other : Segment)
+    def is_parallel?(other)
       (direction - position).cross(other.direction - other.position) == 0
     end
 
-    def is_overlap?(other : Segment)
+    def is_overlap?(other)
       is_parallel(other) && (on other.position || on other.direction || other.on position || other.on direction)
     end
 
@@ -33,13 +33,13 @@ module Crystalg::Geometry
       )
     end
 
-    def is_intersection?(other : Segment)
+    def is_intersection?(other)
       a, b, c, d = position, direction, other.position, other.direction
       counter_clockwise(a,b,c).value * counter_clockwise(a,b,d).value <= 0 &&
       counter_clockwise(c,d,a).value * counter_clockwise(c,d,b).value <= 0
     end
 
-    def intersection_point(other : Segment)
+    def intersection_point(other)
       q = other.direction - other.position
       d1 = q.cross(position - other.position).abs
       d2 = q.cross(direction - other.position).abs
