@@ -1,5 +1,7 @@
 require "../spec_helper"
 
+include Crystalg::Trees
+
 describe Crystalg do
   it "fenwick_tree_2d" do
     fenwick = FenwickTree2D(Int32).new(5,5)
