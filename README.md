@@ -2,7 +2,7 @@
 [![Dependency Status](https://shards.rocks/badge/github/TobiasGSmollett/crystalg/status.svg)](https://shards.rocks/github/TobiasGSmollett/crystalg)
 [![devDependency Status](https://shards.rocks/badge/github/TobiasGSmollett/crystalg/dev_status.svg)](https://shards.rocks/github/TobiasGSmollett/crystalg)
 
-# Crystalg 
+# Crystalg
 
 A generic algorithm library for crystal-lang.
 
@@ -41,8 +41,6 @@ hash.count("issi") # => 2
 crystal spec
 
 ## To Do
-
-### Implementation
 * Graph
   * Minimum-Cost Arborescence
   * Strongly Connected Components
