@@ -5,7 +5,9 @@ include Crystalg::Geometry
 module Crystalg::Trees
   class KDTree
     @size : Int32
-    def initialize(@points : Array(Point))
+    @points : Array(Point)
+    
+    def initialize(@points)
       @size = points.size
       @tx = Array(Float64).new(@size, 0.0)
       @ty = Array(Float64).new(@size, 0.0)
@@ -17,7 +19,7 @@ module Crystalg::Trees
       build 0, @size, true
     end
 
-    def build(left : Int32, right : Int32, divx : Bool)
+    def build(left, right, divx)
       return if left >= right
       middle = (left + right) / 2
 
@@ -39,7 +41,7 @@ module Crystalg::Trees
       build(middle + 1, right, !divx)
     end
 
-    private def sort(left : Int32, right : Int32, divx : Bool = true)
+    private def sort(left, right, divx = true)
       middle = (left + right) / 2
       loop do
         k = partition(left, right, middle ,divx)
@@ -49,7 +51,7 @@ module Crystalg::Trees
       end
     end
 
-    private def partition(left : Int32, right : Int32, pivotIndex : Int32, divx : Bool): Int32
+    private def partition(left, right, pivotIndex, divx)
       i, j = left, right - 1
       return j if i >= j
       pivot = divx ? @points[pivotIndex].x : @points[pivotIndex].y
@@ -71,15 +73,15 @@ module Crystalg::Trees
       j
     end
 
-    private def swap(i : Int32, j : Int32)
+    private def swap(i, j)
       @points[i], @points[j] = @points[j], @points[i]
     end
 
-    def count(bottom_left : Point, top_right : Point)
+    def count(bottom_left, top_right)
       count(0, @tx.size, bottom_left, top_right)
     end
 
-    private def count(left : Int32, right : Int32, bottom_left : Point, top_right : Point)
+    private def count(left, right, bottom_left, top_right)
       return 0 if left >= right
       middle = (left + right) / 2
       minx, miny, maxx, maxy = @minx[middle], @miny[middle], @maxx[middle], @maxy[middle]
@@ -99,12 +101,12 @@ module Crystalg::Trees
       res
     end
 
-    def nearest_neighbour(target : Point): Point
+    def nearest_neighbour(target)
       result = nearest_neighbour 0, @points.size, target, true, { Float64::MAX, -1 }
       @points[result[1]]
     end
 
-    private def nearest_neighbour(left : Int32, right : Int32, target : Point, divx : Bool, best : Tuple(Float64, Int32)) : Tuple(Float64, Int32)
+    private def nearest_neighbour(left, right, target, divx, best)
       return best if left >= right
 
       middle = (left + right) / 2
