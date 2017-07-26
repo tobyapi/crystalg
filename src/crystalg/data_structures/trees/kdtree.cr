@@ -3,18 +3,18 @@ require "../../geometry/*"
 include Crystalg::Geometry
 
 module Crystalg::Trees
-  class KDTree
+  class KDTree(T)
     @size : Int32
-    @points : Array(Point)
+    @points : Array(Point(T))
     
     def initialize(@points)
       @size = points.size
-      @tx = Array(Float64).new(@size, 0.0)
-      @ty = Array(Float64).new(@size, 0.0)
-      @minx = Array(Float64).new(@size, 0.0)
-      @miny = Array(Float64).new(@size, 0.0)
-      @maxx = Array(Float64).new(@size, 0.0)
-      @maxy = Array(Float64).new(@size, 0.0)
+      @tx = Array(T).new(@size, T.zero)
+      @ty = Array(T).new(@size, T.zero)
+      @minx = Array(T).new(@size, T.zero)
+      @miny = Array(T).new(@size, T.zero)
+      @maxx = Array(T).new(@size, T.zero)
+      @maxy = Array(T).new(@size, T.zero)
       @count = Array(Int32).new(@size, 0)
       build 0, @size, true
     end
@@ -28,8 +28,8 @@ module Crystalg::Trees
       @tx[middle], @ty[middle] = @points[middle].x, @points[middle].y
       @count[middle] = right - left
 
-      @minx[middle], @miny[middle] = Float64::MAX, Float64::MAX
-      @maxx[middle], @maxy[middle] = Float64::MIN, Float64::MIN
+      @minx[middle], @miny[middle] = T::MAX, T::MAX
+      @maxx[middle], @maxy[middle] = T::MIN, T::MIN
       (left...right).each do |i|
         @minx[middle] = Math.min(@minx[middle], @points[i].x)
         @miny[middle] = Math.min(@miny[middle], @points[i].y)
@@ -102,7 +102,7 @@ module Crystalg::Trees
     end
 
     def nearest_neighbour(target)
-      result = nearest_neighbour 0, @points.size, target, true, { Float64::MAX, -1 }
+      result = nearest_neighbour 0, @points.size, target, true, { T::MAX, -1 }
       @points[result[1]]
     end
 

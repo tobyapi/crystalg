@@ -1,30 +1,30 @@
 require "./*"
 
 module Crystalg::Geometry
-  class Point
-    include Comparable(Point)
+  class Point(T)
+    include Comparable(Point(T))
 
-    getter x, y
+    getter x : T, y : T
 
-    def initialize(@x : Float64, @y : Float64) end
+    def initialize(@x : T, @y : T) end
 
-    def +(other : Point)
+    def +(other : self)
       Point.new(x + other.x, y + other.y)
     end
 
-    def -(other : Point)
+    def -(other : self)
       Point.new(x + (-other.x), y + (-other.y))
     end
 
-    def *(other : Number)
+    def *(other)
       Point.new(x * other, y * other)
     end
 
-    def /(other : Number)
+    def /(other)
       Point.new(x / other, y / other)
     end
 
-    def <=>(other : Point)
+    def <=>(other)
       if x != other.x
         x <=> other.x
       else
@@ -32,33 +32,33 @@ module Crystalg::Geometry
       end
     end
 
-    def ==(other : Point)
+    def ==(other)
       x === other.x && y === other.y
     end
 
-    def norm : Float
-      (x * x + y * y).as(Float).sqrt
+    def norm
+      (x * x + y * y).sqrt.as(T)
     end
 
-    def distance(other : Point) : Float
+    def distance(other)
       (self - other).norm
     end
 
-    def dot(other : Point) : Float
+    def dot(other) 
       x * other.x + y * other.y
     end
 
-    def cross(other : Point) : Float
+    def cross(other)
       x * other.y - y * other.x
     end
 
-    def rotate(radian : Float, pivot : Point = Point.new(0,0))
+    def rotate(radian, pivot = Point.new(0,0))
       Point.new(
         LibM.cos(r) * (x - pivot.x) - LibM.sin(r) * (y - pivot.y) + pivot.x,
         LibM.sin(r) * (x - pivot.x) + LibM.cos(r) * (y - pivot.y) + pivot.y)
     end
 
-    def arg : Float
+    def arg
       LibM.atan(y/x) if x.sign > 0
       LibM.atan(y/x) + PI if x.sign < 0
       PI / 2.0.as Float  if y.sign > 0

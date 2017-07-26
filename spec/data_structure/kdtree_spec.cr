@@ -15,7 +15,7 @@ describe Crystalg do
       Point.new(5.0, 4.0)
     ]
 
-    kdtree = KDTree.new(input)
+    kdtree = KDTree(Float64).new(input)
 
     result1 = kdtree.count(Point.new(2.0,0.0), Point.new(4.0,4.0))
     result2 = kdtree.count(Point.new(4.0,2.0), Point.new(10.0,5.0))
@@ -33,7 +33,7 @@ describe Crystalg do
       Point.new(5.0, 4.0)
     ]
 
-    kdtree = KDTree.new(input)
+    kdtree = KDTree(Float64).new(input)
 
     result1 = kdtree.nearest_neighbour Point.new(0.0, 0.0)
     

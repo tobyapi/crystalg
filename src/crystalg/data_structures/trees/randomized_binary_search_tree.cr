@@ -97,7 +97,7 @@ module Crystalg::Trees
       t.is_a?(Empty) ? t : propagate(t)
     end
 
-    private def erase(k : Int32, t : (TreeNode(T) | Empty))
+    private def erase(k, t)
       tmp, c = split k+1, t
       a, b = split k, tmp
       t = merge_rec a, c
@@ -105,15 +105,15 @@ module Crystalg::Trees
       t
     end
 
-    def insert(k : Int32, value : T)
-      @root = insert(k,value,@root)
+    def insert(k, value)
+      @root = insert(k, value, @root)
     end
 
-    def erase(k : Int32)
+    def erase(k)
       @root = erase(k,@root)
     end
 
-    def find(k : Int32, t : (TreeNode(T) | Empty) = @root) : (T | Nil)
+    def find(k, t = @root)
       return nil if t.is_a? Empty
       propagate t
 
@@ -126,7 +126,7 @@ module Crystalg::Trees
       end
     end
 
-    def reverse(left_id : Int32, right_id : Int32)
+    def reverse(left_id, right_id)
       tmp, c = split right_id
       a, b = split left_id, tmp
       b.rev ^= true

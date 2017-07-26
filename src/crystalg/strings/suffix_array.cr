@@ -1,8 +1,9 @@
 
 module Crystalg::Strings
   class SuffixArray
-    @suffix_array : Array(Int32)
-    @rank : Array(Int32)
+    getter suffix_array : Array(Int32)
+    getter rank : Array(Int32)
+    
     def initialize(@target : String)
       @target += '\0'
       @suffix_array = (0...@target.size).to_a
@@ -16,14 +17,13 @@ module Crystalg::Strings
       # suffix array in O(n log^2 n)
       len = 1
       while len < n
-        tmp = Array(Int64).new(n, 0.to_i64)
+        tmp = Array(Int64).new(n, 0_i64)
         (0...n).each do |i|
           tmp[i] = (@rank[i].to_i64 << 32) + (i + len < n ? @rank[i + len] + 1 : 0)
         end
 
-        @suffix_array = @suffix_array.sort do |a,b|
-          tmp[a] <=> tmp[b]
-        end
+        @suffix_array = @suffix_array.sort { |a,b| tmp[a] <=> tmp[b] }
+        
         (0...n).each do |i|
           j = @suffix_array[i]
           k = @suffix_array[i - 1]

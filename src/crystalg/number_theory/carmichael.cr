@@ -1,5 +1,5 @@
 module Crystalg::NumberTheory
-  def carmichael(n : Int32)
+  def carmichael(n)
     result = 1
     n /= 2 if n % 8 == 0
     (2..n).each do |d|

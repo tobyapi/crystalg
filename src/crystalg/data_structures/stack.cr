@@ -2,28 +2,26 @@
 
 module Crystalg::DataStructures
   class Stack(A)
-    private getter array : Array(A)
-    private setter array
-
+    
     def initialize
       @array = Array(A).new
     end
 
-    def push(val : A) : Nil
+    def push(val)
       @array << val
     end
 
-    def pop : Nil
+    def pop
       @array.pop?
     end
     
-    def pop! : (A | Nil)
+    def pop!
       result = @array.last?
       @array.pop?
       result
     end
     
-    def top() : (A | Nil)
+    def top
       @array.last?
     end
     

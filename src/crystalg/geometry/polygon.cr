@@ -1,35 +1,35 @@
 require "./*"
 
 module Crystalg::Geometry
-  class Polygon
-    def initialize(*points : Point)
+  class Polygon(T)
+    def initialize(*points : Point(T))
       @points = points.to_a
     end
 
-    def initialize(@points : Array(Point))
+    def initialize(@points : Array(Point(T)))
     end
 
     def size
       @points.size
     end
 
-    def prv(i : Int32): Point
+    def prv(i)
       cur(i - 1)
     end
 
-    def cur(i : Int32): Point
+    def cur(i)
       @points[i % @points.size]
     end
 
-    def nxt(i : Int32): Point
+    def nxt(i)
       cur(i + 1)
     end
 
-    def [](i : Int32): Point
+    def [](i)
       @points[i]
     end
 
-    def ==(other : Polygon)
+    def ==(other : self)
       this, that = self.@points, other.@points
       return false if this.size != that.size
       this.sort == that.sort
@@ -46,7 +46,7 @@ module Crystalg::Geometry
        OUT = 0, IN = 1, ON = 2
     end
 
-    def contain(target : Point) : Containment
+    def contain(target : Point(T)) : Containment
       is_contain? = false
       @points.each_with_index do |e, i|
         a, b = cur(i) - target, nxt(i) - target
@@ -57,31 +57,31 @@ module Crystalg::Geometry
       is_contain? ? Containment::IN : Containment::OUT
     end
 
-    def area : Float64
-      result : Float64 = 0.0
+    def area : T
+      result = T.zero
       @points.each_with_index do |e, i|
         result = result + (e.x - nxt(i).x) * (e.y + nxt(i).y)
       end
       result.abs / 2.0
     end
 
-    def convex_cut(line : Line): Polygon
+    def convex_cut(line : Line(T))
       pos, dir = line.position, line.direction
-      result = Array(Point).new
+      result = Array(Point(T)).new
       @points.each_with_index do |e, i|
         vec = dir - pos
-        side = Segment.new(e, nxt i)
+        side = Segment(T).new(e, nxt i)
         result << e if counter_clockwise(pos, dir, e) != CCW::CLOCKWISE
         # TODO : bugfix
-        result << side.intersection_point(Segment.new(pos, dir)) if side.is_intersection? Segment.new(line.position, line.direction)
+        result << side.intersection_point(Segment(T).new(pos, dir)) if side.is_intersection? Segment(T).new(line.position, line.direction)
       end
       Polygon.new(result)
     end
 
-    def convex_hull : Polygon
+    def convex_hull
       points = @points
       points.sort
-      result = Array(Point).new
+      result = Array(Point(T)).new
       (0...points.size).each do |i|
         while result.size > 1
           tail1 = result[result.size - 1]
@@ -109,7 +109,7 @@ module Crystalg::Geometry
       Polygon.new(result)
     end
 
-    def diameter : Float64
+    def diameter
       qs = convex_hull
       n = qs.size
 

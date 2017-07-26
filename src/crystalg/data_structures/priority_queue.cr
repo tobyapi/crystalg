@@ -1,15 +1,15 @@
 
 module Crystalg::DataStructures
   class PriorityQueue(A)
-    getter array : Array(A)
-    getter size : Int32
+    private getter array : Array(A)
+    getter size : UInt32
     
     def initialize()
       @array = Array(A).new
-      @size = 0
+      @size = 0_u32
     end
 
-    def push(val : A) : Nil
+    def push(val)
       @array << val
       
       i = @size
@@ -23,7 +23,7 @@ module Crystalg::DataStructures
       @array[i] = val
     end
 
-    def pop : Nil
+    def pop
       @size -= 1
       x = @array[@size]
       
@@ -39,15 +39,15 @@ module Crystalg::DataStructures
       @array[i] = x
     end
     
-    def pop! : (A | Nil)
-      if !empty?()
+    def pop!
+      if !empty?
         result = top
         pop
         result
       end
     end
     
-    def top() : (A | Nil)
+    def top
       @array.first?
     end
     

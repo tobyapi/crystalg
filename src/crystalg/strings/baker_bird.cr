@@ -3,17 +3,12 @@ require "../*"
 module Crystalg::Strings
   class BakerBird
     def initialize(@text : Array(String))
-      size = @text.reduce(0) do |acc, str|
-        acc + str.size
-      end
+      size = @text.reduce(0) { |acc, str| acc + str.size }
       @aho_corasick = AhoCorasick.new(size)
     end
     
-    def search(pattern : Array(String)): Array(Tuple(Int32, Int32))
-      pattern.each do |row|
-        @aho_corasick.add row
-      end
-
+    def search(pattern)
+      pattern.each { |row| @aho_corasick.add row }
       acc = Array(Int32).new
       pattern.each do |str|
         node_id = 0
@@ -24,9 +19,7 @@ module Crystalg::Strings
       end
 
       til = @text[0].size
-      td = Array(Array(Int32)).new(til) do
-        Array(Int32).new(@text.size, 0)
-      end
+      td = Array(Array(Int32)).new(til) { Array(Int32).new(@text.size, 0) }
 
       @text.each_with_index do |row, i|
         node_id = 0
@@ -52,7 +45,7 @@ module Crystalg::Strings
           j += 1
           a[k + 1] = j
         end
-        (acc.size + 1 .. sl).each do |k|
+        (acc.size+1 .. sl).each do |k|
           result << {k - acc.size * 2 - 1, til - i - pattern[0].size} if a[k] == acc.size
         end
       end

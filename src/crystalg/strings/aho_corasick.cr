@@ -2,14 +2,10 @@
 module Crystalg::Strings
   class AhoCorasick
     class Node
-      property parent, link, char, is_leaf
-      
-      @parent : Int32
-      @link : Int32
-      @char : Char #from parent
-      @is_leaf : Bool
-      @children : Array(Int32)
-      @next : Array(Int32)
+      property parent : Int32
+      property link : Int32
+      property char : Char
+      property is_leaf : Bool
         
       def initialize
         @parent = 0
@@ -28,18 +24,18 @@ module Crystalg::Strings
       end
     end
     
-    @size : Int32 # number of node
-    @nodes : Array(Node)
+    property size : Int32
+    property nodes : Array(Node)
     ROOT = 0
     
-    def initialize(max_node : Int32)
+    def initialize(max_node)
       @size = 0
       @nodes = Array(Node).new(max_node) { Node.new }
       @nodes[ROOT].link = ROOT
       @nodes[ROOT].parent = -1
     end
     
-    def add(str : String)
+    def add(str)
       cur = ROOT
       str.each_char do |ch|
         c = ch.bytes.first
@@ -54,7 +50,7 @@ module Crystalg::Strings
       @nodes[cur].is_leaf = true
     end
     
-    def failure(id : Int32) : Int32
+    def failure(id)
       if @nodes[id].link == -1
         if @nodes[id].parent == ROOT
           @nodes[id].link = ROOT
@@ -65,7 +61,7 @@ module Crystalg::Strings
       @nodes[id].link
     end
     
-    def goto(id : Int32, char : Char) : Int32
+    def goto(id, char)
       c = char.bytes.first
       if @nodes[id].@next[c] == -1
         if @nodes[id].@children[c] != -1
@@ -81,7 +77,7 @@ module Crystalg::Strings
     
     def contain?(target : String)
       cur = ROOT
-      target.each_char_with_index do |ch, i|
+      target.each_char do |ch|
         cur = @nodes[cur].@children[ch.bytes.first]
         return false if cur < 0
       end
@@ -90,9 +86,7 @@ module Crystalg::Strings
     
     def match?(target : String)
       cur = ROOT
-      target.each_char_with_index do |ch, i|
-        cur = goto(cur, ch)
-      end
+      target.each_char { |ch| cur = goto(cur, ch) }
       @nodes[cur].is_leaf
     end
   end

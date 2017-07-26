@@ -1,22 +1,22 @@
 require "./*"
 
 module Crystalg::Geometry
-  class Circle
-    getter center, radius
+  class Circle(T)
+    getter center : Point(T)
+    getter radius : T
 
-    def initialize(@center : Point, @radius : Float64)
-    end
+    def initialize(@center, @radius) end
 
-    def ==(other : Circle)
+    def ==(other : self)
       center == other.center && radius === other.radius
     end
 
-    def contain?(target : Point)
-      (target - center).norm.sign radius <= 0
+    def contain?(target)
+      (target - center).norm.sign radius <= T.zero
     end
 
     # returns number of the common tangents
-    def intersection(other : Circle)
+    def intersection(other)
       dist = center.distance other.center
       return 4 if dist > radius + other.radius
       return 3 if dist == radius + other.radius
@@ -25,20 +25,20 @@ module Crystalg::Geometry
       0
     end
 
-    def intersection_points(line : Line): Array(Point)
-      return Array(Point).new if line.distance(center) <=> radius > 0
+    def intersection_points(line)
+      return Array(Point(T)).new if line.distance(center) <=> radius > 0
       q = line.project center
       t = (center - q).norm
       d = (radius * radius - t * t).sqrt
       base = line.direction - line.position
-      result = Array(Point).new
+      result = Array(Point(T)).new
       result << q + base * (d / base.norm)
       result << q - base * (d / base.norm)
       result
     end
 
-    def intersection_points(other : Circle): Array(Point)
-      result = Array(Point).new
+    def intersection_points(other : self)
+      result = Array(Point(T)).new
       return result if (center - other.center).norm > (radius + other.radius) ** 2
       theta = Math.atan2(other.center.y - center.y, other.center.x - center.x)
       dist = center.distance other.center
@@ -48,7 +48,7 @@ module Crystalg::Geometry
       result
     end
 
-    def intersection_area(other : Circle): Float64
+    def intersection_area(other)
       r1, r2 = Math.min(radius, other.radius), Math.max(radius, other.radius)
       dist = (center - other.center).norm
       return Math::PI * r1 ** 2 if (dist <=> r2 - r1) <= 0
@@ -59,16 +59,16 @@ module Crystalg::Geometry
       r1 ** 2 * theta + r2 ** 2 * phi - dist * r1 * Math.sin(theta)
     end
 
-    def circumscribed_circle(a : Point, b : Point)
+    def circumscribed_circle(a, b)
       q = (a + b) / 2
-      Circle.new(q, (a - q).norm)
+      Circle(T).new(q, (a - q).norm)
     end
 
-    def self.circumscribed_circle(p : Point, q : Point, r : Point)
+    def self.circumscribed_circle(p, q, r)
       a, b = (q - p) * 2, (r - p) * 2
-      c = Point.new(p.dot(p) - q.dot(q), p.dot(p) - r.dot(r))
-      tmp = Point.new(a.y * c.y - b.y * c.x, b.x * c.x - a.x * c.y) / a.cross b
-      Circle.new(tmp, p.distance tmp)
+      c = Point(T).new(p.dot(p) - q.dot(q), p.dot(p) - r.dot(r))
+      tmp = Point(T).new(a.y * c.y - b.y * c.x, b.x * c.x - a.x * c.y) / a.cross b
+      Circle(T).new(tmp, p.distance tmp)
     end
   end
 end

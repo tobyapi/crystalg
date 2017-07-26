@@ -1,11 +1,13 @@
 
 module Crystalg::DataStructures
   class UnionFind
-    def initialize(@size : Int32)
+    getter size : Int32
+    
+    def initialize(@size)
       @data = Array(Int32).new(@size, -1)
     end
     
-    def unite(x : Int32, y : Int32) : Nil
+    def unite(x, y)
       x = root x
       y = root y
       if x != y
@@ -15,16 +17,16 @@ module Crystalg::DataStructures
       end
     end
 
-    def same?(x : Int32, y : Int32) : Bool
+    def same?(x, y)
       root(x) == root(y)
     end
     
-    def size(x : Int32) : Int32
-      -@data[root x]
+    def size(x)
+      @data[root x].abs
     end
     
-    private def root(x  : Int32) : Int32
-      @data[x] < 0 ? x : (@data[x] = root @data[x]);
+    private def root(x)
+      @data[x] < 0 ? x : (@data[x] = root @data[x])
     end
   end
 end

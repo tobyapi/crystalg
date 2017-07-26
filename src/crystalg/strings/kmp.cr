@@ -18,7 +18,7 @@ module Crystalg::Strings
       while j >= 0 && target[i] != pattern[j]
         j = n[j]
       end
-      j = j.succ
+      j += 1
       if j == pattern.size
         result << i - pattern.size + 1
         j = n[j]

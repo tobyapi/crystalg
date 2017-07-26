@@ -13,20 +13,19 @@ module Crystalg::NumberTheory
         end
         res -= res / i
       end
-      i = i.succ
+      i += 1
     end
     res -= res / n if n > 1
     res
   end
 
-  def phi_list(n): Array(Int32)
-    result = Array.new(n + 1, 0)
-    (1..n).each do |i| result[i] = i end
+  def phi_list(n)
+    result = (0..n).to_a
     (1..n).each do |i|
-      j = i + i
+      j = 2 * i
       while j <= n
-        result[j] = result[j] - result[i]
-        j = j + i
+        result[j] -= result[i]
+        j += i
       end
     end
     result

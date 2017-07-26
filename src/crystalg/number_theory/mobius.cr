@@ -1,5 +1,5 @@
 module Crystalg::NumberTheory
-  def mobius(n : Int32)
+  def mobius(n)
     result = 1
     (2..n).each do |d|
       return 0 if n % (d * d) == 0

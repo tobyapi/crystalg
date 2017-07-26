@@ -4,7 +4,7 @@ include Crystalg::Trees
 
 describe Crystalg do
   it "segment_tree" do
-    segtree = SegmetTree.new(5)
+    segtree = SegmetTree(Int32).new(5)
     (0...5).each { |i| segtree.add(i, i + 1, i) }
 
     (0...5).each do |e|
