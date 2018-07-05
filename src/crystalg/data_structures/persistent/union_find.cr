@@ -30,7 +30,7 @@ module Crystalg::DataStructures::Persistent
     def size(u : Int32, time : Int32)
       u = root(u, time)
       left, right = 0, @parent[u].size
-      while r - l > 1
+      while right - left > 1
         middle = (left + right) / 2
         if @parent[u][middle].last <= time
           left = middle
