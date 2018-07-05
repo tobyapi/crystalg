@@ -15,13 +15,6 @@ module Crystalg::Strings
         @children = Array(Int32).new(128, -1)
         @next = Array(Int32).new(128, -1)
       end
-      
-      def set_char(@char : Char)
-      end
-      
-      def get_char
-        @char
-      end
     end
     
     property size : Int32
