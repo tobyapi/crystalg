@@ -1,13 +1,13 @@
 module Crystalg::DataStructures::Persistent
   class UnionFind
-    @parent : Array(Array(Tuple(Int32, Int32)))
-
+    alias NodeID = Int32
+    
     def initialize(size)
-      @parent = Array(Array(Tuple(Int32, Int32))).new(size) { [{-1, 0}] }
+      @parent = Array(Array(Tuple(NodeID, Int32))).new(size) { [{-1, 0}] }
       @current = 0
     end
     
-    def unite(u : Int32, v : Int32): Bool
+    def unite(u : NodeID, v : NodeID): Bool
       @current += 1
       u, v = root(u, @current), root(v, @current)
       return false if u == v
@@ -17,17 +17,17 @@ module Crystalg::DataStructures::Persistent
       true
     end
     
-    def same?(u : Int32, v : Int32, time : Int32): Bool
+    def same?(u : NodeID, v : NodeID, time : Int32): Bool
       root(u, time) == root(v, time)
     end
     
-    def root(u : Int32, time : Int32): Int32
+    def root(u : NodeID, time : NodeID): NodeID
       parent_id, parent_time = @parent[u].last
       return root(parent_id, time) if parent_id >= 0 && parent_time <= time
       u
     end
     
-    def size(u : Int32, time : Int32)
+    def size(u : NodeID, time : NodeID): Int32
       u = root(u, time)
       left, right = 0, @parent[u].size
       while right - left > 1
