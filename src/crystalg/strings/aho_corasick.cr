@@ -6,7 +6,7 @@ module Crystalg::Strings
       property link : Int32
       property char : Char
       property is_leaf : Bool
-        
+
       def initialize
         @parent = 0
         @link = -1
@@ -16,18 +16,18 @@ module Crystalg::Strings
         @next = Array(Int32).new(128, -1)
       end
     end
-    
+
     property size : Int32
     property nodes : Array(Node)
     ROOT = 0
-    
+
     def initialize(max_node)
       @size = 0
       @nodes = Array(Node).new(max_node) { Node.new }
       @nodes[ROOT].link = ROOT
       @nodes[ROOT].parent = -1
     end
-    
+
     def add(str)
       cur = ROOT
       str.each_char do |ch|
@@ -42,7 +42,7 @@ module Crystalg::Strings
       end
       @nodes[cur].is_leaf = true
     end
-    
+
     def failure(id)
       if @nodes[id].link == -1
         if @nodes[id].parent == ROOT
@@ -53,7 +53,7 @@ module Crystalg::Strings
       end
       @nodes[id].link
     end
-    
+
     def goto(id, char)
       c = char.bytes.first
       if @nodes[id].@next[c] == -1
@@ -67,7 +67,7 @@ module Crystalg::Strings
       end
       @nodes[id].@next[c]
     end
-    
+
     def contain?(target : String)
       cur = ROOT
       target.each_char do |ch|
@@ -76,11 +76,32 @@ module Crystalg::Strings
       end
       @nodes[cur].is_leaf
     end
-    
-    def match?(target : String)
+
+    def match_suffix?(target : String)
       cur = ROOT
       target.each_char { |ch| cur = goto(cur, ch) }
       @nodes[cur].is_leaf
+    end
+
+    def match_prefixes(target : String): Array(String)
+      cur = ROOT
+      target.each_char do |ch|
+        cur = @nodes[cur].@children[ch.bytes.first]
+        return [] of String if cur < 0
+      end
+      result = [] of String
+      que = [{cur, target}]
+      loop do
+        return result if que.empty?
+        cur, acc = que.shift
+        now = @nodes[cur]
+        result << acc if now.is_leaf
+        now.@children.each do |child|
+          next if child < 0
+          next_char = @nodes[child].char
+          que << {child, acc + next_char}
+        end
+      end
     end
   end
 end
