@@ -47,14 +47,14 @@ module Crystalg::Geometry
     end
 
     def contain(target : Point(T)) : Containment
-      is_contain? = false
+      is_contain = false
       @points.each_with_index do |e, i|
         a, b = cur(i) - target, nxt(i) - target
         a, b = b, a if a.y > b.y
-        is_contain? ^= true if a.y <= 0 && 0 < b.y && a.cross(b) < 0
+        is_contain ^= true if a.y <= 0 && 0 < b.y && a.cross(b) < 0
         return Containment::ON if a.cross(b) == 0 && a.dot(b) <= 0
       end
-      is_contain? ? Containment::IN : Containment::OUT
+      is_contain ? Containment::IN : Containment::OUT
     end
 
     def area : T
