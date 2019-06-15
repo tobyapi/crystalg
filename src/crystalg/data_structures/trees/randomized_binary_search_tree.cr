@@ -35,7 +35,7 @@ module Crystalg::Trees
     end
 
     def initialize
-      @rnd = Random.new
+      @rnd = ::Random.new
     end
 
     @root : (TreeNode(T) | Empty) = Empty.instance

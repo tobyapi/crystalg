@@ -7,20 +7,19 @@ module Crystalg::Graph
       @iter = Array(NodeID).new(@graph.size, 0)
       @level = Array(Int32).new(@graph.size, -1)
     end
-    
+
     def max_flow(source : NodeID, target : NodeID)
       flow = C.zero
       loop do
         bfs(source)
         return flow if @level[target] < 0
         @iter.fill(0)
-        #puts "jjj"
         while (f = dfs(source, target, C::MAX)) > C.zero
           flow += f
         end
       end
     end
-    
+
     private def bfs(source : NodeID)
       @level.fill(-1)
       queue = Queue(Int32).new
@@ -35,7 +34,7 @@ module Crystalg::Graph
         end
       end
     end
-    
+
     private def dfs(v : NodeID, target : NodeID, flow : C): C
       return flow if v == target
       edges = @graph.adjacent(v)
