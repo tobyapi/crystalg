@@ -5,7 +5,7 @@ module Crystalg::NumberTheory
     (1..Math.sqrt(n).to_i).each do |i|
       if(n % i == 0)
         result << i
-        result << n / i if i != n / i
+        result << (n / i).to_i if i != n / i
       end
     end
     result
@@ -18,7 +18,7 @@ module Crystalg::NumberTheory
       count = 0
       while n % i == 0
         count += 1
-        n /= i
+        n = (n / i).to_i
       end
       result[i] = count if count > 0
     end

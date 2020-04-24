@@ -43,7 +43,9 @@ module Crystalg::Geometry
     end
 
     enum Containment
-       OUT = 0, IN = 1, ON = 2
+       OUT = 0
+       IN = 1
+       ON = 2
     end
 
     def contain(target : Point(T)) : Containment
@@ -57,10 +59,10 @@ module Crystalg::Geometry
       is_contain ? Containment::IN : Containment::OUT
     end
 
-    def area : T
+    def area
       result = T.zero
       @points.each_with_index do |e, i|
-        result = result + (e.x - nxt(i).x) * (e.y + nxt(i).y)
+        result += (e.x - nxt(i).x) * (e.y + nxt(i).y)
       end
       result.abs / 2.0
     end

@@ -4,6 +4,6 @@ version: 0.1.0
 authors:
   - tobias <landofscala@gmail.com>
 
-crystal: 0.28.0
+crystal: 0.34.0
 
 license: MIT

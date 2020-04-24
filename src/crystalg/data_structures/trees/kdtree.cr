@@ -6,7 +6,7 @@ module Crystalg::Trees
   class KDTree(T)
     @size : Int32
     @points : Array(Point(T))
-    
+
     def initialize(@points)
       @size = points.size
       @tx = Array(T).new(@size, T.zero)
@@ -21,7 +21,7 @@ module Crystalg::Trees
 
     def build(left, right, divx)
       return if left >= right
-      middle = (left + right) / 2
+      middle = ((left + right) / 2).to_i
 
       sort(left, right)
 
@@ -42,7 +42,7 @@ module Crystalg::Trees
     end
 
     private def sort(left, right, divx = true)
-      middle = (left + right) / 2
+      middle = ((left + right) / 2).to_i
       loop do
         k = partition(left, right, middle ,divx)
         return if k == middle
@@ -83,7 +83,7 @@ module Crystalg::Trees
 
     private def count(left, right, bottom_left, top_right)
       return 0 if left >= right
-      middle = (left + right) / 2
+      middle = ((left + right) / 2).to_i
       minx, miny, maxx, maxy = @minx[middle], @miny[middle], @maxx[middle], @maxy[middle]
 
       if top_right.x < minx || maxx < bottom_left.x || top_right.y < miny || maxy < bottom_left.y
@@ -109,7 +109,7 @@ module Crystalg::Trees
     private def nearest_neighbour(left, right, target, divx, best)
       return best if left >= right
 
-      middle = (left + right) / 2
+      middle = ((left + right) / 2).to_i
       dx, dy = target.x - @points[middle].x, target.y - @points[middle].y
       dist = dx ** 2 + dy ** 2
       delta = divx ? dx : dy

@@ -14,8 +14,8 @@ module Crystalg::Graph
       @from == that.@from && @visited == that.@visited
     end
 
-    def <=>(that : self)
-      @cost <=> that.@cost
+    def <=>(other : State)
+      @cost <=> other.@cost
     end
 
     def visit()
@@ -53,8 +53,8 @@ module Crystalg::Graph
     end
 
     def initialize_containers(graph : Graph, start : NodeID, state_container : DataStructure)
-      result_container = Array(State(T)).new(graph.size) { |i| 
-        State.new(i, 0, -1) 
+      result_container = Array(State(T)).new(graph.size) { |i|
+        State.new(i, 0, -1)
       }
       result_container[start].visit
       state_container.push(result_container[start])

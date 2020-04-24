@@ -4,7 +4,7 @@ module Crystalg::Random
 
     def initialize(s : UInt64)
       @seed = (1..4).map do |i|
-        s = 1812433253_u64 * (s ^ (s>>30)) + i
+        s = 1812433253_u64 &* (s ^ (s>>30)) + i
       end
     end
 

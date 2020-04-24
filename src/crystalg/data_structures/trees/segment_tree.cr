@@ -10,9 +10,9 @@ end
 
 module Crystalg::Trees
   class SegmetTree(T)
-    
+
     getter size : Int32
-    
+
     def initialize(@size)
       @n = 1
       while @n < @size
@@ -38,7 +38,7 @@ module Crystalg::Trees
         @delta[k] = @delta[k] + v
         propagate k
       else
-        mid = (l + r) / 2
+        mid = ((l + r) / 2).to_i
         add(a, b, v, k.left, l, mid)
         add(a, b, v, k.right, mid, r)
         @value[k] = Math.min(@value[k.left], @value[k.right])
@@ -49,7 +49,7 @@ module Crystalg::Trees
       propagate k
       return T::MAX if r <= a || b <= l
       return @value[k] if a <= l && r <= b
-      mid = (l + r) / 2
+      mid = ((l + r) / 2).to_i
       left_result = min(a,b,k.left,l,mid)
       right_result = min(a,b,k.right,mid,r)
       Math.min(left_result, right_result)

@@ -24,7 +24,7 @@ struct Int
     result = 1
     while exp > 0
       result = result * y % mod if (exp & 1) != 0
-      y = y * y % mod
+      y = y &* y % mod
       exp = exp >> 1
     end
     result
