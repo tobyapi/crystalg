@@ -4,8 +4,8 @@ module Crystalg::Graph::AdjacencyList
 
   # C: type of cost
   class UndirectedGraph(C) < Graph(C)
-    getter size
-    
+    getter size : Int32
+
     def initialize(@size : Int32)
       @graph = Array(Array(Tuple(NodeID, C))).new(@size) {
         Array(Tuple(NodeID, C)).new
@@ -22,7 +22,7 @@ module Crystalg::Graph::AdjacencyList
         Edge(C).new(node_id, e[0], e[1])
       end
     end
-    
+
     def edges : Array(Edge(C))
       result = Array(Edge(C)).new
       (0...@size).each do |node_id|
@@ -32,7 +32,7 @@ module Crystalg::Graph::AdjacencyList
       end
       result.uniq!
     end
-    
+
     def articulation_points : Array(NodeID)
       ArticulationPoints.new(self).all
     end

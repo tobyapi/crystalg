@@ -4,8 +4,9 @@ module Crystalg::Graph::AdjacencyList
 
   # C: type of cost
   class DirectedGraph(C) < Graph(C)
-    getter size
-    
+    getter size : Int32
+
+
     def initialize(@size : Int32)
       @graph = Array(Array(Tuple(NodeID, C))).new(@size) {
         Array(Tuple(NodeID, C)).new
@@ -21,7 +22,7 @@ module Crystalg::Graph::AdjacencyList
         Edge(C).new(node_id, e[0], e[1])
       end
     end
-    
+
     def edges : Array(Edge(C))
       result = Array(Edge(C)).new
       (0...@size).each do |node_id|
@@ -29,11 +30,11 @@ module Crystalg::Graph::AdjacencyList
       end
       result.uniq!
     end
-    
+
     def has_cycle?
       CycleDetection.new(self).has_cycle?
     end
-    
+
     def topological_sort : Array(NodeID)
       used = Array(Bool).new(@size, false)
       order = Array(NodeID).new
