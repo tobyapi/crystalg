@@ -1,7 +1,3 @@
-[![Build Status](https://travis-ci.org/TobiasGSmollett/crystalg.svg?branch=master)](https://travis-ci.org/TobiasGSmollett/crystalg)
-[![Dependency Status](https://shards.rocks/badge/github/TobiasGSmollett/crystalg/status.svg)](https://shards.rocks/github/TobiasGSmollett/crystalg)
-[![devDependency Status](https://shards.rocks/badge/github/TobiasGSmollett/crystalg/dev_status.svg)](https://shards.rocks/github/TobiasGSmollett/crystalg)
-
 # Crystalg
 
 A generic algorithm library for crystal-lang.
