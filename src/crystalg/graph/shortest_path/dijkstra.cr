@@ -4,25 +4,25 @@ require "../../data_structures/*"
 include Crystalg::DataStructures
 
 module Crystalg::Graph
-  class Dijkstra(T) < Search(T,PriorityQueue(State(T)))
+  class Dijkstra(T)
     def run(graph : Graph(T), start : NodeID): Array(State(T))
-      initializer = ->(graph : Graph(T), start : NodeID, state_container : PriorityQueue(State(T))){
-        initialize_containers(graph, start, state_container)
-      }
+      que = PriorityQueue(State(T)).new
+      result = Array(State(T)).new(graph.size) { |i| State.new(i, 0, -1) }
 
-      edge_filter = ->(adjacent  : Array(Edge(T)), current : State(T), result : Array(State(T))){
-        adjacent.select do |edge|
-          !result[edge.target].visited? || current.@cost + edge.cost < result[edge.target].@cost
+      start_state = State(T).new(start, 0, -1, true)
+      que.push(start_state)
+      result[start] = start_state
+
+      until (current_state = que.pop!).nil?
+        graph.adjacent(current_state.@node_id).map do |edge|
+          cost = current_state.@cost + edge.cost
+          next if result[edge.target].@cost < cost && result[edge.target].visited?
+          next_state = State(T).new(edge.target, cost, edge.source, true)
+          que.push(next_state)
+          result[edge.target] = next_state
         end
-      }
-
-      next_state_generator = ->(edges : Array(Edge(T)), current : State(T)){
-        edges.map do |edge|
-          State(T).new(edge.target, current.@cost + edge.cost, current.@node_id, true)
-        end
-      }
-
-      run(graph, start, initializer, edge_filter, next_state_generator)
+      end
+      result
     end
   end
 end
