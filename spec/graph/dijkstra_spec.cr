@@ -12,7 +12,7 @@ describe Crystalg do
     graph.add(Edge.new(2,3,1))
     graph.add(Edge.new(1,3,5))
 
-    result = Dijkstra(Int32).new.run(graph, 0)
+    result = graph.dijkstra(0)
 
     ans = [
       State.new(0,0,-1,true),
@@ -33,7 +33,7 @@ describe Crystalg do
     graph.add(Edge.new(3,1,1))
     graph.add(Edge.new(3,2,5))
 
-    result = Dijkstra(Int32).new.run(graph, 1)
+    result = graph.dijkstra(1)
 
     ans = [
       State.new(0,3,2,true),

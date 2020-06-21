@@ -6,7 +6,6 @@ module Crystalg::Graph::AdjacencyList
   class DirectedGraph(C) < Graph(C)
     getter size : Int32
 
-
     def initialize(@size : Int32)
       @graph = Array(Array(Tuple(NodeID, C))).new(@size) {
         Array(Tuple(NodeID, C)).new
@@ -50,6 +49,39 @@ module Crystalg::Graph::AdjacencyList
         topological_sort used, order, e.target if !used[e.target]
       end
       order << u
+    end
+
+    def has_negative_loop?
+      dist = Array(Int32).new(@size, 0)
+      (0...@size).each do |i|
+        edges.each do |edge|
+          if dist[edge.target] > dist[edge.source] + edge.cost
+            dist[edge.target] = dist[edge.source] + edge.cost
+            return true if i == @size - 1
+          end
+        end
+      end
+      false
+    end
+
+    def dijkstra(start : NodeID): Array(State(C))
+      que = PriorityQueue(State(C)).new
+      result = Array(State(C)).new(@size) { |i| State.new(i, 0, -1) }
+
+      start_state = State(C).new(start, 0, -1, true)
+      que.push(start_state)
+      result[start] = start_state
+
+      until (current_state = que.pop!).nil?
+        adjacent(current_state.@node_id).map do |edge|
+          cost = current_state.@cost + edge.cost
+          next if result[edge.target].@cost < cost && result[edge.target].visited?
+          next_state = State(C).new(edge.target, cost, edge.source, true)
+          que.push(next_state)
+          result[edge.target] = next_state
+        end
+      end
+      result
     end
   end
 end

@@ -1,4 +1,4 @@
-require "../representation/adjacency_list/flow_graph"
+require "../flow_graph"
 
 module Crystalg::Graph
 
@@ -7,7 +7,7 @@ module Crystalg::Graph
     def initialize(@graph : FlowGraph(C))
       @used = Array(Bool).new(@graph.size, false)
     end
-    
+
     def max_flow(source : NodeID, target : NodeID)
       flow = C.zero
       loop do
@@ -17,7 +17,7 @@ module Crystalg::Graph
         flow += f
       end
     end
-    
+
     def dfs(v : NodeID, target : NodeID, flow : C): C
       return flow if v == target
       @used[v] = true

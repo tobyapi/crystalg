@@ -5,13 +5,13 @@ include Crystalg::Graph
 describe Crystalg do
   it "bellman_ford" do
     graph = UndirectedGraph(Int32).new(4)
-    graph.add(Edge.new(0,1,1))
-    graph.add(Edge.new(0,2,4))
-    graph.add(Edge.new(1,2,2))
-    graph.add(Edge.new(2,3,1))
-    graph.add(Edge.new(1,3,5))
+    graph.add Edge.new(0,1,1)
+    graph.add Edge.new(0,2,4)
+    graph.add Edge.new(1,2,2)
+    graph.add Edge.new(2,3,1)
+    graph.add Edge.new(1,3,5)
 
-    result = BellmanFord.shortest_path(0,graph)
+    result = graph.bellman_ford(0)
 
     ans = [0, 1, 3, 4]
 
@@ -19,22 +19,22 @@ describe Crystalg do
   end
 
   it "has_negative_loop" do
-    graph = DirectedGraph.new(4)
+    graph = DirectedGraph(Int32).new(4)
     graph.add(Edge.new(0,1,-1))
-    graph.add(Edge.new(0,2,-4))
     graph.add(Edge.new(1,2,2))
+    graph.add(Edge.new(2,0,-4))
     graph.add(Edge.new(2,3,-1))
     graph.add(Edge.new(1,3,5))
 
-    true.should eq BellmanFord.has_negative_loop?(graph)
+    true.should eq graph.has_negative_loop?
 
-    graph2 = DirectedGraph.new(4)
+    graph2 = DirectedGraph(Int32).new(4)
     graph2.add(Edge.new(0,1,-1))
     graph2.add(Edge.new(0,2,-4))
     graph2.add(Edge.new(1,2,2))
     graph2.add(Edge.new(2,3,1))
     graph2.add(Edge.new(1,3,5))
 
-    false.should eq BellmanFord.has_negative_loop?(graph2)
+    false.should eq graph2.has_negative_loop?
   end
 end

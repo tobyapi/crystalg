@@ -1,5 +1,5 @@
 require "../../data_structures/queue"
-require "../representation/adjacency_list/flow_graph"
+require "../flow_graph"
 
 module Crystalg::Graph
   class Dinic(C)
