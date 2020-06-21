@@ -1,4 +1,4 @@
-require "../graph"
+require "./connected_components/*"
 
 module Crystalg::Graph::AdjacencyList
 
@@ -33,12 +33,7 @@ module Crystalg::Graph::AdjacencyList
       result.uniq!
     end
 
-    def articulation_points : Array(NodeID)
-      ArticulationPoints.new(self).all
-    end
-
-    def bridges : Array(Edge(C))
-      Bridges.new(self).all
-    end
+    include ConnectedComponents::ArticulationPoints
+    include ConnectedComponents::Bridges(C)
   end
 end

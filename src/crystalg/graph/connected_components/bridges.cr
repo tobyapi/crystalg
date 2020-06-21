@@ -1,47 +1,32 @@
-require "../*"
+require "./context"
 
-module Crystalg::Graph
-  class Bridges(T)
-    @k : Int32
-    @used : Array(Bool)
-    @order : Array(Int32)
-    @lowlink : Array(Int32)
-    @parent : Array(Int32)
+module Crystalg::Graph::ConnectedComponents
+  module Bridges(T)
 
-    private getter k, used, order, lowlink, parent, bridges, graph
-    private setter k, used, order, lowlink, parent, bridges
+    private def bridge_dfs(u : NodeID, bridges : Array(Edge(T)), ctx : Context, prev : NodeID = -1)
+      ctx.used[u] = true
+      ctx.order[u] = ctx.lowlink[u] = ctx.k
+      ctx.k += 1
 
-    getter articulation_points
-
-    def initialize(@graph : UndirectedGraph(T))
-      @k = 0
-      @used = Array(Bool).new(graph.@size, false)
-      @order = Array(Int32).new(graph.@size, 0)
-      @lowlink = Array(Int32).new(graph.@size, 0)
-      @parent = Array(Int32).new(graph.@size, -1)
-      @bridges = Array(Edge(T)).new
-    end
-
-    def dfs(u : NodeID, prev : NodeID = -1)
-      used[u] = true
-      order[u] = lowlink[u] = @k
-      @k += 1
-
-      graph.adjacent(u).each do |edge|
-        if !used[edge.target]
-          parent[edge.target] = u
-          dfs(edge.target, u)
-          lowlink[u] = Math.min(lowlink[u], lowlink[edge.target])
-          bridges << Edge.new(Math.min(u, edge.target), Math.max(u, edge.target), edge.cost) if order[u] < lowlink[edge.target]
+      adjacent(u).each do |edge|
+        if !ctx.used[edge.target]
+          bridge_dfs(edge.target, bridges, ctx, u)
+          ctx.lowlink[u] = Math.min(ctx.lowlink[u], ctx.lowlink[edge.target])
+          if ctx.order[u] < ctx.lowlink[edge.target]
+            left = Math.min(u, edge.target)
+            right = Math.max(u, edge.target)
+            bridges << Edge.new(left, right, edge.cost)
+          end
         elsif edge.target != prev
-          lowlink[u] = Math.min(lowlink[u], order[edge.target])
+          ctx.lowlink[u] = Math.min(ctx.lowlink[u], ctx.order[edge.target])
         end
       end
     end
 
-    def all : Array(Edge(T))
-      bridges.clear
-      dfs(0)
+    def bridges
+      ctx = Context.new(@size)
+      bridges = Array(Edge(T)).new
+      bridge_dfs(0, bridges, ctx)
       bridges
     end
   end
