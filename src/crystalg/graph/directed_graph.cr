@@ -1,4 +1,5 @@
-require "../graph"
+require "./connected_components/*"
+require "./shortest_path/*"
 
 module Crystalg::Graph::AdjacencyList
 
@@ -30,10 +31,6 @@ module Crystalg::Graph::AdjacencyList
       result.uniq!
     end
 
-    def has_cycle?
-      CycleDetection.new(self).has_cycle?
-    end
-
     def topological_sort : Array(NodeID)
       used = Array(Bool).new(@size, false)
       order = Array(NodeID).new
@@ -51,55 +48,7 @@ module Crystalg::Graph::AdjacencyList
       order << u
     end
 
-    INF = 2147483647
-
-    def bellman_ford(start : Int32): Array(Int32)
-      dist = Array(Int32).new(@size, INF)
-      dist[start] = 0
-      loop do
-        update = false
-        edges.each do |edge|
-          if dist[edge.source] != INF && dist[edge.target] > dist[edge.source] + edge.cost
-            dist[edge.target] = dist[edge.source] + edge.cost
-            update = true
-          end
-        end
-        break if !update
-      end
-      dist
-    end
-
-    def has_negative_loop?
-      dist = Array(Int32).new(@size, 0)
-      (0...@size).each do |i|
-        edges.each do |edge|
-          if dist[edge.target] > dist[edge.source] + edge.cost
-            dist[edge.target] = dist[edge.source] + edge.cost
-            return true if i == @size - 1
-          end
-        end
-      end
-      false
-    end
-
-    def dijkstra(start : NodeID): Array(State(C))
-      que = PriorityQueue(State(C)).new
-      result = Array(State(C)).new(@size) { |i| State.new(i, 0, -1) }
-
-      start_state = State(C).new(start, 0, -1, true)
-      que.push(start_state)
-      result[start] = start_state
-
-      until (current_state = que.pop!).nil?
-        adjacent(current_state.@node_id).map do |edge|
-          cost = current_state.@cost + edge.cost
-          next if result[edge.target].@cost < cost && result[edge.target].visited?
-          next_state = State(C).new(edge.target, cost, edge.source, true)
-          que.push(next_state)
-          result[edge.target] = next_state
-        end
-      end
-      result
-    end
+    include ConnectecComponents::CycleDetection
+    include ShortestPath::Dijkstra(C)
   end
 end
