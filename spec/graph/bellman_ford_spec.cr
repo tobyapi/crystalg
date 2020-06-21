@@ -4,7 +4,7 @@ include Crystalg::Graph
 
 describe Crystalg do
   it "bellman_ford" do
-    graph = UndirectedGraph(Int32).new(4)
+    graph = DirectedGraph(Int32).new(4)
     graph.add Edge.new(0,1,1)
     graph.add Edge.new(0,2,4)
     graph.add Edge.new(1,2,2)

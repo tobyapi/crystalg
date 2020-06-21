@@ -51,6 +51,24 @@ module Crystalg::Graph::AdjacencyList
       order << u
     end
 
+    INF = 2147483647
+
+    def bellman_ford(start : Int32): Array(Int32)
+      dist = Array(Int32).new(@size, INF)
+      dist[start] = 0
+      loop do
+        update = false
+        edges.each do |edge|
+          if dist[edge.source] != INF && dist[edge.target] > dist[edge.source] + edge.cost
+            dist[edge.target] = dist[edge.source] + edge.cost
+            update = true
+          end
+        end
+        break if !update
+      end
+      dist
+    end
+
     def has_negative_loop?
       dist = Array(Int32).new(@size, 0)
       (0...@size).each do |i|
