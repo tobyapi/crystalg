@@ -1,4 +1,5 @@
 require "./connected_components/*"
+require "./spanning_tree/*"
 
 module Crystalg::Graph::AdjacencyList
 
@@ -35,5 +36,6 @@ module Crystalg::Graph::AdjacencyList
 
     include ConnectedComponents::ArticulationPoints
     include ConnectedComponents::Bridges(C)
+    include SpanningTree::Kruskal(C)
   end
 end
