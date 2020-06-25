@@ -13,14 +13,13 @@ describe Crystalg do
     graph.add(Edge.new(1,3,5))
 
     result = graph.dijkstra(0)
+    ans = [{0, nil}, {1, 0}, {3, 1}, {4, 2}]
 
-    ans = [
-      State.new(0,0,-1,true),
-      State.new(1,1,0,true),
-      State.new(2,3,1,true),
-      State.new(3,4,2,true)
-    ]
+    true.should eq(result === ans)
 
+    result = graph.get_dijkstra_path(3, result)
+    ans = [0,1,2,3]
+    
     true.should eq(result === ans)
   end
 
@@ -34,13 +33,8 @@ describe Crystalg do
     graph.add(Edge.new(3,2,5))
 
     result = graph.dijkstra(1)
+    ans = [{3, 2}, {0, nil}, {2, 1}, nil]
 
-    ans = [
-      State.new(0,3,2,true),
-      State.new(1,0,-1,true),
-      State.new(2,2,1,true),
-      State.new(3,0,-1,false)
-    ]
     true.should eq(result === ans)
   end
 end
