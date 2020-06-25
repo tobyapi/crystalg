@@ -4,32 +4,31 @@ module Crystalg::Graph::ShortestPath
 
   module Dijkstra(C)
     def dijkstra(start : NodeID): Array(Tuple(C, NodeID?)?)
-      que = PriorityQueue(Tuple(C, NodeID, NodeID)).new
+      que = PriorityQueue(Tuple(C, NodeID)).new
       result = Array(Tuple(C, NodeID?)?).new(@size, nil)
 
-      start_state = {0, start, -1}
+      start_state = {0, start}
       que.push(start_state)
       result[start] = {0, nil}
 
       until (current_state = que.pop!).nil?
-        adjacent(current_state[1]).map do |edge|
-          target_result = result[edge.target]
-          is_visited = !target_result.nil?
-          cost_to_target_node = current_state[0] + edge.cost
+        current_cost, node_id = current_state
+        adjacent_nodes(node_id).each do |target_id, target_cost|
+          is_visited = !result[target_id].nil?
+          cost = current_cost + target_cost
 
-          next if is_visited && is_lower?(cost_to_target_node, target_result)
+          next if is_visited && gte?(cost, result[target_id])
 
-          next_state = {cost_to_target_node, edge.target, edge.source}
-          que.push(next_state)
-          result[edge.target] = {cost_to_target_node, edge.source}
+          result[target_id] = {cost, node_id}
+          que.push({cost, target_id})
         end
       end
       result
     end
 
-    private def is_lower?(cost_to_target_node : C, target_result : Tuple(C, NodeID?)?)
+    private def gte?(cost_to_target : C, target_result : Tuple(C, NodeID?)?)
       target_node_result = target_result.as(Tuple(C, NodeID?))
-      target_node_result[0] < cost_to_target_node
+      target_node_result[0] <= cost_to_target
     end
 
     def get_dijkstra_path(node_id : NodeID, dijkstra_result : Array(Tuple(C, NodeID?)?)): Array(NodeID)

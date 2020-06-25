@@ -25,11 +25,11 @@ module Crystalg::Graph
       queue = Queue(Int32).new
       @level[source] = 0
       queue.push source
-      while !(v = queue.pop!).nil?
-        @graph.adjacent(v).each do |e|
-          if e.capacity > C.zero && @level[e.target] < 0
-            @level[e.target] = @level[v] + 1
-            queue.push e.target
+      while !(node_id = queue.pop!).nil?
+        @graph.adjacent_nodes(node_id).each do |target_id, capacity|
+          if capacity > C.zero && @level[target_id] < 0
+            @level[target_id] = @level[node_id] + 1
+            queue.push(target_id)
           end
         end
       end
@@ -37,11 +37,11 @@ module Crystalg::Graph
 
     private def dfs(v : NodeID, target : NodeID, flow : C): C
       return flow if v == target
-      edges = @graph.adjacent(v)
-      while @iter[v] < edges.size
-        e = edges[@iter[v]]
-        if e.capacity > C.zero && @level[v] < @level[e.target]
-          d = dfs(e.target, target, Math.min(flow, e.capacity))
+      nodes = @graph.adjacent_nodes(v)
+      while @iter[v] < nodes.size
+        next_id, capacity, _rev = nodes[@iter[v]]
+        if capacity > C.zero && @level[v] < @level[next_id]
+          d = dfs(next_id, target, Math.min(flow, capacity))
           return @graph.flow(v, @iter[v], d) if d > C.zero
         end
         @iter[v] += 1

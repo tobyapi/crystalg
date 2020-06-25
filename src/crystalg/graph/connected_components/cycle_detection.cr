@@ -6,9 +6,9 @@ module Crystalg::Graph::ConnectecComponents
     private def dfs(u : Int32, used : Array(Int32), flag : Bool): Bool
       return flag if used[u] == 1 || flag
       used[u] = 2
-      adjacent(u).each do |e|
-        return true if used[e.target] == 2
-        flag ||= dfs(e.target, used, flag) if used[e.target] == 0
+      adjacent_nodes(u).each do |target_node_id, target_cost|
+        return true if used[target_node_id] == 2
+        flag ||= dfs(target_node_id, used, flag) if used[target_node_id] == 0
       end
       used[u] = 1
       flag

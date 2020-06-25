@@ -17,16 +17,19 @@ module Crystalg::Graph::AdjacencyList
       @graph[edge.source] << {edge.target, edge.cost}
     end
 
-    def adjacent(node_id : NodeID) : Array(Edge(C))
+    def adjacent_nodes(node_id : NodeID) : Array(Tuple(C, NodeID))
       @graph[node_id].map do |e|
-        Edge(C).new(node_id, e[0], e[1])
+        {e[0], e[1]}
       end
     end
 
     def edges : Array(Edge(C))
       result = Array(Edge(C)).new
       (0...@size).each do |node_id|
-        result.concat adjacent node_id
+        node_edges = adjacent_nodes(node_id).map do |target_id, cost|
+          Edge(C).new(node_id, target_id, cost)
+        end
+        result.concat(node_edges)
       end
       result.uniq!
     end
@@ -42,8 +45,8 @@ module Crystalg::Graph::AdjacencyList
 
     private def topological_sort(used : Array(Bool), order : Array(NodeID), u : NodeID)
       used[u] = true
-      adjacent(u).each do |e|
-        topological_sort used, order, e.target if !used[e.target]
+      adjacent_nodes(u).each do |target_id, _cost|
+        topological_sort(used, order, target_id) if !used[target_id]
       end
       order << u
     end

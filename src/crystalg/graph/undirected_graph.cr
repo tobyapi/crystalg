@@ -18,17 +18,17 @@ module Crystalg::Graph::AdjacencyList
       @graph[edge.target] << {edge.source, edge.cost}
     end
 
-    def adjacent(node_id : NodeID) : Array(Edge(C))
+    def adjacent_nodes(node_id : NodeID) : Array(Tuple(NodeID, C))
       @graph[node_id].map do |e|
-        Edge(C).new(node_id, e[0], e[1])
+        {e[0], e[1]}
       end
     end
 
     def edges : Array(Edge(C))
       result = Array(Edge(C)).new
       (0...@size).each do |node_id|
-        adjacent(node_id).each do |edge|
-          result << edge if edge.source < edge.target
+        adjacent_nodes(node_id).each do |target_id, cost|
+          result << Edge(C).new(node_id, target_id, cost) if node_id < target_id
         end
       end
       result.uniq!

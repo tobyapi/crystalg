@@ -8,13 +8,13 @@ module Crystalg::Graph::ConnectedComponents
       ctx.order[u] = ctx.lowlink[u] = ctx.k
       ctx.k += 1
 
-      adjacent(u).each do |edge|
-        if !ctx.used[edge.target]
-          ctx.parent[edge.target] = u
-          articulation_points_dfs(edge.target, ctx, u)
-          ctx.lowlink[u] = Math.min(ctx.lowlink[u], ctx.lowlink[edge.target])
-        elsif edge.target != prev
-          ctx.lowlink[u] = Math.min(ctx.lowlink[u], ctx.order[edge.target])
+      adjacent_nodes(u).each do |target_id, _target_cost|
+        if !ctx.used[target_id]
+          ctx.parent[target_id] = u
+          articulation_points_dfs(target_id, ctx, u)
+          ctx.lowlink[u] = Math.min(ctx.lowlink[u], ctx.lowlink[target_id])
+        elsif target_id != prev
+          ctx.lowlink[u] = Math.min(ctx.lowlink[u], ctx.order[target_id])
         end
       end
     end

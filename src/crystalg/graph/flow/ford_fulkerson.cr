@@ -18,13 +18,14 @@ module Crystalg::Graph
       end
     end
 
-    def dfs(v : NodeID, target : NodeID, flow : C): C
-      return flow if v == target
-      @used[v] = true
-      @graph.adjacent(v).each_with_index do |e, i|
-        if !@used[e.target] && e.capacity > C.zero
-          d = dfs(e.target, target, Math.min(flow, e.capacity))
-          return @graph.flow(v,i,d) if d > C.zero
+    def dfs(node_id : NodeID, target : NodeID, flow : C): C
+      return flow if node_id == target
+      @used[node_id] = true
+      @graph.adjacent_nodes(node_id).each_with_index do |node, i|
+        next_id, capacity = node
+        if !@used[next_id] && capacity > C.zero
+          d = dfs(next_id, target, Math.min(flow, capacity))
+          return @graph.flow(node_id, i, d) if d > C.zero
         end
       end
       C.zero
