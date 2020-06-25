@@ -1,6 +1,6 @@
 require "../spec_helper"
 
-include Crystalg::Graph::AdjacencyList
+include Crystalg::Graph
 
 describe Crystalg do
   it "articulation_points_1" do

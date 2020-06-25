@@ -1,6 +1,6 @@
 require "../graph"
 
-module Crystalg::Graph::AdjacencyList
+module Crystalg::Graph
 
   # C: type of capacity
   class FlowGraph(C)
