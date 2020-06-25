@@ -36,6 +36,8 @@ module Crystalg::Graph::ShortestPath
       return path if dijkstra_result[node_id].nil?
 
       until node_id.nil?
+        Helper.assert(!dijkstra_result[node_id].nil?)
+        
         path << node_id
         _cost, prev_node_id = dijkstra_result[node_id].as(Tuple(C, NodeID?))
         node_id = prev_node_id
