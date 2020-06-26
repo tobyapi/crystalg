@@ -25,7 +25,7 @@ module Crystalg::Graph
       queue = Queue(Int32).new
       @level[source] = 0
       queue.push source
-      while !(node_id = queue.pop!).nil?
+      until (node_id = queue.pop!).nil?
         @graph.adjacent_nodes(node_id).each do |target_id, capacity|
           if capacity > C.zero && @level[target_id] < 0
             @level[target_id] = @level[node_id] + 1
