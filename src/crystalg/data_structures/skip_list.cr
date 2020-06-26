@@ -54,8 +54,8 @@ module Crystalg::DataStructures
       current = @origin
       while 0 < current.level
         while level < current.level
-          current = current.down
-          raise "you found bug" if current.nil?
+          current = current.down.as(Node)
+          Helper.assert(!current.nil?)
         end
 
         unless current.nil?
