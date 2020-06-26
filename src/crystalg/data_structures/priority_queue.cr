@@ -1,54 +1,52 @@
 
 module Crystalg::DataStructures
   class PriorityQueue(A)
-    private getter array : Array(A)
     getter size : UInt32
 
-    def initialize()
-      @array = Array(A).new
+    def initialize
+      @heap = Array(A).new
       @size = 0_u32
     end
 
     def push(val)
-      @array << val
-
+      @heap << val
       i = @size
       @size += 1
-      while(i > 0)
+      while 0 < i
         parent = ((i - 1) / 2).to_i
-        break if @array[parent] <= val
-        @array[i] = @array[parent]
+        break if @heap[parent] <= val
+        @heap[i] = @heap[parent]
         i = parent
       end
-      @array[i] = val
+      @heap[i] = val
     end
 
     def pop
       @size -= 1
-      x = @array[@size]
-
-      i = 0
-      while(i * 2 + 1 < @size)
-        left_child = i * 2 + 1
-        right_child = i * 2 + 2
-        left_child = right_child if left_child < @size && @array[right_child] < @array[left_child]
-        break if @array[left_child] >= x
-        @array[i] = @array[left_child]
-        i = left_child
+      x = @heap[@size]
+      pos = 0
+      loop do
+        child = 2 * pos + 1
+        break if @size <= child
+        if child < @size && @heap[child + 1] < @heap[child]
+          child += 1
+        end
+        break if x <= @heap[child]
+        @heap[pos] = @heap[child]
+        pos = child
       end
-      @array[i] = x
+      @heap[pos] = x
     end
 
     def pop!
-      if !empty?
-        result = top
-        pop
-        result
-      end
+      return if empty?
+      result = top
+      pop
+      result
     end
 
     def top
-      @array.first?
+      @heap.first?
     end
 
     def empty?
