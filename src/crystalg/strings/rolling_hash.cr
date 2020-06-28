@@ -1,8 +1,7 @@
-
 module Crystalg::Strings
-
   class RollingHash
     private PRIME = 1000000007
+
     def initialize(@str : String)
       @pow = Array(Int64).new(@str.size + 1)
       @phash = Array(Int64).new(@str.size + 1)
@@ -27,17 +26,17 @@ module Crystalg::Strings
       result = 0
       if w < @str.size
         h = hash t
-        result = result &+ (0..@str.size - w).count { |i| hash(i, i+w) == h }
+        result = result &+ (0..@str.size - w).count { |i| hash(i, i + w) == h }
       end
       result
     end
 
     def lcp(i, j)
       l = 0
-      r = @str.size - Math.max(i,j) + 1
+      r = @str.size - Math.max(i, j) + 1
       while l + 1 < r
         m = (l + r) >> 1
-        if hash(i,i+m) == hash(j,j+m)
+        if hash(i, i + m) == hash(j, j + m)
           l = m
         else
           r = m
@@ -52,15 +51,15 @@ module Crystalg::Strings
         -1
       elsif j + k >= @str.size
         1
-      elsif @str[i+k] == @str[j+k]
+      elsif @str[i + k] == @str[j + k]
         0
       else
-        @str[i+k] < @str[j+k] ? -1 : 1
+        @str[i + k] < @str[j + k] ? -1 : 1
       end
     end
 
     def get_suffix_array
-      suffix_array = (0...@str.size+1).to_a
+      suffix_array = (0...@str.size + 1).to_a
       suffix_array.sort { |a, b| compare a, b }
     end
   end

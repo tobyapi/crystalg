@@ -3,10 +3,8 @@ require "../spec_helper"
 include Crystalg::Graph
 
 describe Crystalg do
-
   it "queue" do
-
-    input = [1,2,3,4,5]
+    input = [1, 2, 3, 4, 5]
 
     queue = Queue(Int32).new
 

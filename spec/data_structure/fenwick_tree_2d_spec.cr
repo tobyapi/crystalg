@@ -8,7 +8,7 @@ describe Crystalg do
     (1..5).each { |e| fenwick.add(e, e, e) }
 
     (1..5).each { |e|
-      true.should eq(fenwick.sum(e,e) === e * (e + 1) / 2)
+      true.should eq(fenwick.sum(e, e) === e * (e + 1) / 2)
     }
   end
 end

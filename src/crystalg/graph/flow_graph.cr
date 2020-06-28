@@ -1,7 +1,6 @@
 require "../graph"
 
 module Crystalg::Graph
-
   # C: type of capacity
   class FlowGraph(C)
     getter size
@@ -23,7 +22,7 @@ module Crystalg::Graph
       end
     end
 
-    def flow(v : NodeID, index : Int32, f : C): C
+    def flow(v : NodeID, index : Int32, f : C) : C
       e = @graph[v][index]
       r = @graph[e[0]][e[2]]
       @graph[v][index] = {e[0], e[1] - f, e[2]}

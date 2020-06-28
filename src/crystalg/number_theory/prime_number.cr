@@ -1,9 +1,8 @@
-
 module Crystalg::NumberTheory
   def divisor(n)
     result = Array(Int32).new
     (1..Math.sqrt(n).to_i).each do |i|
-      if(n % i == 0)
+      if (n % i == 0)
         result << i
         result << (n / i).to_i if i != n / i
       end
@@ -30,7 +29,7 @@ module Crystalg::NumberTheory
     result = Array(Bool).new(n + 1, true)
     result[0] = result[1] = false
     (2..Math.sqrt(n).to_i).each do |i|
-      if(result[i] == true)
+      if (result[i] == true)
         (i*i..n).step(i).each { |i| result[j] = false }
       end
     end

@@ -3,7 +3,6 @@ require "../spec_helper"
 include Crystalg::NumberTheory
 
 describe Crystalg do
-
   it "gcd" do
     true.should eq(gcd(2, 3) === 1)
     true.should eq(gcd(8, 12) === 4)
@@ -21,5 +20,4 @@ describe Crystalg do
     true.should eq(extgcd(4, 12) === {4, 1, 0})
     true.should eq(extgcd(3, 8) === {1, 3, -1})
   end
-
 end

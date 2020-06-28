@@ -1,6 +1,4 @@
-
 module Crystalg::NumberTheory
-
   def gcd(a, b)
     while b != 0
       a, b = b, (a % b).to_i
@@ -9,7 +7,7 @@ module Crystalg::NumberTheory
   end
 
   def lcm(a, b)
-    (a / gcd(a,b) * b).abs
+    (a / gcd(a, b) * b).abs
   end
 
   # returns {gcd(a,b), x, y} such that gcd(a,b) == a*x + b*y

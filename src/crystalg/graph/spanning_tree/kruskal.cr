@@ -2,9 +2,8 @@ require "../graph"
 require "../../data_structures/*"
 
 module Crystalg::Graph::SpanningTree
-
   module Kruskal(C)
-    def kruskal(): Array(Edge(C))
+    def kruskal : Array(Edge(C))
       union_find = UnionFind.new(@size)
       result = Array(Edge(C)).new
 

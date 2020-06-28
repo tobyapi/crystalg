@@ -5,7 +5,8 @@ module Crystalg::Geometry
     getter center : Point(T)
     getter radius : T
 
-    def initialize(@center, @radius) end
+    def initialize(@center, @radius)
+    end
 
     def ==(other : self)
       center == other.center && radius === other.radius
@@ -42,7 +43,7 @@ module Crystalg::Geometry
       return result if (center - other.center).norm > (radius + other.radius) ** 2
       theta = Math.atan2(other.center.y - center.y, other.center.x - center.x)
       dist = center.distance other.center
-      alpha = Math.acos((dist ** 2 + radius ** 2  - other.radius ** 2) / (2 * dist * radius))
+      alpha = Math.acos((dist ** 2 + radius ** 2 - other.radius ** 2) / (2 * dist * radius))
       result << Point.new(center.x + radius * Math.cos(theta + alpha), center.y + radius * Math.sin(theta + alpha))
       result << Point.new(center.x + radius * Math.cos(theta - alpha), center.y + radius * Math.sin(theta - alpha))
       result

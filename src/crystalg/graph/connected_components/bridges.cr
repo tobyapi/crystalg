@@ -2,7 +2,6 @@ require "./context"
 
 module Crystalg::Graph::ConnectedComponents
   module Bridges(T)
-
     private def bridge_dfs(u : NodeID, bridges : Array(Edge(T)), ctx : Context, prev : NodeID = -1)
       ctx.used[u] = true
       ctx.order[u] = ctx.lowlink[u] = ctx.k

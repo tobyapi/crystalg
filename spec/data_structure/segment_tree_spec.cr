@@ -12,6 +12,6 @@ describe Crystalg do
     end
 
     segtree.add(0, 5, 10)
-    true.should eq(segtree.min(2,5) === 12)
+    true.should eq(segtree.min(2, 5) === 12)
   end
 end

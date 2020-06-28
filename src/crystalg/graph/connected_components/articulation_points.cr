@@ -1,7 +1,6 @@
 require "./context"
 
 module Crystalg::Graph::ConnectedComponents
-
   module ArticulationPoints
     private def articulation_points_dfs(u : NodeID, ctx : Context, prev : NodeID = -1)
       ctx.used[u] = true
@@ -19,7 +18,7 @@ module Crystalg::Graph::ConnectedComponents
       end
     end
 
-    def articulation_points: Array(NodeID)
+    def articulation_points : Array(NodeID)
       ctx = Context.new(@size)
 
       count = 0

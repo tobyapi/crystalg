@@ -3,11 +3,9 @@ require "../spec_helper"
 include Crystalg::Graph
 
 describe Crystalg do
-
   it "stack" do
-
-    input = [1,2,3,4,5]
-    answer = [5,4,3,2,1]
+    input = [1, 2, 3, 4, 5]
+    answer = [5, 4, 3, 2, 1]
 
     stack = Stack(Int32).new
 

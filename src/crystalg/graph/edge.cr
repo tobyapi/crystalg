@@ -1,5 +1,4 @@
 module Crystalg::Graph
-
   class Edge(T)
     include Comparable(Edge(T))
 
@@ -17,13 +16,13 @@ module Crystalg::Graph
         target <=> other.target
       end
     end
-    
+
     def ==(other : Edge(T))
       (source == other.source || source == other.target) &&
-      (target == other.source || target == other.target) &&
-      cost == other.cost
+        (target == other.source || target == other.target) &&
+        cost == other.cost
     end
-    
+
     def ===(other : Edge(T))
       source == other.source && target == other.target && cost == other.cost
     end

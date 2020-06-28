@@ -1,5 +1,3 @@
-
-
 module Crystalg::DataStructures
   class Queue(A)
     def initialize
@@ -13,17 +11,17 @@ module Crystalg::DataStructures
     def pop
       @array.shift?
     end
-    
+
     def pop!
       result = @array.first?
       @array.shift?
       result
     end
-    
+
     def top
       @array.first?
     end
-    
+
     def empty?
       @array.empty?
     end

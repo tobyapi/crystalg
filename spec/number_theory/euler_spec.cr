@@ -10,7 +10,9 @@ describe Crystalg do
 
   it "phi_list" do
     input = Array(Int32).new
-    (0..10000).each do |i| input << (phi i).to_i end
+    (0..10000).each do |i|
+      input << (phi i).to_i
+    end
     true.should eq(phi_list(10000) === input)
   end
 end

@@ -4,7 +4,7 @@ include Crystalg::Graph
 
 describe Crystalg do
   it "HopcroftKarp" do
-    hopcroft_karp = HopcroftKarp.new(3,4)
+    hopcroft_karp = HopcroftKarp.new(3, 4)
     hopcroft_karp.add_edge(0, 0)
     hopcroft_karp.add_edge(0, 2)
     hopcroft_karp.add_edge(0, 3)

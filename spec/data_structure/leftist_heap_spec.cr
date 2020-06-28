@@ -22,6 +22,5 @@ describe Crystalg do
 
     heap.pop
     true.should eq(heap.top === 8)
-
   end
 end

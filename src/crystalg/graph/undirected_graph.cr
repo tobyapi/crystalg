@@ -2,7 +2,6 @@ require "./connected_components/*"
 require "./spanning_tree/*"
 
 module Crystalg::Graph
-
   # C: type of cost
   class UndirectedGraph(C) < Graph(C)
     getter size : Int32

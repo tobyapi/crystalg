@@ -3,10 +3,8 @@ require "../spec_helper"
 include Crystalg::Graph
 
 describe Crystalg do
-
   it "priority_queue" do
-
-    input = [1,2,3,4,5]
+    input = [1, 2, 3, 4, 5]
     output = [] of Int32
 
     queue = PriorityQueue(Int32).new
@@ -23,8 +21,7 @@ describe Crystalg do
   end
 
   it "priority_queue2" do
-
-    answer = [10,8,2,11]
+    answer = [10, 8, 2, 11]
     output = [] of Int32
 
     queue = PriorityQueue(Int32).new

@@ -12,7 +12,7 @@ struct Float
   end
 
   def <=>(other : Float)
-    if(self < other - EPS)
+    if (self < other - EPS)
       -1
     elsif (self > other + EPS)
       1
@@ -20,12 +20,12 @@ struct Float
       0
     end
   end
-  
+
   def ===(other : Float)
     (self <=> other) == 0
   end
 
-  def sign: Int
+  def sign : Int
     self <=> 0.as(Float)
   end
 

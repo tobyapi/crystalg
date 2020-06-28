@@ -3,7 +3,6 @@ require "../spec_helper"
 include Crystalg::NumberTheory
 
 describe Crystalg do
-
   it "is_prime" do
     false.should eq(1.prime?)
     true.should eq(2.prime?)
@@ -22,7 +21,7 @@ describe Crystalg do
 
   it "get_divisor" do
     result = divisor(15).sort
-    answer = [1,3,5,15]
+    answer = [1, 3, 5, 15]
     true.should eq(result === answer)
   end
 

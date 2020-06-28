@@ -1,9 +1,8 @@
 require "../graph"
 
 module Crystalg::Graph::ShortestPath
-
   module Dijkstra(C)
-    def dijkstra(start : NodeID): Array(Tuple(C, NodeID?)?)
+    def dijkstra(start : NodeID) : Array(Tuple(C, NodeID?)?)
       que = PriorityQueue(Tuple(C, NodeID)).new
       result = Array(Tuple(C, NodeID?)?).new(@size, nil)
 
@@ -31,13 +30,13 @@ module Crystalg::Graph::ShortestPath
       target_node_result[0] <= cost_to_target
     end
 
-    def get_dijkstra_path(node_id : NodeID, dijkstra_result : Array(Tuple(C, NodeID?)?)): Array(NodeID)
+    def get_dijkstra_path(node_id : NodeID, dijkstra_result : Array(Tuple(C, NodeID?)?)) : Array(NodeID)
       path = [] of NodeID
       return path if dijkstra_result[node_id].nil?
 
       until node_id.nil?
         Helper.assert(!dijkstra_result[node_id].nil?)
-        
+
         path << node_id
         _cost, prev_node_id = dijkstra_result[node_id].as(Tuple(C, NodeID?))
         node_id = prev_node_id

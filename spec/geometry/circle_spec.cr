@@ -30,15 +30,15 @@ describe Crystalg do
     circle = Circle(Float32).new(Point(Float32).new(2_f32, 1_f32), 1_f32)
 
     line = Line(Float32).new(
-            Point(Float32).new(0_f32, 1_f32), 
-            Point(Float32).new(4_f32, 1_f32)
-          )
+      Point(Float32).new(0_f32, 1_f32),
+      Point(Float32).new(4_f32, 1_f32)
+    )
     answer = [Point(Float32).new(3_f32, 1_f32), Point(Float32).new(1_f32, 1_f32)]
     result = circle.intersection_points(line)
     true.should eq(result === answer)
 
     line = Line(Float32).new(Point(Float32).new(3_f32, 0_f32), Point(Float32).new(3_f32, 3_f32))
-    answer = [Point(Float32).new(3_f32, 1_f32),Point(Float32).new(3_f32, 1_f32)]
+    answer = [Point(Float32).new(3_f32, 1_f32), Point(Float32).new(3_f32, 1_f32)]
     result = circle.intersection_points(line)
     true.should eq(result === answer)
   end

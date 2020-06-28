@@ -1,17 +1,16 @@
-
 module Crystalg::Trees
   class LinkCutTree(T)
     INF = Int32::MAX
 
     def initialize(size)
-      @left   = Array(T).new(size, -1)
-      @right  = Array(T).new(size, -1)
+      @left = Array(T).new(size, -1)
+      @right = Array(T).new(size, -1)
       @parent = Array(T).new(size, -1)
-      @val    = Array(T).new(size, 0)
-      @mini   = Array(T).new(size, INF)
-      @minId  = Array(T).new(size, -1)
-      @lazy   = Array(T).new(size, 0)
-      @rev    = Array(Bool).new(size, false)
+      @val = Array(T).new(size, 0)
+      @mini = Array(T).new(size, INF)
+      @minId = Array(T).new(size, -1)
+      @lazy = Array(T).new(size, 0)
+      @rev = Array(Bool).new(size, false)
     end
 
     def push(id : Int32)
@@ -49,7 +48,7 @@ module Crystalg::Trees
 
       if 0 <= l
         push(l)
-        update_min(id,l)
+        update_min(id, l)
       end
 
       if 0 <= r
@@ -59,9 +58,9 @@ module Crystalg::Trees
     end
 
     def root?(id : Int32)
-      l_is_not_parent = (@left[@parent[id]] != id)
-      r_is_not_parent = (@right[@parent[id]] != id)
-      @parent[id] < 0 || (l_is_not_parent && r_is_not_parent)
+      is_left = (@left[@parent[id]] != id)
+      is_right = (@right[@parent[id]] != id)
+      @parent[id] < 0 || (is_left && is_right)
     end
 
     def connect(ch : Int32, par : Int32, is_left : Bool)
@@ -87,7 +86,7 @@ module Crystalg::Trees
       end
       connect(par, id, !is_left)
       if !is_root
-        connect(id,q, par == @left[q])
+        connect(id, q, par == @left[q])
       else
         @parent[id] = q
       end
@@ -111,7 +110,7 @@ module Crystalg::Trees
       update(id)
     end
 
-    def expose(id : Int32): Int32
+    def expose(id : Int32) : Int32
       last = -1
       y = id
       while 0 <= y
@@ -124,7 +123,7 @@ module Crystalg::Trees
       last
     end
 
-    def find_root(id : Int32): Int32
+    def find_root(id : Int32) : Int32
       expose(id)
       while @right[id] != -1
         id = @right[id]
@@ -138,32 +137,33 @@ module Crystalg::Trees
       @parent[x] != -1
     end
 
-    def evert(par : Int32): Nil
+    def evert(par : Int32) : Nil
       expose(par)
       @rev[par] ^= true
     end
 
-    def link(ch : Int32, par : Int32): Nil
+    def link(ch : Int32, par : Int32) : Nil
       evert(ch)
       @parent[ch] = par
     end
 
-    def cut(id : Int32): Nil
+    def cut(id : Int32) : Nil
       expose(id)
       @parent[@right[id]] = -1
       @right[id] = -1
     end
 
-    def lca(ch : Int32, par : Int32): Int32
+    def lca(ch : Int32, par : Int32) : Int32
       expose(ch)
       expose(par)
     end
 
-    def min_id(id : Int32): Int32
+    def min_id(id : Int32) : Int32
       expose(id)
       @minId[id]
     end
-    def min(from : Int32, to : Int32): Int32
+
+    def min(from : Int32, to : Int32) : Int32
       evert(from)
       expose(to)
       @mini[to]

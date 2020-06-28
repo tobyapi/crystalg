@@ -5,7 +5,8 @@ module Crystalg::Geometry
     getter position : Point(T)
     getter direction : Point(T)
 
-    def initialize(@position, @direction) end
+    def initialize(@position, @direction)
+    end
 
     def project(point)
       base = direction - position

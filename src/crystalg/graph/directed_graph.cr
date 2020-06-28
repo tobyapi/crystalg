@@ -2,7 +2,6 @@ require "./connected_components/*"
 require "./shortest_path/*"
 
 module Crystalg::Graph
-
   # C: type of cost
   class DirectedGraph(C) < Graph(C)
     getter size : Int32

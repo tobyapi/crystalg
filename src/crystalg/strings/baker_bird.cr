@@ -6,7 +6,7 @@ module Crystalg::Strings
       size = @text.reduce(0) { |acc, str| acc + str.size }
       @aho_corasick = AhoCorasick.new(size)
     end
-    
+
     def search(pattern)
       pattern.each { |row| @aho_corasick.add row }
       acc = Array(Int32).new
@@ -45,7 +45,7 @@ module Crystalg::Strings
           j += 1
           a[k + 1] = j
         end
-        (acc.size+1 .. sl).each do |k|
+        (acc.size + 1..sl).each do |k|
           result << {k - acc.size * 2 - 1, til - i - pattern[0].size} if a[k] == acc.size
         end
       end

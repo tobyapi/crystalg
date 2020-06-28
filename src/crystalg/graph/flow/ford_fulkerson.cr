@@ -1,7 +1,6 @@
 require "../flow_graph"
 
 module Crystalg::Graph
-
   # C: type of capacity
   class FordFulkerson(C)
     def initialize(@graph : FlowGraph(C))
@@ -18,7 +17,7 @@ module Crystalg::Graph
       end
     end
 
-    def dfs(node_id : NodeID, target : NodeID, flow : C): C
+    def dfs(node_id : NodeID, target : NodeID, flow : C) : C
       return flow if node_id == target
       @used[node_id] = true
       @graph.adjacent_nodes(node_id).each_with_index do |node, i|

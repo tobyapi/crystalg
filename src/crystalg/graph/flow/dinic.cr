@@ -35,7 +35,7 @@ module Crystalg::Graph
       end
     end
 
-    private def dfs(v : NodeID, target : NodeID, flow : C): C
+    private def dfs(v : NodeID, target : NodeID, flow : C) : C
       return flow if v == target
       nodes = @graph.adjacent_nodes(v)
       while @iter[v] < nodes.size

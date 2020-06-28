@@ -1,4 +1,3 @@
-
 module Crystalg::DataStructures
   class SkewHeap(T)
     class Node(T)
@@ -11,9 +10,9 @@ module Crystalg::DataStructures
         @right = nil
       end
     end
-    
+
     @root = nil
-    
+
     def merge(a, b)
       return b if a.nil?
       return a if b.nil?
@@ -22,20 +21,20 @@ module Crystalg::DataStructures
       a.left, a.right = a.right, a.left
       a
     end
-    
+
     def push(x)
-      @root = 
+      @root =
         if @root.nil?
           Node(T).new x
         else
           merge(@root.as(Node(T)), Node(T).new x)
         end
     end
- 
+
     def top
       @root.try &.value
     end
- 
+
     def pop
       return if @root.nil?
       tmp = @root.as(Node(T))

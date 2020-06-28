@@ -1,8 +1,5 @@
-
-
 module Crystalg::DataStructures
   class Stack(A)
-    
     def initialize
       @array = Array(A).new
     end
@@ -14,17 +11,17 @@ module Crystalg::DataStructures
     def pop
       @array.pop?
     end
-    
+
     def pop!
       result = @array.last?
       @array.pop?
       result
     end
-    
+
     def top
       @array.last?
     end
-    
+
     def empty?
       @array.empty?
     end

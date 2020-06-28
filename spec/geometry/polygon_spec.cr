@@ -83,19 +83,19 @@ describe Crystalg do
     )
 
     res = pol.convex_cut(
-            Line(Float32).new(
-              Point(Float32).new(2_f32, 0_f32), 
-              Point(Float32).new(2_f32, 4_f32)
-            )
-          )
+      Line(Float32).new(
+        Point(Float32).new(2_f32, 0_f32),
+        Point(Float32).new(2_f32, 4_f32)
+      )
+    )
     true.should eq(res.area === 2_f32)
 
     res = pol.convex_cut(
-            Line(Float32).new(
-              Point(Float32).new(2_f32, 4_f32), 
-              Point(Float32).new(2_f32, 0_f32)
-            )
-          )
+      Line(Float32).new(
+        Point(Float32).new(2_f32, 4_f32),
+        Point(Float32).new(2_f32, 0_f32)
+      )
+    )
     true.should eq(res.area === 4_f32)
   end
 

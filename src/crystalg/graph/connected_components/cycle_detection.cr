@@ -2,8 +2,7 @@ require "../*"
 
 module Crystalg::Graph::ConnectecComponents
   module CycleDetection
-
-    private def dfs(u : Int32, used : Array(Int32), flag : Bool): Bool
+    private def dfs(u : Int32, used : Array(Int32), flag : Bool) : Bool
       return flag if used[u] == 1 || flag
       used[u] = 2
       adjacent_nodes(u).each do |target_node_id, target_cost|

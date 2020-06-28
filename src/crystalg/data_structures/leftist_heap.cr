@@ -1,21 +1,20 @@
-
 module Crystalg::DataStructures
-  class LeftistHeap(T)    
+  class LeftistHeap(T)
     class Node(T)
       property rank : Int32
       property left : Node(T) | Nil
       property right : Node(T) | Nil
       getter value : T
-    
+
       def initialize(@value)
         @rank = 0
         @left = nil
         @right = nil
       end
     end
-    
+
     @root = nil
-    
+
     def merge(a, b)
       return b if a.nil?
       return a if b.nil?
@@ -27,20 +26,20 @@ module Crystalg::DataStructures
       a.rank = (a.right.nil? ? 0 : a.right.as(Node(T)).rank) + 1
       a
     end
-    
+
     def push(x)
-      @root = 
+      @root =
         if @root.nil?
           Node(T).new x
         else
           merge(@root.as(Node(T)), Node(T).new x)
         end
     end
- 
+
     def top
       @root.try &.value
     end
- 
+
     def pop
       return if @root.nil?
       root = @root.as(Node(T))

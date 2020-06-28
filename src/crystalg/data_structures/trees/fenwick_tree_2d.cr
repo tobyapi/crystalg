@@ -1,9 +1,8 @@
-
 module Crystalg::Trees
   class FenwickTree2D(T)
     @size_x : UInt32
     @size_y : UInt32
-    
+
     def initialize(@size_x, @size_y)
       @data = Array(FenwickTree(T)).new(@size_y * 2 - 1) {
         FenwickTree(T).new(@size_x * 2 - 1)

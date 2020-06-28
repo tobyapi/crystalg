@@ -43,9 +43,9 @@ module Crystalg::Geometry
     end
 
     enum Containment
-       OUT = 0
-       IN = 1
-       ON = 2
+      OUT = 0
+      IN  = 1
+      ON  = 2
     end
 
     def contain(target : Point(T)) : Containment

@@ -2,8 +2,9 @@ module Crystalg::NumberTheory
   struct Fraction
     getter numerator : Int32
     getter denominator : Int32
-    
-    def initialize(@numerator, @denominator) end
+
+    def initialize(@numerator, @denominator)
+    end
   end
 
   class SternBrocotTree
@@ -11,8 +12,9 @@ module Crystalg::NumberTheory
       getter left : Fraction
       getter right : Fraction
       getter middle
-      
-      def initialize(@left, @right) end
+
+      def initialize(@left, @right)
+      end
 
       def middle
         Fraction.new(
@@ -33,7 +35,7 @@ module Crystalg::NumberTheory
     def run(height)
       left, right = Fraction.new(0, 1), Fraction.new(1, 0)
       result = Array(Fraction).new
-      rec(height, Node.new(left,right), result)
+      rec(height, Node.new(left, right), result)
       result
     end
   end

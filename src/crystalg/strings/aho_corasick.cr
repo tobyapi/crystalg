@@ -1,4 +1,3 @@
-
 module Crystalg::Strings
   class AhoCorasick
     class Node
@@ -83,7 +82,7 @@ module Crystalg::Strings
       @nodes[cur].is_leaf
     end
 
-    def match_prefixes(target : String): Array(String)
+    def match_prefixes(target : String) : Array(String)
       cur = ROOT
       target.each_char do |ch|
         cur = @nodes[cur].@children[ch.bytes.first]

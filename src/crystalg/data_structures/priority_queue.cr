@@ -1,4 +1,3 @@
-
 module Crystalg::DataStructures
   class PriorityQueue(A)
     getter size : UInt32

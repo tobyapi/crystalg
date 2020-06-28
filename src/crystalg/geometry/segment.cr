@@ -5,7 +5,8 @@ module Crystalg::Geometry
     getter position : Point(T)
     getter direction : Point(T)
 
-    def initialize(@position, @direction) end
+    def initialize(@position, @direction)
+    end
 
     def on?(c)
       counter_clockwise(position, direction, c) == CCW::ON_SEGMENT
@@ -25,7 +26,7 @@ module Crystalg::Geometry
       return c.distance b if (a - b).dot(c - b) < 0
       (b - a).cross(c - a).abs / b.distance a
     end
-    
+
     def distance(other)
       return 0.0 if is_intersection? other
       Math.min(
@@ -36,8 +37,8 @@ module Crystalg::Geometry
 
     def is_intersection?(other)
       a, b, c, d = position, direction, other.position, other.direction
-      counter_clockwise(a,b,c).value * counter_clockwise(a,b,d).value <= 0 &&
-      counter_clockwise(c,d,a).value * counter_clockwise(c,d,b).value <= 0
+      counter_clockwise(a, b, c).value * counter_clockwise(a, b, d).value <= 0 &&
+        counter_clockwise(c, d, a).value * counter_clockwise(c, d, b).value <= 0
     end
 
     def intersection_point(other)

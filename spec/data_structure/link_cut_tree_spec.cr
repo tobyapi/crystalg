@@ -12,7 +12,6 @@ describe Crystalg do
     #  / \           / \
     # 3  4          4  2
 
-
     lctree = LinkCutTree(Int32).new(5)
     lctree.link(1, 0)
     lctree.link(2, 0)
@@ -51,7 +50,7 @@ describe Crystalg do
     #  /＼
     # 4   5
     #     /＼
-    #    6  7
+    #    6   7
 
     lctree = LinkCutTree(Int32).new(8)
     lctree.link(1, 0)

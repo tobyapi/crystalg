@@ -10,13 +10,12 @@ end
 
 module Crystalg::Trees
   class SegmetTree(T)
-
     getter size : Int32
 
     def initialize(@size)
       @n = 1
       while @n < @size
-         @n *= 2
+        @n *= 2
       end
       @value = Array(T).new(@n * 2 + 1, T.zero)
       @delta = Array(T).new(@n * 2 + 1, T.zero)
@@ -50,8 +49,8 @@ module Crystalg::Trees
       return T::MAX if r <= a || b <= l
       return @value[k] if a <= l && r <= b
       mid = ((l + r) / 2).to_i
-      left_result = min(a,b,k.left,l,mid)
-      right_result = min(a,b,k.right,mid,r)
+      left_result = min(a, b, k.left, l, mid)
+      right_result = min(a, b, k.right, mid, r)
       Math.min(left_result, right_result)
     end
 

@@ -1,15 +1,14 @@
-
 module Crystalg::Strings
-  def kmp(target : String, pattern : String): Array(Int32)
+  def kmp(target : String, pattern : String) : Array(Int32)
     # initialize
-    n = Array(Int32).new(pattern.size+1, 0)
+    n = Array(Int32).new(pattern.size + 1, 0)
     j, n[0] = -1, -1
     (0...pattern.size).each do |i|
       while j >= 0 && pattern[i] != pattern[j]
         j = n[j]
       end
       j = j + 1
-      n[i+1] = j
+      n[i + 1] = j
     end
 
     result = Array(Int32).new

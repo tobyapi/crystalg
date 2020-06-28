@@ -44,7 +44,7 @@ module Crystalg::Trees
     private def sort(left, right, divx = true)
       middle = ((left + right) / 2).to_i
       loop do
-        k = partition(left, right, middle ,divx)
+        k = partition(left, right, middle, divx)
         return if k == middle
         right = k if middle < k
         left = k + 1 if middle > k
@@ -65,7 +65,7 @@ module Crystalg::Trees
           j -= 1
         end
         break if i >= j
-        swap(i,j)
+        swap(i, j)
         i += 1
         j -= 1
       end
@@ -102,7 +102,7 @@ module Crystalg::Trees
     end
 
     def nearest_neighbour(target)
-      result = nearest_neighbour 0, @points.size, target, true, { T::MAX, -1 }
+      result = nearest_neighbour 0, @points.size, target, true, {T::MAX, -1}
       @points[result[1]]
     end
 
@@ -114,7 +114,7 @@ module Crystalg::Trees
       dist = dx ** 2 + dy ** 2
       delta = divx ? dx : dy
 
-      best = { dist, middle } if best[0] > dist
+      best = {dist, middle} if best[0] > dist
 
       if delta <= 0.0
         result = nearest_neighbour left, middle, target, !divx, best

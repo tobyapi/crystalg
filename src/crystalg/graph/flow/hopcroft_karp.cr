@@ -1,4 +1,3 @@
-
 module Crystalg::Graph
   class HopcroftKarp
     @left_size : Int32
@@ -78,7 +77,7 @@ module Crystalg::Graph
       while e >= 0
         v = @head[e]
         u2 = @match[v]
-        if u2 < 0 || (!@visited[u2] && @dist[u2] == @dist[u1]+1 && dfs(u2))
+        if u2 < 0 || (!@visited[u2] && @dist[u2] == @dist[u1] + 1 && dfs(u2))
           @match[v] = u1
           return (@used[u1] = true)
         end
@@ -86,6 +85,5 @@ module Crystalg::Graph
       end
       false
     end
-
   end
 end

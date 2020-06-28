@@ -3,6 +3,5 @@ module Crystalg::Graph
 
   abstract class Graph(C)
     abstract def size : Int32
-
   end
 end

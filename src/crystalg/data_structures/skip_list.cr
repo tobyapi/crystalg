@@ -50,7 +50,7 @@ module Crystalg::DataStructures
       end
     end
 
-    private def upper_bound(value : Int32, level : Int32): Node
+    private def upper_bound(value : Int32, level : Int32) : Node
       current = @origin
       while 0 < current.level
         while level < current.level
