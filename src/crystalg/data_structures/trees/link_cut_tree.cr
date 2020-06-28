@@ -14,21 +14,23 @@ module Crystalg::Trees
       @rev    = Array(Bool).new(size, false)
     end
 
-    def push_sub(id : Int32, ch : Int32)
-      @lazy[ch] += @lazy[id] if 0 <= ch
-      @rev[ch] = !@rev[ch] if 0 <= ch && @rev[id]
-    end
-
     def push(id : Int32)
       l = @left[id]
       r = @right[id]
-      push_sub(id, l)
-      push_sub(id, r)
-      @rev[id] = false
-      @left[id], @right[id] = @right[id], @left[id]
+
       @val[id] += @lazy[id]
       @mini[id] += @lazy[id]
+
+      @lazy[l] += @lazy[id] if 0 <= l
+      @lazy[r] += @lazy[id] if 0 <= r
       @lazy[id] = 0
+
+      if @rev[id]
+        @rev[id] = false
+        @rev[l] ^= true if 0 <= l
+        @rev[r] ^= true if 0 <= r
+        @left[id], @right[id] = @right[id], @left[id]
+      end
     end
 
     def update_min(id : Int32, ch : Int32)
@@ -93,9 +95,9 @@ module Crystalg::Trees
     end
 
     def splay(id : Int32)
-      while !root?(id)
+      until root?(id)
         par = @parent[id]
-        if !root?(par)
+        unless root?(par)
           is_left = (id == @left[par])
           parent_is_left = (par == @left[@parent[par]])
           if is_left ^ parent_is_left
@@ -114,9 +116,9 @@ module Crystalg::Trees
       y = id
       while 0 <= y
         splay(y)
-        @left[y] = last
+        @right[y] = last
         last = y
-         y = @parent[y]
+        y = @parent[y]
       end
       splay(id)
       last
@@ -137,8 +139,8 @@ module Crystalg::Trees
     end
 
     def evert(par : Int32): Nil
-      expose(parent)
-      @rev[par] = !@rev[par]
+      expose(par)
+      @rev[par] ^= true
     end
 
     def link(ch : Int32, par : Int32): Nil
