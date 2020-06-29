@@ -3,12 +3,12 @@ module Crystalg::Trees
     INF = Int32::MAX
 
     def initialize(size)
-      @left = Array(T).new(size, -1)
-      @right = Array(T).new(size, -1)
-      @parent = Array(T).new(size, -1)
+      @left = Array(Int32).new(size, -1)
+      @right = Array(Int32).new(size, -1)
+      @parent = Array(Int32?).new(size, nil)
       @val = Array(T).new(size, 0)
       @mini = Array(T).new(size, INF)
-      @minId = Array(T).new(size, -1)
+      @minId = Array(Int32).new(size, -1)
       @lazy = Array(T).new(size, 0)
       @rev = Array(Bool).new(size, false)
     end
@@ -58,9 +58,11 @@ module Crystalg::Trees
     end
 
     def root?(id : Int32)
-      is_left = (@left[@parent[id]] != id)
-      is_right = (@right[@parent[id]] != id)
-      @parent[id] < 0 || (is_left && is_right)
+      parent_index = @parent[id]
+      return true if parent_index.nil?
+      is_left = (@left[parent_index] != id)
+      is_right = (@right[parent_index] != id)
+      is_left && is_right
     end
 
     def connect(ch : Int32, par : Int32, is_left : Bool)
@@ -73,7 +75,7 @@ module Crystalg::Trees
     end
 
     def rotate(id : Int32)
-      par = @parent[id]
+      par = @parent[id].as(Int32)
       q = @parent[par]
       push(par)
       push(id)
@@ -86,6 +88,7 @@ module Crystalg::Trees
       end
       connect(par, id, !is_left)
       if !is_root
+        q = q.as(Int32)
         connect(id, q, par == @left[q])
       else
         @parent[id] = q
@@ -95,10 +98,10 @@ module Crystalg::Trees
 
     def splay(id : Int32)
       until root?(id)
-        par = @parent[id]
+        par = @parent[id].as(Int32)
         unless root?(par)
           is_left = (id == @left[par])
-          parent_is_left = (par == @left[@parent[par]])
+          parent_is_left = (par == @left[@parent[par].as(Int32)])
           if is_left ^ parent_is_left
             rotate(par)
           else
@@ -113,7 +116,7 @@ module Crystalg::Trees
     def expose(id : Int32) : Int32
       last = -1
       y = id
-      while 0 <= y
+      until y.nil?
         splay(y)
         @right[y] = last
         last = y
