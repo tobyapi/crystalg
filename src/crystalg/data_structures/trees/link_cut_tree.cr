@@ -3,8 +3,8 @@ module Crystalg::Trees
     INF = Int32::MAX
 
     def initialize(size)
-      @left = Array(Int32).new(size, -1)
-      @right = Array(Int32).new(size, -1)
+      @left = Array(Int32?).new(size, nil)
+      @right = Array(Int32?).new(size, nil)
       @parent = Array(Int32?).new(size, nil)
       @val = Array(T).new(size, 0)
       @mini = Array(T).new(size, INF)
@@ -20,14 +20,14 @@ module Crystalg::Trees
       @val[id] += @lazy[id]
       @mini[id] += @lazy[id]
 
-      @lazy[l] += @lazy[id] if 0 <= l
-      @lazy[r] += @lazy[id] if 0 <= r
+      @lazy[l] += @lazy[id] if !l.nil?
+      @lazy[r] += @lazy[id] if !r.nil?
       @lazy[id] = 0
 
       if @rev[id]
         @rev[id] = false
-        @rev[l] ^= true if 0 <= l
-        @rev[r] ^= true if 0 <= r
+        @rev[l] ^= true if !l.nil?
+        @rev[r] ^= true if !r.nil?
         @left[id], @right[id] = @right[id], @left[id]
       end
     end
@@ -46,12 +46,12 @@ module Crystalg::Trees
       @minId[id] = id
       push(id)
 
-      if 0 <= l
+      unless l.nil?
         push(l)
         update_min(id, l)
       end
 
-      if 0 <= r
+      unless r.nil?
         push(r)
         update_min(id, r)
       end
@@ -65,13 +65,13 @@ module Crystalg::Trees
       is_left && is_right
     end
 
-    def connect(ch : Int32, par : Int32, is_left : Bool)
+    def connect(ch : Int32?, par : Int32, is_left : Bool)
       if is_left
         @left[par] = ch
       else
         @right[par] = ch
       end
-      @parent[ch] = par if 0 <= ch
+      @parent[ch] = par if !ch.nil?
     end
 
     def rotate(id : Int32)
@@ -113,8 +113,8 @@ module Crystalg::Trees
       update(id)
     end
 
-    def expose(id : Int32) : Int32
-      last = -1
+    def expose(id : Int32) : Int32?
+      last = nil
       y = id
       until y.nil?
         splay(y)
@@ -128,7 +128,7 @@ module Crystalg::Trees
 
     def find_root(id : Int32) : Int32
       expose(id)
-      while @right[id] != -1
+      until @right[id].nil?
         id = @right[id]
       end
       id
@@ -137,7 +137,7 @@ module Crystalg::Trees
     def connected?(x : Int32, y : Int32)
       expose(x)
       expose(y)
-      @parent[x] != -1
+      !@parent[x].nil?
     end
 
     def evert(par : Int32) : Nil
@@ -152,11 +152,11 @@ module Crystalg::Trees
 
     def cut(id : Int32) : Nil
       expose(id)
-      @parent[@right[id]] = -1
-      @right[id] = -1
+      @parent[@right[id].as(Int32)] = nil
+      @right[id] = nil
     end
 
-    def lca(ch : Int32, par : Int32) : Int32
+    def lca(ch : Int32, par : Int32) : Int32?
       expose(ch)
       expose(par)
     end

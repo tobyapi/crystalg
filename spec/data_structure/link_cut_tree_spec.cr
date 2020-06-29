@@ -31,15 +31,15 @@ describe Crystalg do
     lctree.rotate(1)
 
     true.should eq(lctree.@parent === [1, nil, 0, 1, 0])
-    true.should eq(lctree.@left === [4, 3, -1, -1, -1])
-    true.should eq(lctree.@right === [2, 0, -1, -1, -1])
+    true.should eq(lctree.@left === [4, 3, nil, nil, nil])
+    true.should eq(lctree.@right === [2, 0, nil, nil, nil])
     true.should eq(lctree.@rev === [false, false, false, false, false])
 
     lctree.rotate(0)
 
     true.should eq(lctree.@parent === [nil, 0, 0, 1, 1])
-    true.should eq(lctree.@left === [1, 3, -1, -1, -1])
-    true.should eq(lctree.@right === [2, 4, -1, -1, -1])
+    true.should eq(lctree.@left === [1, 3, nil, nil, nil])
+    true.should eq(lctree.@right === [2, 4, nil, nil, nil])
     true.should eq(lctree.@rev === [false, false, false, false, false])
   end
 
