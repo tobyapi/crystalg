@@ -2,18 +2,20 @@ module Crystalg::Trees
   class LinkCutTree(T)
     INF = Int32::MAX
 
+    alias NodeID = UInt32
+
     def initialize(size)
-      @left = Array(Int32?).new(size, nil)
-      @right = Array(Int32?).new(size, nil)
-      @parent = Array(Int32?).new(size, nil)
+      @left = Array(NodeID?).new(size, nil)
+      @right = Array(NodeID?).new(size, nil)
+      @parent = Array(NodeID?).new(size, nil)
       @val = Array(T).new(size, 0)
       @mini = Array(T).new(size, INF)
-      @minId = Array(Int32).new(size, -1)
+      @minId = Array(NodeID?).new(size, nil)
       @lazy = Array(T).new(size, 0)
       @rev = Array(Bool).new(size, false)
     end
 
-    def push(id : Int32)
+    def push(id : NodeID)
       l = @left[id]
       r = @right[id]
 
@@ -32,14 +34,14 @@ module Crystalg::Trees
       end
     end
 
-    def update_min(id : Int32, ch : Int32)
+    def update_min(id : NodeID, ch : NodeID)
       if @mini[ch] < @mini[id]
         @mini[id] = @mini[ch]
         @minId[id] = @minId[ch]
       end
     end
 
-    def update(id : Int32)
+    def update(id : NodeID)
       l = @left[id]
       r = @right[id]
       @mini[id] = @val[id]
@@ -57,7 +59,7 @@ module Crystalg::Trees
       end
     end
 
-    def root?(id : Int32)
+    def root?(id : NodeID)
       parent_index = @parent[id]
       return true if parent_index.nil?
       is_left = (@left[parent_index] != id)
@@ -65,7 +67,7 @@ module Crystalg::Trees
       is_left && is_right
     end
 
-    def connect(ch : Int32?, par : Int32, is_left : Bool)
+    def connect(ch : NodeID?, par : NodeID, is_left : Bool)
       if is_left
         @left[par] = ch
       else
@@ -74,8 +76,8 @@ module Crystalg::Trees
       @parent[ch] = par if !ch.nil?
     end
 
-    def rotate(id : Int32)
-      par = @parent[id].as(Int32)
+    def rotate(id : NodeID)
+      par = @parent[id].as(NodeID)
       q = @parent[par]
       push(par)
       push(id)
@@ -88,7 +90,7 @@ module Crystalg::Trees
       end
       connect(par, id, !is_left)
       if !is_root
-        q = q.as(Int32)
+        q = q.as(NodeID)
         connect(id, q, par == @left[q])
       else
         @parent[id] = q
@@ -96,12 +98,12 @@ module Crystalg::Trees
       update(par)
     end
 
-    def splay(id : Int32)
+    def splay(id : NodeID)
       until root?(id)
-        par = @parent[id].as(Int32)
+        par = @parent[id].as(NodeID)
         unless root?(par)
           is_left = (id == @left[par])
-          parent_is_left = (par == @left[@parent[par].as(Int32)])
+          parent_is_left = (par == @left[@parent[par].as(NodeID)])
           if is_left ^ parent_is_left
             rotate(par)
           else
@@ -113,7 +115,7 @@ module Crystalg::Trees
       update(id)
     end
 
-    def expose(id : Int32) : Int32?
+    def expose(id : NodeID) : NodeID?
       last = nil
       y = id
       until y.nil?
@@ -126,7 +128,7 @@ module Crystalg::Trees
       last
     end
 
-    def find_root(id : Int32) : Int32
+    def find_root(id : NodeID) : NodeID
       expose(id)
       until @right[id].nil?
         id = @right[id]
@@ -134,50 +136,50 @@ module Crystalg::Trees
       id
     end
 
-    def connected?(x : Int32, y : Int32)
+    def connected?(x : NodeID, y : NodeID)
       expose(x)
       expose(y)
       !@parent[x].nil?
     end
 
-    def evert(par : Int32) : Nil
+    def evert(par : NodeID) : Nil
       expose(par)
       @rev[par] ^= true
     end
 
-    def link(ch : Int32, par : Int32) : Nil
+    def link(ch : NodeID, par : NodeID) : Nil
       evert(ch)
       @parent[ch] = par
     end
 
-    def cut(id : Int32) : Nil
+    def cut(id : NodeID) : Nil
       expose(id)
       @parent[@right[id].as(Int32)] = nil
       @right[id] = nil
     end
 
-    def lca(ch : Int32, par : Int32) : Int32?
+    def lca(ch : NodeID, par : NodeID) : NodeID?
       expose(ch)
       expose(par)
     end
 
-    def min_id(id : Int32) : Int32
+    def min_id(id : NodeID) : Int32
       expose(id)
       @minId[id]
     end
 
-    def min(from : Int32, to : Int32) : Int32
+    def min(from : NodeID, to : NodeID) : Int32
       evert(from)
       expose(to)
       @mini[to]
     end
 
-    def add(id : Int32, val : Int32)
+    def add(id : NodeID, val : Int32)
       expose(id)
       @lazy[id] = val
     end
 
-    def add(from : Int32, to : Int32, v : Int32)
+    def add(from : NodeID, to : NodeID, v : Int32)
       evert(from)
       expose(to)
       @lazy[to] += v
