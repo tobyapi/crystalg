@@ -50,4 +50,35 @@ describe Crystalg do
     end
     true.should eq(answer === output)
   end
+
+  it ":mode == max" do
+    answer = [11, 10, 8, 2]
+    output = [] of Int32
+
+    queue = PriorityQueue(Int32).new(:max)
+
+    queue.push 10
+    queue.push 11
+
+    top = queue.pop!
+    output << top if !top.nil?
+
+    queue.push 8
+
+    top = queue.pop!
+    output << top if !top.nil?
+
+    queue.push 2
+
+    top = queue.pop!
+    output << top if !top.nil?
+    top = queue.pop!
+    output << top if !top.nil?
+
+    while !queue.empty?
+      tmp = queue.pop!
+      output << tmp if !tmp.nil?
+    end
+    true.should eq(answer === output)
+  end
 end

@@ -2,7 +2,8 @@ module Crystalg::DataStructures
   class PriorityQueue(A)
     getter size : UInt32
 
-    def initialize
+    def initialize(@mode = :min)
+      Helper.assert(@mode == :min || @mode == :max)
       @heap = Array(A).new
       @size = 0_u32
     end
@@ -13,7 +14,8 @@ module Crystalg::DataStructures
       @size += 1
       while 0 < i
         parent = ((i - 1) / 2).to_i
-        break if @heap[parent] <= val
+        break if @mode == :min && @heap[parent] <= val
+        break if @mode == :max && val <= @heap[parent]
         @heap[i] = @heap[parent]
         i = parent
       end
@@ -27,10 +29,12 @@ module Crystalg::DataStructures
       loop do
         child = 2 * pos + 1
         break if @size <= child
-        if child < @size && @heap[child + 1] < @heap[child]
+        if (@mode == :min && child < @size && @heap[child + 1] < @heap[child]) ||
+           (@mode == :max && child < @size && @heap[child] < @heap[child + 1])
           child += 1
         end
-        break if x <= @heap[child]
+        break if @mode == :min && x <= @heap[child]
+        break if @mode == :max && @heap[child] <= x
         @heap[pos] = @heap[child]
         pos = child
       end
