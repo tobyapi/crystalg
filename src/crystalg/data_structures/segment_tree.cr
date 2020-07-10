@@ -1,13 +1,3 @@
-struct Int
-  def left
-    self * 2 + 1
-  end
-
-  def right
-    self * 2 + 2
-  end
-end
-
 module Crystalg::DataStructures
   class SegmetTree(T)
     getter size : Int32
@@ -21,11 +11,16 @@ module Crystalg::DataStructures
       @delta = Array(T).new(@n * 2 + 1, T.zero)
     end
 
+    private def child_index(k : Int32): Tuple(Int32, Int32)
+      {k * 2 + 1, k * 2 + 2}
+    end
+
     private def propagate(k : Int32)
       @value[k] += @delta[k]
       if k + 1 < @n
-        @delta[k.left] += @delta[k]
-        @delta[k.right] += @delta[k]
+        left, right = child_index(k)
+        @delta[left] += @delta[k]
+        @delta[right] += @delta[k]
       end
       @delta[k] = T.zero
     end
@@ -37,10 +32,11 @@ module Crystalg::DataStructures
         @delta[k] = @delta[k] + v
         propagate k
       else
+        left_child, right_child = child_index(k)
         mid = ((l + r) / 2).to_i
-        add(a, b, v, k.left, l, mid)
-        add(a, b, v, k.right, mid, r)
-        @value[k] = Math.min(@value[k.left], @value[k.right])
+        add(a, b, v, left_child, l, mid)
+        add(a, b, v, right_child, mid, r)
+        @value[k] = Math.min(@value[left_child], @value[right_child])
       end
     end
 
@@ -48,9 +44,10 @@ module Crystalg::DataStructures
       propagate k
       return T::MAX if r <= a || b <= l
       return @value[k] if a <= l && r <= b
+      left_child, right_child = child_index(k)
       mid = ((l + r) / 2).to_i
-      left_result = min(a, b, k.left, l, mid)
-      right_result = min(a, b, k.right, mid, r)
+      left_result = min(a, b, left_child, l, mid)
+      right_result = min(a, b, right_child, mid, r)
       Math.min(left_result, right_result)
     end
 
