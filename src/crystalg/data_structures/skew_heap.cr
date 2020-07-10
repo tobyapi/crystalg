@@ -1,6 +1,6 @@
 module Crystalg::DataStructures
   class SkewHeap(T)
-    class Node(T)
+    private class Node(T)
       property left : Node(T) | Nil
       property right : Node(T) | Nil
       getter value : T

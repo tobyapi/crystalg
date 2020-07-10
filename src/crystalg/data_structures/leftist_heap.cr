@@ -1,6 +1,6 @@
 module Crystalg::DataStructures
   class LeftistHeap(T)
-    class Node(T)
+    private class Node(T)
       property rank : Int32
       property left : Node(T) | Nil
       property right : Node(T) | Nil

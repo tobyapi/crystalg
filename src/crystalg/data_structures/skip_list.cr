@@ -2,7 +2,7 @@ require "../random/xor128"
 
 module Crystalg::DataStructures
   class SkipList
-    class Node
+    private class Node
       getter value : Int32
       getter level : Int32
       property right : Node?

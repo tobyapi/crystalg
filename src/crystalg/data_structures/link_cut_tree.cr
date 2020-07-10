@@ -1,4 +1,5 @@
 module Crystalg::DataStructures
+  @[Experimental]
   class LinkCutTree(T)
     INF = Int32::MAX
 
@@ -15,6 +16,7 @@ module Crystalg::DataStructures
       @rev = Array(Bool).new(size, false)
     end
 
+    # :nodoc:
     def push(id : NodeID)
       l = @left[id]
       r = @right[id]
@@ -34,6 +36,7 @@ module Crystalg::DataStructures
       end
     end
 
+    # :nodoc:
     def update_min(id : NodeID, ch : NodeID)
       if @mini[ch] < @mini[id]
         @mini[id] = @mini[ch]
@@ -41,6 +44,7 @@ module Crystalg::DataStructures
       end
     end
 
+    # :nodoc:
     def update(id : NodeID)
       l = @left[id]
       r = @right[id]
@@ -67,6 +71,7 @@ module Crystalg::DataStructures
       is_left && is_right
     end
 
+    # :nodoc:
     def connect(ch : NodeID?, par : NodeID, is_left : Bool)
       if is_left
         @left[par] = ch
@@ -76,6 +81,7 @@ module Crystalg::DataStructures
       @parent[ch] = par if !ch.nil?
     end
 
+    # :nodoc:
     def rotate(id : NodeID)
       par = @parent[id].as(NodeID)
       q = @parent[par]
@@ -98,6 +104,7 @@ module Crystalg::DataStructures
       update(par)
     end
 
+    # :nodoc:
     def splay(id : NodeID)
       until root?(id)
         par = @parent[id].as(NodeID)
@@ -115,6 +122,7 @@ module Crystalg::DataStructures
       update(id)
     end
 
+    # :nodoc:
     def expose(id : NodeID) : NodeID?
       last = nil
       y = id
