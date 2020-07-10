@@ -1,5 +1,5 @@
-module Crystalg::DataStructures::Persistent
-  class UnionFind
+module Crystalg::DataStructures
+  class PersistentUnionFind
     alias NodeID = Int32
 
     def initialize(size)
