@@ -1,4 +1,4 @@
-module Crystalg::Trees
+module Crystalg::DataStructures
   class FenwickTree2D(T)
     @size_x : UInt32
     @size_y : UInt32
