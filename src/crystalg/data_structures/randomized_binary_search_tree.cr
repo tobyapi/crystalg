@@ -1,4 +1,4 @@
-module Crystalg::Trees
+module Crystalg::DataStructures
   class RandomizedBinarySearchTree(T)
     class Empty
       @size = 0

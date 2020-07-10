@@ -1,8 +1,8 @@
-require "../../geometry/*"
+require "../geometry/*"
 
 include Crystalg::Geometry
 
-module Crystalg::Trees
+module Crystalg::DataStructures
   class KDTree(T)
     @size : Int32
     @points : Array(Point(T))

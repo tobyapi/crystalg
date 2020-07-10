@@ -1,6 +1,6 @@
 require "../spec_helper"
 
-include Crystalg::Trees
+include Crystalg::DataStructures
 
 describe Crystalg do
   it "segment_tree" do

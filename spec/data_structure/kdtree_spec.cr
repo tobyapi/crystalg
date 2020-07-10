@@ -2,7 +2,7 @@ require "../spec_helper"
 
 include Crystalg::Graph
 include Crystalg::Geometry
-include Crystalg::Trees
+include Crystalg::DataStructures
 
 describe Crystalg do
   it "kdtree" do

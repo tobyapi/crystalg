@@ -1,4 +1,4 @@
-module Crystalg::Trees
+module Crystalg::DataStructures
   class LinkCutTree(T)
     INF = Int32::MAX
 

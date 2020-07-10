@@ -8,7 +8,7 @@ struct Int
   end
 end
 
-module Crystalg::Trees
+module Crystalg::DataStructures
   class SegmetTree(T)
     getter size : Int32
 
