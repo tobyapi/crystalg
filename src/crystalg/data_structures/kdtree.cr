@@ -1,9 +1,9 @@
 require "../geometry/*"
 
-include Crystalg::Geometry
-
 module Crystalg::DataStructures
   class KDTree(T)
+    include Crystalg::Geometry
+
     @size : Int32
     @points : Array(Point(T))
 

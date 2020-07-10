@@ -1,3 +1,4 @@
+# :nodoc:
 module Crystalg::Helper
   def self.assert(pred : Bool)
     return if pred
