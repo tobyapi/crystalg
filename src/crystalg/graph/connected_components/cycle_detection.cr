@@ -1,6 +1,6 @@
 require "../*"
 
-module Crystalg::Graph::ConnectecComponents
+module Crystalg::Graph::ConnectedComponents
   module CycleDetection
     private def dfs(u : Int32, used : Array(Int32), flag : Bool) : Bool
       return flag if used[u] == 1 || flag

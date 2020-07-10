@@ -50,7 +50,7 @@ module Crystalg::Graph
       order << u
     end
 
-    include ConnectecComponents::CycleDetection
+    include ConnectedComponents::CycleDetection
     include ShortestPath::Dijkstra(C)
   end
 end
