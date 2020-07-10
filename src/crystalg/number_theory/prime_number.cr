@@ -10,6 +10,15 @@ module Crystalg::NumberTheory
     result
   end
 
+  def prime?(n)
+    i = 2
+    while i * i <= n
+      return false if n % i == 0
+      i += 1
+    end
+    n != 1
+  end
+  
   def prime_factorize(n)
     result = Hash(Int32, Int32).new
 
