@@ -2,7 +2,7 @@ module Crystalg::DataStructures
   # FenwickTree2D is FenwickTree extended 2D.
   # 
   # ```
-  # fenwick = FenwickTree2D(Int32).new(3, 4)
+  # fenwick = FenwickTree2D(Int32).new(4, 3)
   #
   # # Create following grid:
   # #  1  2  3
@@ -36,28 +36,31 @@ module Crystalg::DataStructures
   # fenwick.sum(2, 4) # => 48
   # ```
   class FenwickTree2D(T)
-    @size_x : Int32
-    @size_y : Int32
+    @width : Int32
+    @height : Int32
 
-    def initialize(@size_x, @size_y)
-      @data = Array(FenwickTree(T)).new(@size_y * 2 - 1) {
-        FenwickTree(T).new(@size_x * 2 - 1)
+    # Creates FenwickTree2D(T).
+    def initialize(@height, @width)
+      @data = Array(FenwickTree(T)).new(@height * 2 - 1) {
+        FenwickTree(T).new(@width * 2 - 1)
       }
     end
 
-    def []=(x, y, value)
-      y += 1
-      while y <= @size_y
-        @data[y][x] = value
-        y = y + (y & -y)
+    # Sets the given value at the given row and column. `O(log^2 n)`.
+    def []=(row, col, value)
+      row += 1
+      while row <= @height
+        @data[row][col] = value
+        row = row + (row & -row)
       end
     end
 
-    def sum(x, y)
+    # Adds elements in a square surrounded [0, row) and [0, col). `O(log^2 n)`.
+    def sum(row, col)
       result = T.zero
-      while y > T.zero
-        result += @data[y].sum x
-        y = y - (y & -y)
+      while row > T.zero
+        result += @data[row].sum col
+        row = row - (row & -row)
       end
       result
     end

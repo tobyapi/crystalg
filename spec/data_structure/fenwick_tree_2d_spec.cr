@@ -20,10 +20,10 @@ describe Crystalg do
     #  7  8  9        12  27  45
     # 10 11 12        22  48  78
 
-    fenwick = FenwickTree2D(Int32).new(3, 4)
-    (0..3).each do |y|
-      (0..2).each do |x|
-        fenwick[x, y] = y * 3 + x + 1
+    fenwick = FenwickTree2D(Int32).new(4, 3)
+    (0..3).each do |row|
+      (0..2).each do |col|
+        fenwick[row, col] = row * 3 + col + 1
       end
     end
 
@@ -35,10 +35,9 @@ describe Crystalg do
       [ 0, 22, 48, 78 ],
     ]
 
-    (0..4).each do |y|
-      (0..3).each do |x|
-        puts "#{x} #{y} #{fenwick.sum(x, y)}"
-        fenwick.sum(x, y).should eq expected[y][x]
+    (0..4).each do |row|
+      (0..3).each do |col|
+        fenwick.sum(row, col).should eq expected[row][col]
       end
     end
   end
