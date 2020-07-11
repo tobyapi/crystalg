@@ -28,15 +28,16 @@ describe Crystalg do
     end
 
     expected = [
-      [ 0,  0,  0,  0],
-      [ 0,  1,  3,  6], 
-      [ 0,  5, 12, 21],
-      [ 0, 12, 27, 45],
-      [ 0, 22, 48, 78],
+      [ 0,  0,  0,  0 ],
+      [ 0,  1,  3,  6 ], 
+      [ 0,  5, 12, 21 ],
+      [ 0, 12, 27, 45 ],
+      [ 0, 22, 48, 78 ],
     ]
 
     (0..4).each do |y|
       (0..3).each do |x|
+        puts "#{x} #{y} #{fenwick.sum(x, y)}"
         fenwick.sum(x, y).should eq expected[y][x]
       end
     end
