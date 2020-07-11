@@ -1,7 +1,7 @@
 module Crystalg::DataStructures
   class FenwickTree2D(T)
-    @size_x : UInt32
-    @size_y : UInt32
+    @size_x : Int32
+    @size_y : Int32
 
     def initialize(@size_x, @size_y)
       @data = Array(FenwickTree(T)).new(@size_y * 2 - 1) {
@@ -9,9 +9,10 @@ module Crystalg::DataStructures
       }
     end
 
-    def add(x, y, value)
+    def []=(x, y, value)
+      y += 1
       while y <= @size_y
-        @data[y].add x, value
+        @data[y][x] = value
         y = y + (y & -y)
       end
     end

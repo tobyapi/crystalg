@@ -4,11 +4,41 @@ include Crystalg::DataStructures
 
 describe Crystalg do
   it "fenwick_tree_2d" do
-    fenwick = FenwickTree2D(Int32).new(5_u32, 5_u32)
-    (1..5).each { |e| fenwick.add(e, e, e) }
+    fenwick = FenwickTree2D(Int32).new(6, 6)
+    (0..5).each { |e| fenwick[e, e] = e }
 
-    (1..5).each { |e|
-      true.should eq(fenwick.sum(e, e) === e * (e + 1) / 2)
-    }
+    (0..6).each do |e|
+      expected = (e - 1) * e / 2
+      fenwick.sum(e, e).should eq expected
+    end
+  end
+
+  it "fenwick_tree_2d 2" do
+    # fenwick tree:   sum[x, y]:
+    #  1  2  3         1   3   6
+    #  4  5  6         5  12  21
+    #  7  8  9        12  27  45
+    # 10 11 12        22  48  78
+
+    fenwick = FenwickTree2D(Int32).new(3, 4)
+    (0..3).each do |y|
+      (0..2).each do |x|
+        fenwick[x, y] = y * 3 + x + 1
+      end
+    end
+
+    expected = [
+      [ 0,  0,  0,  0],
+      [ 0,  1,  3,  6], 
+      [ 0,  5, 12, 21],
+      [ 0, 12, 27, 45],
+      [ 0, 22, 48, 78],
+    ]
+
+    (0..4).each do |y|
+      (0..3).each do |x|
+        fenwick.sum(x, y).should eq expected[y][x]
+      end
+    end
   end
 end
