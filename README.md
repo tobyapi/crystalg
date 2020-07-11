@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/TobiasGSmollett/crystalg.svg?branch=master)](https://travis-ci.org/TobiasGSmollett/crystalg)
+[![GitHub release](https://img.shields.io/github/release/TobiasGSmollett/crystalg.svg)](https://github.com/TobiasGSmollett/crystalg/releases)
+
 
 
 # Crystalg
