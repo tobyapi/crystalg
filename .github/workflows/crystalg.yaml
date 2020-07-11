@@ -16,9 +16,10 @@ jobs:
       run: shards install
     - name: Run tests
       run: crystal spec
+    - name: Generate document
+      run: crystal docs
     - name: Deploy document
       uses: peaceiris/actions-gh-pages@v3
-      run: crystal docs
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./docs
