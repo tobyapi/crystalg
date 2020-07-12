@@ -23,7 +23,7 @@ module Crystalg::DataStructures
       return if left >= right
       middle = ((left + right) / 2).to_i
 
-      sort(left, right)
+      sort(left, right, divx)
 
       @tx[middle], @ty[middle] = @points[middle].x, @points[middle].y
       @count[middle] = right - left
@@ -61,7 +61,7 @@ module Crystalg::DataStructures
         while i <= j && (divx ? @points[i].x : @points[i].y) < pivot
           i += 1
         end
-        while i <= j && (divx ? @points[i].x : @points[i].y) > pivot
+        while i <= j && (divx ? @points[j].x : @points[j].y) > pivot
           j -= 1
         end
         break if i >= j
