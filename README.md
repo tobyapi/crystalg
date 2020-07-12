@@ -36,6 +36,9 @@ hash = RollingHash.new input
 hash.count("issi") # => 2
 ```
 
+## Documentation
+- [API Document](https://tobiasgsmollett.github.io/crystalg/)
+
 ## Development
 
 crystal spec
