@@ -1,6 +1,10 @@
 require "../geometry/*"
 
 module Crystalg::DataStructures
+
+  # KD Tree is a data structure for organizing points in a k-dimensional space. 
+  # KD Trees are a useful data structure for several applications, 
+  # such as range searches and nearest neighbor searches. 
   class KDTree(T)
     include Crystalg::Geometry
 
