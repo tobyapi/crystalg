@@ -12,12 +12,12 @@ describe Crystalg do
 
     left, right = tree.split 3
 
-    true.should eq(tree.find(0, left) === 1)
-    true.should eq(tree.find(1, left) === 2)
-    true.should eq(tree.find(2, left) === 3)
+    left.find(0).should eq 1
+    left.find(1).should eq 2
+    left.find(2).should eq 3
 
-    true.should eq(tree.find(0, right) === 4)
-    true.should eq(tree.find(1, right) === 5)
+    right.find(0).should eq 4
+    right.find(1).should eq 5
   end
 
   it "merge randomized_binary_search_tree" do
@@ -28,13 +28,13 @@ describe Crystalg do
     }
 
     left, right = tree.split 3
-    tree.merge right, left
+    right.merge left
 
-    true.should eq(tree.find(0) === 4)
-    true.should eq(tree.find(1) === 5)
-    true.should eq(tree.find(2) === 1)
-    true.should eq(tree.find(3) === 2)
-    true.should eq(tree.find(4) === 3)
+    right.find(0).should eq 4
+    right.find(1).should eq 5
+    right.find(2).should eq 1
+    right.find(3).should eq 2
+    right.find(4).should eq 3
   end
 
   it "insert randomized_binary_search_tree" do
@@ -44,11 +44,11 @@ describe Crystalg do
       tree.insert i, e
     }
 
-    true.should eq(tree.find(0) === 1)
-    true.should eq(tree.find(1) === 2)
-    true.should eq(tree.find(2) === 3)
-    true.should eq(tree.find(3) === 4)
-    true.should eq(tree.find(4) === 5)
+    tree.find(0).should eq 1
+    tree.find(1).should eq 2
+    tree.find(2).should eq 3
+    tree.find(3).should eq 4
+    tree.find(4).should eq 5
   end
 
   it "erase randomized_binary_search_tree" do
@@ -60,10 +60,10 @@ describe Crystalg do
 
     tree.erase(2)
 
-    true.should eq(tree.find(0) === 1)
-    true.should eq(tree.find(1) === 2)
-    true.should eq(tree.find(2) === 4)
-    true.should eq(tree.find(3) === 5)
+    tree.find(0).should eq 1
+    tree.find(1).should eq 2
+    tree.find(2).should eq 4
+    tree.find(3).should eq 5
   end
 
   it "reverse randomized_binary_search_tree" do
@@ -75,10 +75,10 @@ describe Crystalg do
 
     tree.reverse(0, 5)
 
-    true.should eq(tree.find(0) === 5)
-    true.should eq(tree.find(1) === 4)
-    true.should eq(tree.find(2) === 3)
-    true.should eq(tree.find(3) === 2)
-    true.should eq(tree.find(4) === 1)
+    tree.find(0).should eq 5
+    tree.find(1).should eq 4
+    tree.find(2).should eq 3
+    tree.find(3).should eq 2
+    tree.find(4).should eq 1
   end
 end

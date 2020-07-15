@@ -1,7 +1,33 @@
 module Crystalg::DataStructures
+  # A randomized binary serach tree is  a binary tree selected
+  # at random from some probability distribution on binary trees.
+  #
+  # ```
+  # tree = RandomizedBinarySearchTree(Int32).new
+  #
+  # tree.insert(0, 1)
+  # tree.insert(1, 2)
+  # tree.insert(2, 3)
+  # tree.insert(3, 4)
+  # tree.insert(4, 5) # => [1, 2, 3, 4, 5]
+  #
+  # # splits to [0, index) and [index, n)
+  # left, right = tree.split(3) # left => [1, 2, 3], right => [4, 5]
+  #
+  # right.merge(left) # => [4, 5, 1, 2, 3]
+  # 
+  # # reverses [left_index, right_index)
+  # right.reverse(1, 4) # => [4, 2, 1, 5, 3]
+  #
+  # right.erase(2) # => [4, 2, 5, 3]
+  #
+  # right.find(0) # => 4
+  # right.find(1) # => 2
+  # right.find(2) # => 5
+  # right.find(3) # => 3
+  # ```
   class RandomizedBinarySearchTree(T)
-
-    class Node(T)
+    private class Node(T)
       def initialize(
         @value : T,
         @left : Node(T)?  = nil,
@@ -20,11 +46,19 @@ module Crystalg::DataStructures
       setter size, rev
     end
 
+    # :nodoc:
+    setter root : Node(T)?
+    @root : Node(T)? = nil
+
+    # Creates a empty tree.
     def initialize
       @rnd = ::Random.new
     end
 
-    @root : Node(T)? = nil
+    # :nodoc:
+    def initialize(@root : Node(T)?)
+      @rnd = ::Random.new
+    end
 
     private def propagate(t : Node(T)) : Node(T)
       left_size = t.left.nil? ? 0 : t.left.as(Node).size
@@ -41,84 +75,166 @@ module Crystalg::DataStructures
     end
 
     private def merge_rec(l : Node(T)?, r : Node(T)?) : Node(T)?
-      l = propagate l if !l.nil?
-      r = propagate r if !r.nil?
+      l = propagate(l) if !l.nil?
+      r = propagate(r) if !r.nil?
 
-      if l.nil? || r.nil?
-        return !l.nil? ? l : r
-      end
+      return r if l.nil?
+      return l if r.nil?
 
       m, n = l.size, r.size
       if @rnd.next_int % (m + n) < m
-        l.right = merge_rec l.right, r
-        propagate l
+        l.right = merge_rec(l.right, r)
+        propagate(l)
       else
-        r.left = merge_rec l, r.left
-        propagate r
+        r.left = merge_rec(l, r.left)
+        propagate(r)
       end
     end
 
-    def merge(l : Node(T)?, r : Node(T)?) : Node(T)?
-      (@root = merge_rec(l, r))
+    # Merges two trees by O(log n). This method returns self, so several calls can be chained.
+    #
+    # ```
+    # left = RandomizedBinarySearchTree(Int32).new
+    # right = RandomizedBinarySearchTree(Int32).new
+    #
+    # [4, 5].each_with_index { |e, i| left.insert(i, e) }
+    # [1, 2, 3].each_with_index { |e, i| right.insert(i, e) }
+    #
+    # left.merge(right)
+    #
+    # right.find(0) # => 4
+    # right.find(1) # => 5
+    # left.find(2) # => 1
+    # left.find(3) # => 2
+    # left.find(4) # => 3
+    # ```
+    def merge(other : RandomizedBinarySearchTree(T))
+      @root = merge_rec(@root, other.@root)
+      other.root = nil
+
+      self
     end
 
-    def split(k : Int32, t : Node(T)? = @root)
+    private def split_rec(k : Int32, t : Node(T)? = @root)
       t = propagate t if !t.nil?
       return {nil, nil} if t.nil?
       left_size = t.left.nil? ? 0 : t.left.as(Node(T)).size
       if k <= left_size
-        l, r = split k, t.left
+        l, r = split_rec(k, t.left)
         t.left = r
-        {l, propagate t}
+        {l, propagate(t)}
       else
-        l, r = split(k - left_size - 1, t.right)
+        l, r = split_rec(k - left_size - 1, t.right)
         t.right = l
         {propagate(t), r}
       end
     end
 
-    private def insert(k : Int32, value : T, t : Node(T)?)
-      l, r = split k
-      t = merge_rec(l, Node.new value)
-      t = merge_rec t, r
-      t.nil? ? t : propagate(t)
+    # Splits a tree to [0, index) and [index, n) by O(log n). 
+    # After this method called, a receiver tree is empty.
+    #
+    # ```
+    # tree = RandomizedBinarySearchTree(Int32).new
+    #
+    # [1, 2, 3, 4, 5].each_with_index { |e, i| tree.insert(i, e) }
+    #
+    # left, right = tree.split(3)
+    #
+    # left.find(0) # => 1
+    # left.find(1) # => 2
+    # left.find(2) # => 3
+    # right.find(0) # => 4
+    # right.find(1) # => 5
+    # ```
+    def split(index : Int32)
+      left_root, right_root = split_rec(index, @root)
+      left = RandomizedBinarySearchTree(T).new(left_root)
+      right = RandomizedBinarySearchTree(T).new(right_root)
+      @root = nil
+      {left, right}
     end
 
-    private def erase(k, t)
-      tmp, c = split k + 1, t
-      a, b = split k, tmp
-      t = merge_rec a, c
-      t = propagate(t) if !t.nil?
-      t
+    # Inserts a value by O(log n). This method returns self, so several calls can be chained.
+    #
+    # ```
+    # tree = RandomizedBinarySearchTree(Int32).new
+    # tree.insert(0, 1)
+    # ```
+    def insert(index : Int32, value : T)
+      left, right = split_rec(index)
+      t = merge_rec(left, Node.new(value))
+      t = merge_rec(t, right)
+      @root = t.nil? ? t : propagate(t)
+
+      self
     end
 
-    def insert(k, value)
-      @root = insert(k, value, @root)
+    # Erases a value by O(log n). This method returns self, so several calls can be chained.
+    #
+    # ```
+    # tree = RandomizedBinarySearchTree(Int32).new
+    # tree.insert(0, 1)
+    #
+    # tree.erase(0)
+    # ```
+    def erase(index : Int32)
+      return self if find(index).nil?
+      tmp, c = split_rec(index + 1, @root)
+      a, b = split_rec(index, tmp)
+      @root = merge_rec(a, c)
+      @root = propagate(@root.as(Node(T))) if !@root.nil?
+
+      self
     end
 
-    def erase(k)
-      @root = erase(k, @root)
-    end
-
-    def find(k, t = @root)
+    private def find_rec(index : Int32, t : Node(T)?)
       return nil if t.nil?
-      propagate t
+      propagate(t)
 
       left_size = t.left.nil? ? 0 : t.left.as(Node(T)).size
-      if k < left_size
-        find k, t.left
-      elsif left_size == k
+      if index < left_size
+        find_rec(index, t.left)
+      elsif left_size == index
         t.value
       else
-        find k - left_size - 1, t.right
+        find_rec(index - left_size - 1, t.right)
       end
     end
 
-    def reverse(left_id, right_id)
-      tmp, c = split right_id
-      a, b = split left_id, tmp
+    # Returns a value by O(log n).
+    #
+    # ```
+    # tree = RandomizedBinarySearchTree(Int32).new
+    # tree.insert(0, 1)
+    #
+    # tree.find(0) # => 1
+    # ```
+    def find(index : Int32)
+      find_rec(index, @root)
+    end
+
+    # Reverses values in [left_id, right_id) by O(log n). This method returns self, so several calls can be chained.
+    #
+    # ```
+    # tree = RandomizedBinarySearchTree(Int32).new
+    #
+    # [1, 2, 3, 4, 5].each_with_index { |e, i| tree.insert(i, e) }
+    #
+    # tree.reverse(1, 4)
+    #
+    # tree.find(0) # => 1
+    # tree.find(1) # => 4
+    # tree.find(2) # => 3
+    # tree.find(3) # => 2
+    # tree.find(4) # => 5
+    # ```
+    def reverse(left_id : Int32, right_id : Int32)
+      tmp, c = split_rec(right_id)
+      a, b = split_rec(left_id, tmp)
       b.as(Node(T)).rev ^= true if !b.nil?
       merge_rec(merge_rec(a, b), c)
+
+      self
     end
   end
 end
