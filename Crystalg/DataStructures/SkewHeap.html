@@ -126,18 +126,8 @@
       
     </li>
   
-  <li class="parent " data-id="crystalg/Crystalg/DataStructures/RandomizedBinarySearchTree" data-name="crystalg::datastructures::randomizedbinarysearchtree(t)">
+  <li class=" " data-id="crystalg/Crystalg/DataStructures/RandomizedBinarySearchTree" data-name="crystalg::datastructures::randomizedbinarysearchtree(t)">
       <a href="../../Crystalg/DataStructures/RandomizedBinarySearchTree.html">RandomizedBinarySearchTree</a>
-      
-        <ul>
-  
-  <li class=" " data-id="crystalg/Crystalg/DataStructures/RandomizedBinarySearchTree/Node" data-name="crystalg::datastructures::randomizedbinarysearchtree::node(t)">
-      <a href="../../Crystalg/DataStructures/RandomizedBinarySearchTree/Node.html">Node</a>
-      
-    </li>
-  
-</ul>
-
       
     </li>
   
@@ -455,6 +445,17 @@
 
 
 
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>A skew heap is a priority queue allowed merging heaps.</p>
+
 
 
 
@@ -504,15 +505,21 @@
       <li class="entry-summary">
         <a href="#pop-instance-method" class="signature"><strong>#pop</strong></a>
         
+          <div class="summary"><p>Pops the highest priority value from heap.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#push(x)-instance-method" class="signature"><strong>#push</strong>(x)</a>
         
+          <div class="summary"><p>Pushes a new value to heap.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#top-instance-method" class="signature"><strong>#top</strong></a>
+        
+          <div class="summary"><p>Returns the higheset priority value or nil if heap is empty.</p></div>
         
       </li>
     
@@ -582,6 +589,17 @@
         <a class="method-permalink" href="#pop-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Pops the highest priority value from heap. <code>O(log n)</code>.</p>
+
+<pre><code>heap <span class="o">=</span> <span class="t">SkewHeap</span>(<span class="t">Int32</span>).<span class="k">new</span>
+
+heap.push(<span class="n">3</span>).push(<span class="n">2</span>).push(<span class="n">1</span>)
+heap.pop
+heap.top <span class="c"># =&gt; 2</span></code></pre>
+        </div>
+      
       <br/>
       <div>
         
@@ -596,6 +614,15 @@
         <a class="method-permalink" href="#push(x)-instance-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Pushes a new value to heap. <code>O(log n)</code></p>
+
+<pre><code>heap <span class="o">=</span> <span class="t">SkewHeap</span>(<span class="t">Int32</span>).<span class="k">new</span>
+heap.push(<span class="n">2</span>)
+heap.top <span class="c"># =&gt; 2</span></code></pre>
+        </div>
+      
       <br/>
       <div>
         
@@ -609,6 +636,16 @@
 
         <a class="method-permalink" href="#top-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Returns the higheset priority value or nil if heap is empty. <code>O(1)</code>.</p>
+
+<pre><code>heap <span class="o">=</span> <span class="t">SkewHeap</span>(<span class="t">Int32</span>).<span class="k">new</span>
+
+heap.top <span class="c"># =&gt; nil</span>
+heap.push(<span class="n">1</span>).top <span class="c"># =&gt; 1</span></code></pre>
+        </div>
       
       <br/>
       <div>

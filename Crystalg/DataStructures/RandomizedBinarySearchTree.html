@@ -126,18 +126,8 @@
       
     </li>
   
-  <li class="parent open current" data-id="crystalg/Crystalg/DataStructures/RandomizedBinarySearchTree" data-name="crystalg::datastructures::randomizedbinarysearchtree(t)">
+  <li class=" current" data-id="crystalg/Crystalg/DataStructures/RandomizedBinarySearchTree" data-name="crystalg::datastructures::randomizedbinarysearchtree(t)">
       <a href="../../Crystalg/DataStructures/RandomizedBinarySearchTree.html">RandomizedBinarySearchTree</a>
-      
-        <ul>
-  
-  <li class=" " data-id="crystalg/Crystalg/DataStructures/RandomizedBinarySearchTree/Node" data-name="crystalg::datastructures::randomizedbinarysearchtree::node(t)">
-      <a href="../../Crystalg/DataStructures/RandomizedBinarySearchTree/Node.html">Node</a>
-      
-    </li>
-  
-</ul>
-
       
     </li>
   
@@ -455,6 +445,41 @@
 
 
 
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>A randomized binary serach tree is  a binary tree selected
+at random from some probability distribution on binary trees.</p>
+
+<pre><code>tree <span class="o">=</span> <span class="t">RandomizedBinarySearchTree</span>(<span class="t">Int32</span>).<span class="k">new</span>
+
+tree.insert(<span class="n">0</span>, <span class="n">1</span>)
+tree.insert(<span class="n">1</span>, <span class="n">2</span>)
+tree.insert(<span class="n">2</span>, <span class="n">3</span>)
+tree.insert(<span class="n">3</span>, <span class="n">4</span>)
+tree.insert(<span class="n">4</span>, <span class="n">5</span>) <span class="c"># =&gt; [1, 2, 3, 4, 5]</span>
+
+<span class="c"># splits to [0, index) and [index, n)</span>
+left, right <span class="o">=</span> tree.split(<span class="n">3</span>) <span class="c"># left =&gt; [1, 2, 3], right =&gt; [4, 5]</span>
+
+right.merge(left) <span class="c"># =&gt; [4, 5, 1, 2, 3]</span>
+
+<span class="c"># reverses [left_index, right_index)</span>
+right.reverse(<span class="n">1</span>, <span class="n">4</span>) <span class="c"># =&gt; [4, 2, 1, 5, 3]</span>
+
+right.erase(<span class="n">2</span>) <span class="c"># =&gt; [4, 2, 5, 3]</span>
+
+right.find(<span class="n">0</span>) <span class="c"># =&gt; 4</span>
+right.find(<span class="n">1</span>) <span class="c"># =&gt; 2</span>
+right.find(<span class="n">2</span>) <span class="c"># =&gt; 5</span>
+right.find(<span class="n">3</span>) <span class="c"># =&gt; 3</span></code></pre>
+
 
 
 
@@ -495,6 +520,8 @@
       <li class="entry-summary">
         <a href="#new-class-method" class="signature"><strong>.new</strong></a>
         
+          <div class="summary"><p>Creates a empty tree.</p></div>
+        
       </li>
     
   </ul>
@@ -514,32 +541,44 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#erase(k)-instance-method" class="signature"><strong>#erase</strong>(k)</a>
+        <a href="#erase(index:Int32)-instance-method" class="signature"><strong>#erase</strong>(index : Int32)</a>
+        
+          <div class="summary"><p>Erases a value by O(log n).</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#find(k,t=@root)-instance-method" class="signature"><strong>#find</strong>(k, t = @root)</a>
+        <a href="#find(index:Int32)-instance-method" class="signature"><strong>#find</strong>(index : Int32)</a>
+        
+          <div class="summary"><p>Returns a value by O(log n).</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#insert(k,value)-instance-method" class="signature"><strong>#insert</strong>(k, value)</a>
+        <a href="#insert(index:Int32,value:T)-instance-method" class="signature"><strong>#insert</strong>(index : Int32, value : T)</a>
+        
+          <div class="summary"><p>Inserts a value by O(log n).</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#merge(l:Node(T)?,r:Node(T)?):Node(T)?-instance-method" class="signature"><strong>#merge</strong>(l : Node(T)?, r : Node(T)?) : Node(T)?</a>
+        <a href="#merge(other:RandomizedBinarySearchTree(T))-instance-method" class="signature"><strong>#merge</strong>(other : RandomizedBinarySearchTree(T))</a>
+        
+          <div class="summary"><p>Merges two trees by O(log n).</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#reverse(left_id,right_id)-instance-method" class="signature"><strong>#reverse</strong>(left_id, right_id)</a>
+        <a href="#reverse(left_id:Int32,right_id:Int32)-instance-method" class="signature"><strong>#reverse</strong>(left_id : Int32, right_id : Int32)</a>
+        
+          <div class="summary"><p>Reverses values in [left_id, right_id) by O(log n).</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#split(k:Int32,t:Node(T)?=@root)-instance-method" class="signature"><strong>#split</strong>(k : Int32, t : Node(T)? = @root)</a>
+        <a href="#split(index:Int32)-instance-method" class="signature"><strong>#split</strong>(index : Int32)</a>
+        
+          <div class="summary"><p>Splits a tree to [0, index) and [index, n) by O(log n).</p></div>
         
       </li>
     
@@ -591,6 +630,11 @@
         <a class="method-permalink" href="#new-class-method">#</a>
       </div>
       
+        <div class="doc">
+          
+          <p>Creates a empty tree.</p>
+        </div>
+      
       <br/>
       <div>
         
@@ -611,13 +655,23 @@
     Instance Method Detail
   </h2>
   
-    <div class="entry-detail" id="erase(k)-instance-method">
+    <div class="entry-detail" id="erase(index:Int32)-instance-method">
       <div class="signature">
         
-        def <strong>erase</strong>(k)
+        def <strong>erase</strong>(index : Int32)
 
-        <a class="method-permalink" href="#erase(k)-instance-method">#</a>
+        <a class="method-permalink" href="#erase(index:Int32)-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Erases a value by O(log n). This method returns self, so several calls can be chained.</p>
+
+<pre><code>tree <span class="o">=</span> <span class="t">RandomizedBinarySearchTree</span>(<span class="t">Int32</span>).<span class="k">new</span>
+tree.insert(<span class="n">0</span>, <span class="n">1</span>)
+
+tree.erase(<span class="n">0</span>)</code></pre>
+        </div>
       
       <br/>
       <div>
@@ -625,13 +679,23 @@
       </div>
     </div>
   
-    <div class="entry-detail" id="find(k,t=@root)-instance-method">
+    <div class="entry-detail" id="find(index:Int32)-instance-method">
       <div class="signature">
         
-        def <strong>find</strong>(k, t = @root)
+        def <strong>find</strong>(index : Int32)
 
-        <a class="method-permalink" href="#find(k,t=@root)-instance-method">#</a>
+        <a class="method-permalink" href="#find(index:Int32)-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Returns a value by O(log n).</p>
+
+<pre><code>tree <span class="o">=</span> <span class="t">RandomizedBinarySearchTree</span>(<span class="t">Int32</span>).<span class="k">new</span>
+tree.insert(<span class="n">0</span>, <span class="n">1</span>)
+
+tree.find(<span class="n">0</span>) <span class="c"># =&gt; 1</span></code></pre>
+        </div>
       
       <br/>
       <div>
@@ -639,13 +703,21 @@
       </div>
     </div>
   
-    <div class="entry-detail" id="insert(k,value)-instance-method">
+    <div class="entry-detail" id="insert(index:Int32,value:T)-instance-method">
       <div class="signature">
         
-        def <strong>insert</strong>(k, value)
+        def <strong>insert</strong>(index : Int32, value : T)
 
-        <a class="method-permalink" href="#insert(k,value)-instance-method">#</a>
+        <a class="method-permalink" href="#insert(index:Int32,value:T)-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Inserts a value by O(log n). This method returns self, so several calls can be chained.</p>
+
+<pre><code>tree <span class="o">=</span> <span class="t">RandomizedBinarySearchTree</span>(<span class="t">Int32</span>).<span class="k">new</span>
+tree.insert(<span class="n">0</span>, <span class="n">1</span>)</code></pre>
+        </div>
       
       <br/>
       <div>
@@ -653,13 +725,32 @@
       </div>
     </div>
   
-    <div class="entry-detail" id="merge(l:Node(T)?,r:Node(T)?):Node(T)?-instance-method">
+    <div class="entry-detail" id="merge(other:RandomizedBinarySearchTree(T))-instance-method">
       <div class="signature">
         
-        def <strong>merge</strong>(l : <a href="../../Crystalg/DataStructures/RandomizedBinarySearchTree/Node.html">Node</a>(T)?, r : <a href="../../Crystalg/DataStructures/RandomizedBinarySearchTree/Node.html">Node</a>(T)?) : <a href="../../Crystalg/DataStructures/RandomizedBinarySearchTree/Node.html">Node</a>(T)?
+        def <strong>merge</strong>(other : <a href="../../Crystalg/DataStructures/RandomizedBinarySearchTree.html">RandomizedBinarySearchTree</a>(T))
 
-        <a class="method-permalink" href="#merge(l:Node(T)?,r:Node(T)?):Node(T)?-instance-method">#</a>
+        <a class="method-permalink" href="#merge(other:RandomizedBinarySearchTree(T))-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Merges two trees by O(log n). This method returns self, so several calls can be chained.</p>
+
+<pre><code>left <span class="o">=</span> <span class="t">RandomizedBinarySearchTree</span>(<span class="t">Int32</span>).<span class="k">new</span>
+right <span class="o">=</span> <span class="t">RandomizedBinarySearchTree</span>(<span class="t">Int32</span>).<span class="k">new</span>
+
+[<span class="n">4</span>, <span class="n">5</span>].each_with_index { <span class="o">|</span>e, i<span class="o">|</span> left.insert(i, e) }
+[<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>].each_with_index { <span class="o">|</span>e, i<span class="o">|</span> right.insert(i, e) }
+
+left.merge(right)
+
+right.find(<span class="n">0</span>) <span class="c"># =&gt; 4</span>
+right.find(<span class="n">1</span>) <span class="c"># =&gt; 5</span>
+left.find(<span class="n">2</span>) <span class="c"># =&gt; 1</span>
+left.find(<span class="n">3</span>) <span class="c"># =&gt; 2</span>
+left.find(<span class="n">4</span>) <span class="c"># =&gt; 3</span></code></pre>
+        </div>
       
       <br/>
       <div>
@@ -667,13 +758,30 @@
       </div>
     </div>
   
-    <div class="entry-detail" id="reverse(left_id,right_id)-instance-method">
+    <div class="entry-detail" id="reverse(left_id:Int32,right_id:Int32)-instance-method">
       <div class="signature">
         
-        def <strong>reverse</strong>(left_id, right_id)
+        def <strong>reverse</strong>(left_id : Int32, right_id : Int32)
 
-        <a class="method-permalink" href="#reverse(left_id,right_id)-instance-method">#</a>
+        <a class="method-permalink" href="#reverse(left_id:Int32,right_id:Int32)-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Reverses values in [left_id, right_id) by O(log n). This method returns self, so several calls can be chained.</p>
+
+<pre><code>tree <span class="o">=</span> <span class="t">RandomizedBinarySearchTree</span>(<span class="t">Int32</span>).<span class="k">new</span>
+
+[<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>, <span class="n">5</span>].each_with_index { <span class="o">|</span>e, i<span class="o">|</span> tree.insert(i, e) }
+
+tree.reverse(<span class="n">1</span>, <span class="n">4</span>)
+
+tree.find(<span class="n">0</span>) <span class="c"># =&gt; 1</span>
+tree.find(<span class="n">1</span>) <span class="c"># =&gt; 4</span>
+tree.find(<span class="n">2</span>) <span class="c"># =&gt; 3</span>
+tree.find(<span class="n">3</span>) <span class="c"># =&gt; 2</span>
+tree.find(<span class="n">4</span>) <span class="c"># =&gt; 5</span></code></pre>
+        </div>
       
       <br/>
       <div>
@@ -681,13 +789,31 @@
       </div>
     </div>
   
-    <div class="entry-detail" id="split(k:Int32,t:Node(T)?=@root)-instance-method">
+    <div class="entry-detail" id="split(index:Int32)-instance-method">
       <div class="signature">
         
-        def <strong>split</strong>(k : Int32, t : <a href="../../Crystalg/DataStructures/RandomizedBinarySearchTree/Node.html">Node</a>(T)? = @root)
+        def <strong>split</strong>(index : Int32)
 
-        <a class="method-permalink" href="#split(k:Int32,t:Node(T)?=@root)-instance-method">#</a>
+        <a class="method-permalink" href="#split(index:Int32)-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Splits a tree to [0, index) and [index, n) by O(log n). 
+After this method called, a receiver tree is empty.</p>
+
+<pre><code>tree <span class="o">=</span> <span class="t">RandomizedBinarySearchTree</span>(<span class="t">Int32</span>).<span class="k">new</span>
+
+[<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>, <span class="n">5</span>].each_with_index { <span class="o">|</span>e, i<span class="o">|</span> tree.insert(i, e) }
+
+left, right <span class="o">=</span> tree.split(<span class="n">3</span>)
+
+left.find(<span class="n">0</span>) <span class="c"># =&gt; 1</span>
+left.find(<span class="n">1</span>) <span class="c"># =&gt; 2</span>
+left.find(<span class="n">2</span>) <span class="c"># =&gt; 3</span>
+right.find(<span class="n">0</span>) <span class="c"># =&gt; 4</span>
+right.find(<span class="n">1</span>) <span class="c"># =&gt; 5</span></code></pre>
+        </div>
       
       <br/>
       <div>
