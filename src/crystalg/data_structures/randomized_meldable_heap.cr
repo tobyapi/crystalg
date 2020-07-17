@@ -49,7 +49,7 @@ module Crystalg::DataStructures
     # heap.size # => 0
     # heap.push(1).size # => 1
     # ```
-    def size
+    def size : Int32
       @size
     end
 
@@ -97,7 +97,7 @@ module Crystalg::DataStructures
       @root.as(Node(T)).value if !@root.nil?
     end
 
-    private def remove_rec(node : Node(T)?, value): Node(T)?
+    private def remove_rec(node : Node(T)?, value : T): Node(T)?
       return nil if node.nil? 
       return node if @order == :min && value < node.value 
       return node if @order == :max && node.value < value
@@ -124,7 +124,7 @@ module Crystalg::DataStructures
     # heap.pop.top # => 11
     # heap.pop.top # => nil
     # ```
-    def remove(value)
+    def remove(value : T)
       @root = remove_rec(@root, value)
       self
     end

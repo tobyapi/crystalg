@@ -1,14 +1,12 @@
 module Crystalg::DataStructures
   @[Experimental]
   class LinkCutTree(T)
-    INF = Int32::MAX
-
     def initialize(size)
       @left = Array(NodeID?).new(size, nil)
       @right = Array(NodeID?).new(size, nil)
       @parent = Array(NodeID?).new(size, nil)
       @val = Array(T).new(size, 0)
-      @mini = Array(T).new(size, INF)
+      @mini = Array(T).new(size, T::MAX)
       @minId = Array(NodeID?).new(size, nil)
       @lazy = Array(T).new(size, 0)
       @rev = Array(Bool).new(size, false)

@@ -19,13 +19,13 @@ module Crystalg::DataStructures
       root(u, time) == root(v, time)
     end
 
-    def root(u : NodeID, time : NodeID) : NodeID
+    def root(u : NodeID, time : Int32) : NodeID
       parent_id, parent_time = @parent[u].last
       return root(parent_id, time) if parent_id >= 0 && parent_time <= time
       u
     end
 
-    def size(u : NodeID, time : NodeID) : Int32
+    def size(u : NodeID, time : Int32) : Int32
       u = root(u, time)
       left, right = 0, @parent[u].size
       while right - left > 1

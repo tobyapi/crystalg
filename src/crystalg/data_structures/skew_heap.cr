@@ -2,8 +2,8 @@ module Crystalg::DataStructures
   # A skew heap is a priority queue allowed merging heaps.
   class SkewHeap(T)
     private class Node(T)
-      property left : Node(T) | Nil
-      property right : Node(T) | Nil
+      property left : Node(T)?
+      property right : Node(T)?
       getter value : T
 
       def initialize(@value)
@@ -12,13 +12,15 @@ module Crystalg::DataStructures
       end
     end
 
-    @root = nil
+    # :nodoc:
+    setter root : Node(T)?
+    @root : Node(T)? = nil
 
-    def merge(a, b)
+    private def meld(a : Node(T)?, b : Node(T)?): Node(T)?
       return b if a.nil?
       return a if b.nil?
       a, b = b, a if a.value > b.value
-      a.right = merge(a.right, b)
+      a.right = meld(a.right, b)
       a.left, a.right = a.right, a.left
       a
     end
@@ -35,7 +37,7 @@ module Crystalg::DataStructures
         if @root.nil?
           Node(T).new x
         else
-          merge(@root.as(Node(T)), Node(T).new x)
+          meld(@root.as(Node(T)), Node(T).new x)
         end
 
         self
@@ -65,8 +67,36 @@ module Crystalg::DataStructures
     def pop
       return self if @root.nil?
       tmp = @root.as(Node(T))
-      @root = merge(tmp.left, tmp.right)
+      @root = meld(tmp.left, tmp.right)
 
+      self
+    end
+
+
+    # Adds all elements of the meldable heap Q passed as parameter to this heap, and then emptying Q. `O(log n)`.
+    #
+    # ```
+    # heap1 = SkewHeap(Int32).new
+    # heap2 = SkewHeap(Int32).new
+    # [1, 2, 3].each { |e| heap1.push(e) }
+    # [4, 5, 6].each { |e| heap2.push(e) }
+    #
+    # heap1.absorb(heap2)
+    #
+    # heap2.top # => nil
+    #
+    # heap1.top     # => 1
+    # heap1.pop.top # => 2
+    # heap1.pop.top # => 3
+    # heap1.pop.top # => 4
+    # heap1.pop.top # => 5
+    # heap1.pop.top # => 6
+    # heap1.pop.top # => nil
+    # ```
+    def absorb(other : SkewHeap(T))
+      @root = meld(@root, other.@root)
+      other.root = nil
+  
       self
     end
   end

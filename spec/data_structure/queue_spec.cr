@@ -17,6 +17,6 @@ describe Crystalg do
       tmp = queue.pop!
       output << tmp if !tmp.nil?
     end
-    true.should eq(input === output)
+    input.should eq(output)
   end
 end
