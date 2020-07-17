@@ -18,7 +18,7 @@
 </svg>
 
   <meta id="repository-name" content="crystalg">
-  <title>Crystalg::DataStructures::Queue(A) - crystalg 0.1.0</title>
+  <title>Crystalg::DataStructures::Queue(T) - crystalg 0.1.0</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../../";
   </script>
@@ -106,7 +106,7 @@
       
     </li>
   
-  <li class=" current" data-id="crystalg/Crystalg/DataStructures/Queue" data-name="crystalg::datastructures::queue(a)">
+  <li class=" current" data-id="crystalg/Crystalg/DataStructures/Queue" data-name="crystalg::datastructures::queue(t)">
       <a href="../../Crystalg/DataStructures/Queue.html">Queue</a>
       
     </li>
@@ -136,7 +136,7 @@
       
     </li>
   
-  <li class=" " data-id="crystalg/Crystalg/DataStructures/Stack" data-name="crystalg::datastructures::stack(a)">
+  <li class=" " data-id="crystalg/Crystalg/DataStructures/Stack" data-name="crystalg::datastructures::stack(t)">
       <a href="../../Crystalg/DataStructures/Stack.html">Stack</a>
       
     </li>
@@ -420,15 +420,34 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">class</span> Crystalg::DataStructures::Queue(A)
+  <span class="kind">class</span> Crystalg::DataStructures::Queue(T)
 
 </h1>
 
 
-  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../Crystalg/DataStructures/Queue.html">Crystalg::DataStructures::Queue(A)</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../Crystalg/DataStructures/Queue.html">Crystalg::DataStructures::Queue(T)</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
 
 
 
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>A queue is a first-in-first-out data structure. In a FIFO data structure, 
+the first element added to the queue will be the first one to be removed.</p>
+
+<pre><code>queue <span class="o">=</span> <span class="t">Queue</span>(<span class="t">Int32</span>).<span class="k">new</span>
+queue.push(<span class="n">1</span>).push(<span class="n">2</span>).push(<span class="n">3</span>)
+
+puts queue.pop! <span class="c"># =&gt; 1</span>
+puts queue.pop! <span class="c"># =&gt; 2</span>
+puts queue.pop! <span class="c"># =&gt; 3</span></code></pre>
 
 
 
@@ -499,17 +518,17 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#pop!-instance-method" class="signature"><strong>#pop!</strong></a>
+        <a href="#pop!:T?-instance-method" class="signature"><strong>#pop!</strong> : T?</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#push(val)-instance-method" class="signature"><strong>#push</strong>(val)</a>
+        <a href="#push(val:T)-instance-method" class="signature"><strong>#push</strong>(val : T)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#top-instance-method" class="signature"><strong>#top</strong></a>
+        <a href="#top:T?-instance-method" class="signature"><strong>#top</strong> : T?</a>
         
       </li>
     
@@ -609,12 +628,12 @@
       </div>
     </div>
   
-    <div class="entry-detail" id="pop!-instance-method">
+    <div class="entry-detail" id="pop!:T?-instance-method">
       <div class="signature">
         
-        def <strong>pop!</strong>
+        def <strong>pop!</strong> : T?
 
-        <a class="method-permalink" href="#pop!-instance-method">#</a>
+        <a class="method-permalink" href="#pop!:T?-instance-method">#</a>
       </div>
       
       <br/>
@@ -623,12 +642,12 @@
       </div>
     </div>
   
-    <div class="entry-detail" id="push(val)-instance-method">
+    <div class="entry-detail" id="push(val:T)-instance-method">
       <div class="signature">
         
-        def <strong>push</strong>(val)
+        def <strong>push</strong>(val : T)
 
-        <a class="method-permalink" href="#push(val)-instance-method">#</a>
+        <a class="method-permalink" href="#push(val:T)-instance-method">#</a>
       </div>
       
       <br/>
@@ -637,12 +656,12 @@
       </div>
     </div>
   
-    <div class="entry-detail" id="top-instance-method">
+    <div class="entry-detail" id="top:T?-instance-method">
       <div class="signature">
         
-        def <strong>top</strong>
+        def <strong>top</strong> : T?
 
-        <a class="method-permalink" href="#top-instance-method">#</a>
+        <a class="method-permalink" href="#top:T?-instance-method">#</a>
       </div>
       
       <br/>

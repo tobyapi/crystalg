@@ -106,7 +106,7 @@
       
     </li>
   
-  <li class=" " data-id="crystalg/Crystalg/DataStructures/Queue" data-name="crystalg::datastructures::queue(a)">
+  <li class=" " data-id="crystalg/Crystalg/DataStructures/Queue" data-name="crystalg::datastructures::queue(t)">
       <a href="../../Crystalg/DataStructures/Queue.html">Queue</a>
       
     </li>
@@ -136,7 +136,7 @@
       
     </li>
   
-  <li class=" " data-id="crystalg/Crystalg/DataStructures/Stack" data-name="crystalg::datastructures::stack(a)">
+  <li class=" " data-id="crystalg/Crystalg/DataStructures/Stack" data-name="crystalg::datastructures::stack(t)">
       <a href="../../Crystalg/DataStructures/Stack.html">Stack</a>
       
     </li>
@@ -483,7 +483,9 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#merge(a,b)-instance-method" class="signature"><strong>#merge</strong>(a, b)</a>
+        <a href="#absorb(other:SkewHeap(T))-instance-method" class="signature"><strong>#absorb</strong>(other : SkewHeap(T))</a>
+        
+          <div class="summary"><p>Adds all elements of the meldable heap Q passed as parameter to this heap, and then emptying Q.</p></div>
         
       </li>
     
@@ -552,13 +554,35 @@
     Instance Method Detail
   </h2>
   
-    <div class="entry-detail" id="merge(a,b)-instance-method">
+    <div class="entry-detail" id="absorb(other:SkewHeap(T))-instance-method">
       <div class="signature">
         
-        def <strong>merge</strong>(a, b)
+        def <strong>absorb</strong>(other : <a href="../../Crystalg/DataStructures/SkewHeap.html">SkewHeap</a>(T))
 
-        <a class="method-permalink" href="#merge(a,b)-instance-method">#</a>
+        <a class="method-permalink" href="#absorb(other:SkewHeap(T))-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Adds all elements of the meldable heap Q passed as parameter to this heap, and then emptying Q. <code>O(log n)</code>.</p>
+
+<pre><code>heap1 <span class="o">=</span> <span class="t">SkewHeap</span>(<span class="t">Int32</span>).<span class="k">new</span>
+heap2 <span class="o">=</span> <span class="t">SkewHeap</span>(<span class="t">Int32</span>).<span class="k">new</span>
+[<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>].each { <span class="o">|</span>e<span class="o">|</span> heap1.push(e) }
+[<span class="n">4</span>, <span class="n">5</span>, <span class="n">6</span>].each { <span class="o">|</span>e<span class="o">|</span> heap2.push(e) }
+
+heap1.absorb(heap2)
+
+heap2.top <span class="c"># =&gt; nil</span>
+
+heap1.top     <span class="c"># =&gt; 1</span>
+heap1.pop.top <span class="c"># =&gt; 2</span>
+heap1.pop.top <span class="c"># =&gt; 3</span>
+heap1.pop.top <span class="c"># =&gt; 4</span>
+heap1.pop.top <span class="c"># =&gt; 5</span>
+heap1.pop.top <span class="c"># =&gt; 6</span>
+heap1.pop.top <span class="c"># =&gt; nil</span></code></pre>
+        </div>
       
       <br/>
       <div>
