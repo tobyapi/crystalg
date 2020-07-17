@@ -1,7 +1,5 @@
 module Crystalg::DataStructures
   class PersistentUnionFind
-    alias NodeID = Int32
-
     def initialize(size)
       @parent = Array(Array(Tuple(NodeID, Int32))).new(size) { [{-1, 0}] }
       @current = 0

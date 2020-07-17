@@ -3,8 +3,6 @@ module Crystalg::DataStructures
   class LinkCutTree(T)
     INF = Int32::MAX
 
-    alias NodeID = UInt32
-
     def initialize(size)
       @left = Array(NodeID?).new(size, nil)
       @right = Array(NodeID?).new(size, nil)
