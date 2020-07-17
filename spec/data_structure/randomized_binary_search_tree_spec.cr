@@ -81,4 +81,22 @@ describe Crystalg do
     tree.find(3).should eq 2
     tree.find(4).should eq 1
   end
+
+  it "test" do
+    tree = RandomizedBinarySearchTree(Int32).new
+    tree.insert(0, 1)
+    tree.insert(1, 2)
+    tree.insert(2, 3)
+
+    tree.erase(1)
+    tree.erase(1)
+
+    tree.insert(1, 100)
+    tree.update(1, 1000)
+
+    tree.find(0).should eq 1
+    tree.find(1).should eq 1000
+    tree.find(2).should eq 3
+    tree.find(3).should eq nil
+  end
 end

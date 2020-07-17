@@ -29,6 +29,7 @@ module Crystalg::DataStructures
   class RandomizedBinarySearchTree(T)
     private class Node(T)
       def initialize(
+        @key : Int32,
         @value : T,
         @left : Node(T)?  = nil,
         @right : Node(T)? = nil,
@@ -39,7 +40,7 @@ module Crystalg::DataStructures
 
       getter left : Node(T)?
       getter right : Node(T)?
-      getter value, size, rev
+      getter key, value, size, rev
 
       setter left : Node(T)?
       setter right : Node(T)?
@@ -60,7 +61,7 @@ module Crystalg::DataStructures
       @rnd = ::Random.new
     end
 
-    private def propagate(t : Node(T)) : Node(T)
+    private def push(t : Node(T)) : Node(T)
       left_size = t.left.nil? ? 0 : t.left.as(Node).size
       right_size = t.right.nil? ? 0 : t.right.as(Node).size
       t.size = left_size + right_size + 1
@@ -75,19 +76,21 @@ module Crystalg::DataStructures
     end
 
     private def merge_rec(l : Node(T)?, r : Node(T)?) : Node(T)?
-      l = propagate(l) if !l.nil?
-      r = propagate(r) if !r.nil?
+      l = push(l) if !l.nil?
+      r = push(r) if !r.nil?
 
-      return r if l.nil?
-      return l if r.nil?
+      if l.nil? || r.nil?
+        return r if l.nil?
+        return l
+      end
 
       m, n = l.size, r.size
       if @rnd.next_int % (m + n) < m
         l.right = merge_rec(l.right, r)
-        propagate(l)
+        push(l)
       else
         r.left = merge_rec(l, r.left)
-        propagate(r)
+        push(r)
       end
     end
 
@@ -116,17 +119,17 @@ module Crystalg::DataStructures
     end
 
     private def split_rec(k : Int32, t : Node(T)? = @root)
-      t = propagate t if !t.nil?
+      t = push t if !t.nil?
       return {nil, nil} if t.nil?
       left_size = t.left.nil? ? 0 : t.left.as(Node(T)).size
       if k <= left_size
         l, r = split_rec(k, t.left)
         t.left = r
-        {l, propagate(t)}
+        {l, push(t)}
       else
         l, r = split_rec(k - left_size - 1, t.right)
         t.right = l
-        {propagate(t), r}
+        {push(t), r}
       end
     end
 
@@ -161,10 +164,12 @@ module Crystalg::DataStructures
     # tree.insert(0, 1)
     # ```
     def insert(index : Int32, value : T)
+      node = find_rec(index, @root)
+      return self if !node.nil? && node.key == index
       left, right = split_rec(index)
-      t = merge_rec(left, Node.new(value))
+      t = merge_rec(left, Node.new(index, value))
       t = merge_rec(t, right)
-      @root = t.nil? ? t : propagate(t)
+      @root = t.nil? ? t : push(t)
 
       self
     end
@@ -178,24 +183,44 @@ module Crystalg::DataStructures
     # tree.erase(0)
     # ```
     def erase(index : Int32)
-      return self if find(index).nil?
+      node = find_rec(index, @root)
+      return self if node.nil? || node.key != index
       tmp, c = split_rec(index + 1, @root)
       a, b = split_rec(index, tmp)
       @root = merge_rec(a, c)
-      @root = propagate(@root.as(Node(T))) if !@root.nil?
+      @root = push(@root.as(Node(T))) if !@root.nil?
 
       self
     end
 
-    private def find_rec(index : Int32, t : Node(T)?)
+    # Updates a value by O(log n). This method returns self, so several calls can be chained.
+    #
+    # ```
+    # tree = RandomizedBinarySearchTree(Int32).new
+    # tree.insert(0, 1)
+    #
+    # tree.update(0, 2)
+    # ```
+    def update(index : Int32, value : T)
+      node = find_rec(index, @root)
+      return self if node.nil? || node.key != index
+      tmp, c = split_rec(index + 1, @root)
+      a, b = split_rec(index, tmp)
+      @root = merge_rec(merge_rec(a, Node(T).new(index, value)), c)
+      @root = push(@root.as(Node(T))) if !@root.nil?
+
+      self
+    end
+
+    private def find_rec(index : Int32, t : Node(T)?) : Node(T)?
       return nil if t.nil?
-      propagate(t)
+      push(t)
 
       left_size = t.left.nil? ? 0 : t.left.as(Node(T)).size
       if index < left_size
         find_rec(index, t.left)
       elsif left_size == index
-        t.value
+        t
       else
         find_rec(index - left_size - 1, t.right)
       end
@@ -209,8 +234,10 @@ module Crystalg::DataStructures
     #
     # tree.find(0) # => 1
     # ```
-    def find(index : Int32)
-      find_rec(index, @root)
+    def find(index : Int32): T?
+      result = find_rec(index, @root)
+      return nil if result.nil?
+      result.value
     end
 
     # Reverses values in [left_id, right_id) by O(log n). This method returns self, so several calls can be chained.
