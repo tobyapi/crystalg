@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.34.0">
+<meta name="crystal_docs.project_version" content="0.1.0">
+<meta name="crystal_docs.project_name" content="crystalg">
+
+
+<link href="../../../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../../../js/doc.js"></script>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+
+  <meta id="repository-name" content="crystalg">
+  <title>Crystalg::Concurrent::Lock::TASLock - crystalg 0.1.0</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../../../";
+  </script>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../../../index.html">
+          crystalg
+        </a>
+      </h1>
+
+      <span class="project-version">
+        0.1.0
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class=" " data-id="crystalg/toplevel" data-name="top level namespace">
+      <a href="../../../toplevel.html">Top Level Namespace</a>
+      
+    </li>
+  
+  <li class="parent open current" data-id="crystalg/Crystalg" data-name="crystalg">
+      <a href="../../../Crystalg.html">Crystalg</a>
+      
+        <ul>
+  
+  <li class="parent open current" data-id="crystalg/Crystalg/Concurrent" data-name="crystalg::concurrent">
+      <a href="../../../Crystalg/Concurrent.html">Concurrent</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="crystalg/Crystalg/Concurrent/Core" data-name="crystalg::concurrent::core">
+      <a href="../../../Crystalg/Concurrent/Core.html">Core</a>
+      
+        <ul>
+  
+  <li class=" " data-id="crystalg/Crystalg/Concurrent/Core/AtomicMarkableReference" data-name="crystalg::concurrent::core::atomicmarkablereference(t)">
+      <a href="../../../Crystalg/Concurrent/Core/AtomicMarkableReference.html">AtomicMarkableReference</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/Concurrent/Core/AtomicStampedReference" data-name="crystalg::concurrent::core::atomicstampedreference(t)">
+      <a href="../../../Crystalg/Concurrent/Core/AtomicStampedReference.html">AtomicStampedReference</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/Concurrent/Core/Exchanger" data-name="crystalg::concurrent::core::exchanger(t)">
+      <a href="../../../Crystalg/Concurrent/Core/Exchanger.html">Exchanger</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/Concurrent/Core/MarkableReference" data-name="crystalg::concurrent::core::markablereference(t)">
+      <a href="../../../Crystalg/Concurrent/Core/MarkableReference.html">MarkableReference</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="crystalg/Crystalg/Concurrent/DataStructure" data-name="crystalg::concurrent::datastructure">
+      <a href="../../../Crystalg/Concurrent/DataStructure.html">DataStructure</a>
+      
+        <ul>
+  
+  <li class=" " data-id="crystalg/Crystalg/Concurrent/DataStructure/Node" data-name="crystalg::concurrent::datastructure::node(t)">
+      <a href="../../../Crystalg/Concurrent/DataStructure/Node.html">Node</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/Concurrent/DataStructure/Queue" data-name="crystalg::concurrent::datastructure::queue(t)">
+      <a href="../../../Crystalg/Concurrent/DataStructure/Queue.html">Queue</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/Concurrent/DataStructure/UnboundedQueue" data-name="crystalg::concurrent::datastructure::unboundedqueue(t)">
+      <a href="../../../Crystalg/Concurrent/DataStructure/UnboundedQueue.html">UnboundedQueue</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent open current" data-id="crystalg/Crystalg/Concurrent/Lock" data-name="crystalg::concurrent::lock">
+      <a href="../../../Crystalg/Concurrent/Lock.html">Lock</a>
+      
+        <ul>
+  
+  <li class=" " data-id="crystalg/Crystalg/Concurrent/Lock/ALock" data-name="crystalg::concurrent::lock::alock">
+      <a href="../../../Crystalg/Concurrent/Lock/ALock.html">ALock</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/Concurrent/Lock/BackOff" data-name="crystalg::concurrent::lock::backoff">
+      <a href="../../../Crystalg/Concurrent/Lock/BackOff.html">BackOff</a>
+      
+    </li>
+  
+  <li class="parent " data-id="crystalg/Crystalg/Concurrent/Lock/CLHLock" data-name="crystalg::concurrent::lock::clhlock">
+      <a href="../../../Crystalg/Concurrent/Lock/CLHLock.html">CLHLock</a>
+      
+        <ul>
+  
+  <li class=" " data-id="crystalg/Crystalg/Concurrent/Lock/CLHLock/QNode" data-name="crystalg::concurrent::lock::clhlock::qnode">
+      <a href="../../../Crystalg/Concurrent/Lock/CLHLock/QNode.html">QNode</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/Concurrent/Lock/Lock" data-name="crystalg::concurrent::lock::lock">
+      <a href="../../../Crystalg/Concurrent/Lock/Lock.html">Lock</a>
+      
+    </li>
+  
+  <li class="parent " data-id="crystalg/Crystalg/Concurrent/Lock/MCSLock" data-name="crystalg::concurrent::lock::mcslock">
+      <a href="../../../Crystalg/Concurrent/Lock/MCSLock.html">MCSLock</a>
+      
+        <ul>
+  
+  <li class=" " data-id="crystalg/Crystalg/Concurrent/Lock/MCSLock/QNode" data-name="crystalg::concurrent::lock::mcslock::qnode">
+      <a href="../../../Crystalg/Concurrent/Lock/MCSLock/QNode.html">QNode</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/Concurrent/Lock/ReentrantLock" data-name="crystalg::concurrent::lock::reentrantlock">
+      <a href="../../../Crystalg/Concurrent/Lock/ReentrantLock.html">ReentrantLock</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/Concurrent/Lock/Semaphore" data-name="crystalg::concurrent::lock::semaphore">
+      <a href="../../../Crystalg/Concurrent/Lock/Semaphore.html">Semaphore</a>
+      
+    </li>
+  
+  <li class=" current" data-id="crystalg/Crystalg/Concurrent/Lock/TASLock" data-name="crystalg::concurrent::lock::taslock">
+      <a href="../../../Crystalg/Concurrent/Lock/TASLock.html">TASLock</a>
+      
+    </li>
+  
+  <li class="parent " data-id="crystalg/Crystalg/Concurrent/Lock/TOLock" data-name="crystalg::concurrent::lock::tolock">
+      <a href="../../../Crystalg/Concurrent/Lock/TOLock.html">TOLock</a>
+      
+        <ul>
+  
+  <li class=" " data-id="crystalg/Crystalg/Concurrent/Lock/TOLock/QNode" data-name="crystalg::concurrent::lock::tolock::qnode">
+      <a href="../../../Crystalg/Concurrent/Lock/TOLock/QNode.html">QNode</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/Concurrent/Lock/TTASLock" data-name="crystalg::concurrent::lock::ttaslock">
+      <a href="../../../Crystalg/Concurrent/Lock/TTASLock.html">TTASLock</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/Concurrent/Lock/WaitGroup" data-name="crystalg::concurrent::lock::waitgroup">
+      <a href="../../../Crystalg/Concurrent/Lock/WaitGroup.html">WaitGroup</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="crystalg/Crystalg/DataStructures" data-name="crystalg::datastructures">
+      <a href="../../../Crystalg/DataStructures.html">DataStructures</a>
+      
+        <ul>
+  
+  <li class=" " data-id="crystalg/Crystalg/DataStructures/FenwickTree" data-name="crystalg::datastructures::fenwicktree(t)">
+      <a href="../../../Crystalg/DataStructures/FenwickTree.html">FenwickTree</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/DataStructures/FenwickTree2D" data-name="crystalg::datastructures::fenwicktree2d(t)">
+      <a href="../../../Crystalg/DataStructures/FenwickTree2D.html">FenwickTree2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/DataStructures/KDTree" data-name="crystalg::datastructures::kdtree(t)">
+      <a href="../../../Crystalg/DataStructures/KDTree.html">KDTree</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/DataStructures/LeftistHeap" data-name="crystalg::datastructures::leftistheap(t)">
+      <a href="../../../Crystalg/DataStructures/LeftistHeap.html">LeftistHeap</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/DataStructures/LinkCutTree" data-name="crystalg::datastructures::linkcuttree(t)">
+      <a href="../../../Crystalg/DataStructures/LinkCutTree.html">LinkCutTree</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/DataStructures/NodeID" data-name="crystalg::datastructures::nodeid">
+      <a href="../../../Crystalg/DataStructures/NodeID.html">NodeID</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/DataStructures/PersistentUnionFind" data-name="crystalg::datastructures::persistentunionfind">
+      <a href="../../../Crystalg/DataStructures/PersistentUnionFind.html">PersistentUnionFind</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/DataStructures/PriorityQueue" data-name="crystalg::datastructures::priorityqueue(a)">
+      <a href="../../../Crystalg/DataStructures/PriorityQueue.html">PriorityQueue</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/DataStructures/Queue" data-name="crystalg::datastructures::queue(t)">
+      <a href="../../../Crystalg/DataStructures/Queue.html">Queue</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/DataStructures/RandomizedBinarySearchTree" data-name="crystalg::datastructures::randomizedbinarysearchtree(t)">
+      <a href="../../../Crystalg/DataStructures/RandomizedBinarySearchTree.html">RandomizedBinarySearchTree</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/DataStructures/RandomizedMeldableHeap" data-name="crystalg::datastructures::randomizedmeldableheap(t)">
+      <a href="../../../Crystalg/DataStructures/RandomizedMeldableHeap.html">RandomizedMeldableHeap</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/DataStructures/SegmetTree" data-name="crystalg::datastructures::segmettree(t)">
+      <a href="../../../Crystalg/DataStructures/SegmetTree.html">SegmetTree</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/DataStructures/SkewHeap" data-name="crystalg::datastructures::skewheap(t)">
+      <a href="../../../Crystalg/DataStructures/SkewHeap.html">SkewHeap</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/DataStructures/SkipList" data-name="crystalg::datastructures::skiplist">
+      <a href="../../../Crystalg/DataStructures/SkipList.html">SkipList</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/DataStructures/Stack" data-name="crystalg::datastructures::stack(t)">
+      <a href="../../../Crystalg/DataStructures/Stack.html">Stack</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/DataStructures/UnionFind" data-name="crystalg::datastructures::unionfind">
+      <a href="../../../Crystalg/DataStructures/UnionFind.html">UnionFind</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="crystalg/Crystalg/Geometry" data-name="crystalg::geometry">
+      <a href="../../../Crystalg/Geometry.html">Geometry</a>
+      
+        <ul>
+  
+  <li class=" " data-id="crystalg/Crystalg/Geometry/CCW" data-name="crystalg::geometry::ccw">
+      <a href="../../../Crystalg/Geometry/CCW.html">CCW</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/Geometry/Circle" data-name="crystalg::geometry::circle(t)">
+      <a href="../../../Crystalg/Geometry/Circle.html">Circle</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/Geometry/Line" data-name="crystalg::geometry::line(t)">
+      <a href="../../../Crystalg/Geometry/Line.html">Line</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/Geometry/Point" data-name="crystalg::geometry::point(t)">
+      <a href="../../../Crystalg/Geometry/Point.html">Point</a>
+      
+    </li>
+  
+  <li class="parent " data-id="crystalg/Crystalg/Geometry/Polygon" data-name="crystalg::geometry::polygon(t)">
+      <a href="../../../Crystalg/Geometry/Polygon.html">Polygon</a>
+      
+        <ul>
+  
+  <li class=" " data-id="crystalg/Crystalg/Geometry/Polygon/Containment" data-name="crystalg::geometry::polygon::containment">
+      <a href="../../../Crystalg/Geometry/Polygon/Containment.html">Containment</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/Geometry/Segment" data-name="crystalg::geometry::segment(t)">
+      <a href="../../../Crystalg/Geometry/Segment.html">Segment</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="crystalg/Crystalg/Graph" data-name="crystalg::graph">
+      <a href="../../../Crystalg/Graph.html">Graph</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="crystalg/Crystalg/Graph/ConnectedComponents" data-name="crystalg::graph::connectedcomponents">
+      <a href="../../../Crystalg/Graph/ConnectedComponents.html">ConnectedComponents</a>
+      
+        <ul>
+  
+  <li class=" " data-id="crystalg/Crystalg/Graph/ConnectedComponents/ArticulationPoints" data-name="crystalg::graph::connectedcomponents::articulationpoints">
+      <a href="../../../Crystalg/Graph/ConnectedComponents/ArticulationPoints.html">ArticulationPoints</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/Graph/ConnectedComponents/Bridges" data-name="crystalg::graph::connectedcomponents::bridges(t)">
+      <a href="../../../Crystalg/Graph/ConnectedComponents/Bridges.html">Bridges</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/Graph/ConnectedComponents/CycleDetection" data-name="crystalg::graph::connectedcomponents::cycledetection">
+      <a href="../../../Crystalg/Graph/ConnectedComponents/CycleDetection.html">CycleDetection</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/Graph/Dinic" data-name="crystalg::graph::dinic(c)">
+      <a href="../../../Crystalg/Graph/Dinic.html">Dinic</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/Graph/DirectedGraph" data-name="crystalg::graph::directedgraph(c)">
+      <a href="../../../Crystalg/Graph/DirectedGraph.html">DirectedGraph</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/Graph/Edge" data-name="crystalg::graph::edge(t)">
+      <a href="../../../Crystalg/Graph/Edge.html">Edge</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/Graph/FlowEdge" data-name="crystalg::graph::flowedge(u)">
+      <a href="../../../Crystalg/Graph/FlowEdge.html">FlowEdge</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/Graph/FlowGraph" data-name="crystalg::graph::flowgraph(c)">
+      <a href="../../../Crystalg/Graph/FlowGraph.html">FlowGraph</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/Graph/FordFulkerson" data-name="crystalg::graph::fordfulkerson(c)">
+      <a href="../../../Crystalg/Graph/FordFulkerson.html">FordFulkerson</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/Graph/Graph" data-name="crystalg::graph::graph(c)">
+      <a href="../../../Crystalg/Graph/Graph.html">Graph</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/Graph/HopcroftKarp" data-name="crystalg::graph::hopcroftkarp">
+      <a href="../../../Crystalg/Graph/HopcroftKarp.html">HopcroftKarp</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/Graph/NodeID" data-name="crystalg::graph::nodeid">
+      <a href="../../../Crystalg/Graph/NodeID.html">NodeID</a>
+      
+    </li>
+  
+  <li class="parent " data-id="crystalg/Crystalg/Graph/ShortestPath" data-name="crystalg::graph::shortestpath">
+      <a href="../../../Crystalg/Graph/ShortestPath.html">ShortestPath</a>
+      
+        <ul>
+  
+  <li class=" " data-id="crystalg/Crystalg/Graph/ShortestPath/Dijkstra" data-name="crystalg::graph::shortestpath::dijkstra(c)">
+      <a href="../../../Crystalg/Graph/ShortestPath/Dijkstra.html">Dijkstra</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="crystalg/Crystalg/Graph/SpanningTree" data-name="crystalg::graph::spanningtree">
+      <a href="../../../Crystalg/Graph/SpanningTree.html">SpanningTree</a>
+      
+        <ul>
+  
+  <li class=" " data-id="crystalg/Crystalg/Graph/SpanningTree/Kruskal" data-name="crystalg::graph::spanningtree::kruskal(c)">
+      <a href="../../../Crystalg/Graph/SpanningTree/Kruskal.html">Kruskal</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/Graph/UndirectedGraph" data-name="crystalg::graph::undirectedgraph(c)">
+      <a href="../../../Crystalg/Graph/UndirectedGraph.html">UndirectedGraph</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/Graph/WeightedFlowEdge" data-name="crystalg::graph::weightedflowedge(t, u)">
+      <a href="../../../Crystalg/Graph/WeightedFlowEdge.html">WeightedFlowEdge</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="crystalg/Crystalg/NumberTheory" data-name="crystalg::numbertheory">
+      <a href="../../../Crystalg/NumberTheory.html">NumberTheory</a>
+      
+        <ul>
+  
+  <li class=" " data-id="crystalg/Crystalg/NumberTheory/Fraction" data-name="crystalg::numbertheory::fraction">
+      <a href="../../../Crystalg/NumberTheory/Fraction.html">Fraction</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/NumberTheory/Mod" data-name="crystalg::numbertheory::mod">
+      <a href="../../../Crystalg/NumberTheory/Mod.html">Mod</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/NumberTheory/SternBrocotTree" data-name="crystalg::numbertheory::sternbrocottree">
+      <a href="../../../Crystalg/NumberTheory/SternBrocotTree.html">SternBrocotTree</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="crystalg/Crystalg/Random" data-name="crystalg::random">
+      <a href="../../../Crystalg/Random.html">Random</a>
+      
+        <ul>
+  
+  <li class=" " data-id="crystalg/Crystalg/Random/Xor128" data-name="crystalg::random::xor128">
+      <a href="../../../Crystalg/Random/Xor128.html">Xor128</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="crystalg/Crystalg/Strings" data-name="crystalg::strings">
+      <a href="../../../Crystalg/Strings.html">Strings</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="crystalg/Crystalg/Strings/AhoCorasick" data-name="crystalg::strings::ahocorasick">
+      <a href="../../../Crystalg/Strings/AhoCorasick.html">AhoCorasick</a>
+      
+        <ul>
+  
+  <li class=" " data-id="crystalg/Crystalg/Strings/AhoCorasick/Node" data-name="crystalg::strings::ahocorasick::node">
+      <a href="../../../Crystalg/Strings/AhoCorasick/Node.html">Node</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/Strings/BakerBird" data-name="crystalg::strings::bakerbird">
+      <a href="../../../Crystalg/Strings/BakerBird.html">BakerBird</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/Strings/RollingHash" data-name="crystalg::strings::rollinghash">
+      <a href="../../../Crystalg/Strings/RollingHash.html">RollingHash</a>
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Crystalg/Strings/SuffixArray" data-name="crystalg::strings::suffixarray">
+      <a href="../../../Crystalg/Strings/SuffixArray.html">SuffixArray</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="crystalg/Float" data-name="float">
+      <a href="../../../Float.html">Float</a>
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">class</span> Crystalg::Concurrent::Lock::TASLock
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../../Crystalg/Concurrent/Lock/TASLock.html">Crystalg::Concurrent::Lock::TASLock</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="included-modules" class="anchor" href="#included-modules">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Included Modules
+  </h2>
+  <ul class="other-types-list">
+    
+      <li class="other-type"><a href="../../../Crystalg/Concurrent/Lock/Lock.html">Crystalg::Concurrent::Lock::Lock</a></li>
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+
+
+
+
+
+  <h2>
+    <a id="constructors" class="anchor" href="#constructors">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructors
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new-class-method" class="signature"><strong>.new</strong></a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#lock-instance-method" class="signature"><strong>#lock</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#unlock-instance-method" class="signature"><strong>#unlock</strong></a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+  <h3>Instance methods inherited from module <code><a href="../../../Crystalg/Concurrent/Lock/Lock.html">Crystalg::Concurrent::Lock::Lock</a></code></h3>
+  
+  
+    <a href="../../../Crystalg/Concurrent/Lock/Lock.html#lock-instance-method" class="tooltip">
+      <span>lock</span>
+    lock</a>, 
+    
+  
+    <a href="../../../Crystalg/Concurrent/Lock/Lock.html#unlock-instance-method" class="tooltip">
+      <span>unlock</span>
+    unlock</a>
+    
+  
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+  <h2>
+    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructor Detail
+  </h2>
+  
+    <div class="entry-detail" id="new-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>
+
+        <a class="method-permalink" href="#new-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+
+
+
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="lock-instance-method">
+      <div class="signature">
+        
+        def <strong>lock</strong>
+
+        <a class="method-permalink" href="#lock-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="unlock-instance-method">
+      <div class="signature">
+        
+        def <strong>unlock</strong>
+
+        <a class="method-permalink" href="#unlock-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>
