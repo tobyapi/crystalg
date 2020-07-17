@@ -548,7 +548,7 @@ right.find(<span class="n">3</span>) <span class="c"># =&gt; 3</span></code></pr
       </li>
     
       <li class="entry-summary">
-        <a href="#find(index:Int32)-instance-method" class="signature"><strong>#find</strong>(index : Int32)</a>
+        <a href="#find(index:Int32):T?-instance-method" class="signature"><strong>#find</strong>(index : Int32) : T?</a>
         
           <div class="summary"><p>Returns a value by O(log n).</p></div>
         
@@ -579,6 +579,13 @@ right.find(<span class="n">3</span>) <span class="c"># =&gt; 3</span></code></pr
         <a href="#split(index:Int32)-instance-method" class="signature"><strong>#split</strong>(index : Int32)</a>
         
           <div class="summary"><p>Splits a tree to [0, index) and [index, n) by O(log n).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#update(index:Int32,value:T)-instance-method" class="signature"><strong>#update</strong>(index : Int32, value : T)</a>
+        
+          <div class="summary"><p>Updates a value by O(log n).</p></div>
         
       </li>
     
@@ -679,12 +686,12 @@ tree.erase(<span class="n">0</span>)</code></pre>
       </div>
     </div>
   
-    <div class="entry-detail" id="find(index:Int32)-instance-method">
+    <div class="entry-detail" id="find(index:Int32):T?-instance-method">
       <div class="signature">
         
-        def <strong>find</strong>(index : Int32)
+        def <strong>find</strong>(index : Int32) : T?
 
-        <a class="method-permalink" href="#find(index:Int32)-instance-method">#</a>
+        <a class="method-permalink" href="#find(index:Int32):T?-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -813,6 +820,30 @@ left.find(<span class="n">1</span>) <span class="c"># =&gt; 2</span>
 left.find(<span class="n">2</span>) <span class="c"># =&gt; 3</span>
 right.find(<span class="n">0</span>) <span class="c"># =&gt; 4</span>
 right.find(<span class="n">1</span>) <span class="c"># =&gt; 5</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="update(index:Int32,value:T)-instance-method">
+      <div class="signature">
+        
+        def <strong>update</strong>(index : Int32, value : T)
+
+        <a class="method-permalink" href="#update(index:Int32,value:T)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Updates a value by O(log n). This method returns self, so several calls can be chained.</p>
+
+<pre><code>tree <span class="o">=</span> <span class="t">RandomizedBinarySearchTree</span>(<span class="t">Int32</span>).<span class="k">new</span>
+tree.insert(<span class="n">0</span>, <span class="n">1</span>)
+
+tree.update(<span class="n">0</span>, <span class="n">2</span>)</code></pre>
         </div>
       
       <br/>
