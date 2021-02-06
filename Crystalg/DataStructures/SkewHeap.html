@@ -3,28 +3,28 @@
 <head>
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 0.34.0">
-<meta name="crystal_docs.project_version" content="0.1.0">
+<meta name="generator" content="Crystal Docs 0.35.1">
+<meta name="crystal_docs.project_version" content="master-dev">
 <meta name="crystal_docs.project_name" content="crystalg">
+
 
 
 <link href="../../css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="../../js/doc.js"></script>
 
-<svg class="hidden">
-  <symbol id="octicon-link" viewBox="0 0 16 16">
-    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
-  </symbol>
-</svg>
-
-  <meta id="repository-name" content="crystalg">
-  <title>Crystalg::DataStructures::SkewHeap(T) - crystalg 0.1.0</title>
+  <meta name="repository-name" content="crystalg">
+  <title>Crystalg::DataStructures::SkewHeap(T) - crystalg master-dev</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../../";
   </script>
 </head>
 <body>
 
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
 <div class="sidebar">
   <div class="sidebar-header">
     <div class="search-box">
@@ -39,12 +39,12 @@
       </h1>
 
       <span class="project-version">
-        0.1.0
+        master-dev
       </span>
     </div>
   </div>
 
-  <div class="search-results" class="hidden">
+  <div class="search-results hidden">
     <ul class="search-list"></ul>
   </div>
 
@@ -726,7 +726,7 @@
           
           <p>Adds all elements of the meldable heap Q passed as parameter to this heap, and then emptying Q. <code>O(log n)</code>.</p>
 
-<pre><code>heap1 <span class="o">=</span> <span class="t">SkewHeap</span>(<span class="t">Int32</span>).<span class="k">new</span>
+<pre><code class="language-crystal">heap1 <span class="o">=</span> <span class="t">SkewHeap</span>(<span class="t">Int32</span>).<span class="k">new</span>
 heap2 <span class="o">=</span> <span class="t">SkewHeap</span>(<span class="t">Int32</span>).<span class="k">new</span>
 [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>].each { <span class="o">|</span>e<span class="o">|</span> heap1.push(e) }
 [<span class="n">4</span>, <span class="n">5</span>, <span class="n">6</span>].each { <span class="o">|</span>e<span class="o">|</span> heap2.push(e) }
@@ -762,7 +762,7 @@ heap1.pop.top <span class="c"># =&gt; nil</span></code></pre>
           
           <p>Pops the highest priority value from heap. <code>O(log n)</code>.</p>
 
-<pre><code>heap <span class="o">=</span> <span class="t">SkewHeap</span>(<span class="t">Int32</span>).<span class="k">new</span>
+<pre><code class="language-crystal">heap <span class="o">=</span> <span class="t">SkewHeap</span>(<span class="t">Int32</span>).<span class="k">new</span>
 
 heap.push(<span class="n">3</span>).push(<span class="n">2</span>).push(<span class="n">1</span>)
 heap.pop
@@ -787,7 +787,7 @@ heap.top <span class="c"># =&gt; 2</span></code></pre>
           
           <p>Pushes a new value to heap. <code>O(log n)</code></p>
 
-<pre><code>heap <span class="o">=</span> <span class="t">SkewHeap</span>(<span class="t">Int32</span>).<span class="k">new</span>
+<pre><code class="language-crystal">heap <span class="o">=</span> <span class="t">SkewHeap</span>(<span class="t">Int32</span>).<span class="k">new</span>
 heap.push(<span class="n">2</span>)
 heap.top <span class="c"># =&gt; 2</span></code></pre>
         </div>
@@ -810,7 +810,7 @@ heap.top <span class="c"># =&gt; 2</span></code></pre>
           
           <p>Returns the higheset priority value or nil if heap is empty. <code>O(1)</code>.</p>
 
-<pre><code>heap <span class="o">=</span> <span class="t">SkewHeap</span>(<span class="t">Int32</span>).<span class="k">new</span>
+<pre><code class="language-crystal">heap <span class="o">=</span> <span class="t">SkewHeap</span>(<span class="t">Int32</span>).<span class="k">new</span>
 
 heap.top <span class="c"># =&gt; nil</span>
 heap.push(<span class="n">1</span>).top <span class="c"># =&gt; 1</span></code></pre>

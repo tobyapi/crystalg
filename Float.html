@@ -3,28 +3,28 @@
 <head>
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 0.34.0">
-<meta name="crystal_docs.project_version" content="0.1.0">
+<meta name="generator" content="Crystal Docs 0.35.1">
+<meta name="crystal_docs.project_version" content="master-dev">
 <meta name="crystal_docs.project_name" content="crystalg">
+
 
 
 <link href="css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="js/doc.js"></script>
 
-<svg class="hidden">
-  <symbol id="octicon-link" viewBox="0 0 16 16">
-    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
-  </symbol>
-</svg>
-
-  <meta id="repository-name" content="crystalg">
-  <title>Float - crystalg 0.1.0</title>
+  <meta name="repository-name" content="crystalg">
+  <title>Float - crystalg master-dev</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "";
   </script>
 </head>
 <body>
 
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
 <div class="sidebar">
   <div class="sidebar-header">
     <div class="search-box">
@@ -39,12 +39,12 @@
       </h1>
 
       <span class="project-version">
-        0.1.0
+        master-dev
       </span>
     </div>
   </div>
 
-  <div class="search-results" class="hidden">
+  <div class="search-results hidden">
     <ul class="search-list"></ul>
   </div>
 
@@ -602,8 +602,8 @@
   <p>Float is the base type of all floating point numbers.</p>
 
 <p>There are two floating point types, <code>Float32</code> and <code>Float64</code>,
-which correspond to the <a href="http://en.wikipedia.org/wiki/Single_precision_floating-point_format" target="_blank">binary32</a>
-and <a href="http://en.wikipedia.org/wiki/Double_precision_floating-point_format" target="_blank">binary64</a>
+which correspond to the <a href="http://en.wikipedia.org/wiki/Single_precision_floating-point_format">binary32</a>
+and <a href="http://en.wikipedia.org/wiki/Double_precision_floating-point_format">binary64</a>
 types defined by IEEE.</p>
 
 <p>A floating point literal is an optional <code><a href="Float.html#+(other:Float)-instance-method">#+</a></code> or <code>-</code> sign, followed by
@@ -611,7 +611,7 @@ a sequence of numbers or underscores, followed by a dot,
 followed by numbers or underscores, followed by an optional exponent suffix,
 followed by an optional type suffix. If no suffix is present, the literal's type is <code>Float64</code>.</p>
 
-<pre><code><span class="n">1.0</span>     <span class="c"># Float64</span>
+<pre><code class="language-crystal"><span class="n">1.0</span>     <span class="c"># Float64</span>
 <span class="n">1.0_f32</span> <span class="c"># Float32</span>
 <span class="n">1_f32</span>   <span class="c"># Float32</span>
 
@@ -626,7 +626,7 @@ followed by an optional type suffix. If no suffix is present, the literal's type
 
 <p>Underscores can be used to make some numbers more readable:</p>
 
-<pre><code><span class="n">1_000_000.111_111</span> <span class="c"># better than 1000000.111111</span></code></pre>
+<pre><code class="language-crystal"><span class="n">1_000_000.111_111</span> <span class="c"># better than 1000000.111111</span></code></pre>
 
 
 
@@ -816,14 +816,14 @@ followed by an optional type suffix. If no suffix is present, the literal's type
           
           <p>The comparison operator. Returns <code>0</code> if the two objects are equal,
 a negative number if this object is considered less than <em>other</em>,
-a positive number if this object is considered greter than <em>other</em>,
+a positive number if this object is considered greater than <em>other</em>,
 or <code>nil</code> if the two objects are not comparable.</p>
 
 <p>Subclasses define this method to provide class-specific ordering.</p>
 
 <p>The comparison operator is usually used to sort values:</p>
 
-<pre><code><span class="c"># Sort in a descending way:</span>
+<pre><code class="language-crystal"><span class="c"># Sort in a descending way:</span>
 [<span class="n">3</span>, <span class="n">1</span>, <span class="n">2</span>].sort { <span class="o">|</span>x, y<span class="o">|</span> y <span class="o">&lt;=&gt;</span> x } <span class="c"># =&gt; [3, 2, 1]</span>
 
 <span class="c"># Sort in an ascending way:</span>
@@ -868,7 +868,7 @@ or <code>nil</code> if the two objects are not comparable.</p>
 
 <ul><li><code>-1</code> if this number is negative</li><li><code>0</code> if this number is zero</li><li><code>1</code> if this number is positive</li></ul>
 
-<pre><code><span class="n">123</span>.sign <span class="c"># =&gt; 1</span>
+<pre><code class="language-crystal"><span class="n">123</span>.sign <span class="c"># =&gt; 1</span>
 <span class="n">0</span>.sign   <span class="c"># =&gt; 0</span>
 <span class="n">-42</span>.sign <span class="c"># =&gt; -1</span></code></pre>
         </div>
