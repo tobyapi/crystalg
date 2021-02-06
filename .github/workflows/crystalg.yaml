@@ -21,6 +21,8 @@ jobs:
         crystal: 0.36.1
     - run: shards install
     - run: crystal spec
+    - run: crystal tool format && git diff --exit-code
+      if: matrix.crystal == 'latest'
     - run: crystal docs
     - name: Deploy document
       uses: peaceiris/actions-gh-pages@v3
