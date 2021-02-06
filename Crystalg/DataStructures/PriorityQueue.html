@@ -602,15 +602,15 @@
   <p>A PriorityQueue is a queue ordered by priority of elements.</p>
 
 <pre><code class="language-crystal">min_heap <span class="o">=</span> <span class="t">PriorityQueue</span>(<span class="t">Int32</span>).<span class="k">new</span>
-[<span class="n">10</span>, <span class="n">8</span> , <span class="n">2</span>, <span class="n">11</span>].each { <span class="o">|</span>e<span class="o">|</span> min_heap.push(e) }
-min_heap.top <span class="c"># =&gt; 2</span>
-min_heap.pop().top() <span class="c"># =&gt; 8</span>
+[<span class="n">10</span>, <span class="n">8</span>, <span class="n">2</span>, <span class="n">11</span>].each { <span class="o">|</span>e<span class="o">|</span> min_heap.push(e) }
+min_heap.top     <span class="c"># =&gt; 2</span>
+min_heap.pop.top <span class="c"># =&gt; 8</span>
 
 min_heap.pop! <span class="c"># =&gt; 8</span>
-min_heap.top <span class="c"># =&gt; 10</span>
+min_heap.top  <span class="c"># =&gt; 10</span>
 
 max_heap <span class="o">=</span> <span class="t">PriorityQueue</span>(<span class="t">Int32</span>).<span class="k">new</span>(<span class="n">:max</span>)
-[<span class="n">10</span>, <span class="n">8</span> , <span class="n">2</span>, <span class="n">11</span>].each { <span class="o">|</span>e<span class="o">|</span> max_heap.push(e) }
+[<span class="n">10</span>, <span class="n">8</span>, <span class="n">2</span>, <span class="n">11</span>].each { <span class="o">|</span>e<span class="o">|</span> max_heap.push(e) }
 max_heap.pop! <span class="c"># =&gt; 11</span>
 max_heap.pop! <span class="c"># =&gt; 10</span>
 max_heap.pop! <span class="c"># =&gt; 8</span>

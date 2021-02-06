@@ -899,9 +899,9 @@ left.merge(right)
 
 right.find(<span class="n">0</span>) <span class="c"># =&gt; 4</span>
 right.find(<span class="n">1</span>) <span class="c"># =&gt; 5</span>
-left.find(<span class="n">2</span>) <span class="c"># =&gt; 1</span>
-left.find(<span class="n">3</span>) <span class="c"># =&gt; 2</span>
-left.find(<span class="n">4</span>) <span class="c"># =&gt; 3</span></code></pre>
+left.find(<span class="n">2</span>)  <span class="c"># =&gt; 1</span>
+left.find(<span class="n">3</span>)  <span class="c"># =&gt; 2</span>
+left.find(<span class="n">4</span>)  <span class="c"># =&gt; 3</span></code></pre>
         </div>
       
       <br/>
@@ -951,7 +951,7 @@ tree.find(<span class="n">4</span>) <span class="c"># =&gt; 5</span></code></pre
       
         <div class="doc">
           
-          <p>Splits a tree to [0, index) and [index, n) by O(log n). 
+          <p>Splits a tree to [0, index) and [index, n) by O(log n).
 After this method called, a receiver tree is empty.</p>
 
 <pre><code class="language-crystal">tree <span class="o">=</span> <span class="t">RandomizedBinarySearchTree</span>(<span class="t">Int32</span>).<span class="k">new</span>
@@ -960,9 +960,9 @@ After this method called, a receiver tree is empty.</p>
 
 left, right <span class="o">=</span> tree.split(<span class="n">3</span>)
 
-left.find(<span class="n">0</span>) <span class="c"># =&gt; 1</span>
-left.find(<span class="n">1</span>) <span class="c"># =&gt; 2</span>
-left.find(<span class="n">2</span>) <span class="c"># =&gt; 3</span>
+left.find(<span class="n">0</span>)  <span class="c"># =&gt; 1</span>
+left.find(<span class="n">1</span>)  <span class="c"># =&gt; 2</span>
+left.find(<span class="n">2</span>)  <span class="c"># =&gt; 3</span>
 right.find(<span class="n">0</span>) <span class="c"># =&gt; 4</span>
 right.find(<span class="n">1</span>) <span class="c"># =&gt; 5</span></code></pre>
         </div>
