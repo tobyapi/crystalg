@@ -14,7 +14,7 @@ module Crystalg::DataStructures
       end
     end
 
-    #:nodoc:
+    # :nodoc:
     setter root : Node(T)?
     @root : Node(T)? = nil
 
@@ -45,7 +45,7 @@ module Crystalg::DataStructures
           meld(@root.as(Node(T)), Node(T).new x)
         end
 
-        self
+      self
     end
 
     # Returns the higheset priority value or nil if heap is empty. `O(1)`.
@@ -53,7 +53,7 @@ module Crystalg::DataStructures
     # ```
     # heap = LeftistHeap(Int32).new
     #
-    # heap.top # => nil
+    # heap.top         # => nil
     # heap.push(1).top # => 1
     # ```
     def top : T?

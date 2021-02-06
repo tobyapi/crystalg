@@ -7,7 +7,7 @@ module Crystalg::Concurrent::Lock
 
     class QNode
       property locked
-      
+
       def initialize
         @locked = false
       end
@@ -18,13 +18,13 @@ module Crystalg::Concurrent::Lock
     @my_pred : QNode?
     @[ThreadLocal]
     @my_node : QNode
-    
+
     def initialize
       @tail = Atomic(QNode).new(QNode.new)
       @my_node = QNode.new
       @my_pred = nil
     end
-    
+
     def lock
       qnode = @my_node
       qnode.locked = true
@@ -32,7 +32,7 @@ module Crystalg::Concurrent::Lock
       @my_pred = pred
       loop { break if !pred.locked }
     end
-    
+
     def unlock
       my_pred = @my_pred
       raise "Attempt to unlock a mutex which is not locked" if my_pred.nil?

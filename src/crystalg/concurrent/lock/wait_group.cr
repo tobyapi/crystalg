@@ -4,7 +4,7 @@ require "./back_off"
 module Crystalg::Concurrent::Lock
   class WaitGroup
     @counter : Atomic(Int32)
-    
+
     def initialize
       @counter = Atomic(Int32).new(0)
     end
@@ -15,11 +15,11 @@ module Crystalg::Concurrent::Lock
         break if is_success
       end
     end
-    
+
     def done
       add(-1)
     end
-    
+
     def wait
       back_off = BackOff.new(1, 5)
       while @counter.get != 0

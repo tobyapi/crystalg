@@ -18,7 +18,7 @@ module Crystalg::NumberTheory
     end
     n != 1
   end
-  
+
   def prime_factorize(n)
     result = Hash(Int32, Int32).new
 

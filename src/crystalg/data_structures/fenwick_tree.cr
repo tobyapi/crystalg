@@ -1,16 +1,16 @@
 module Crystalg::DataStructures
-  # Fenwick Tree can efficiently update elements and calculate prefix sums 
+  # Fenwick Tree can efficiently update elements and calculate prefix sums
   # in a table of numbers. Type argument `T` must be the Group.
   #
   # ```
   # fenwick = FenwickTree(Int32).new(5)
-  # 
+  #
   # fenwick[0] = 1
   # fenwick[1] = 3
   # fenwick[2] = 5
   # fenwick[3] = 7
   # fenwick[4] = 11
-  # 
+  #
   # # sum method returns sum of [0, index). If given index is 0, returns 0.
   # fenwick.sum(0) # => 0
   # fenwick.sum(3) # => 9

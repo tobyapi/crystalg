@@ -11,7 +11,7 @@ module Crystalg::DataStructures
       @delta = Array(T).new(@n * 2 + 1, T.zero)
     end
 
-    private def child_index(k : Int32): Tuple(Int32, Int32)
+    private def child_index(k : Int32) : Tuple(Int32, Int32)
       {k * 2 + 1, k * 2 + 2}
     end
 

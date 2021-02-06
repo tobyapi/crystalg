@@ -1,5 +1,5 @@
 module Crystalg::DataStructures
-  # A stack is a first-in-last-out data structure. In a FILO data structure, 
+  # A stack is a first-in-last-out data structure. In a FILO data structure,
   # the first element added to the queue will be the last one to be removed.
   #
   # ```
@@ -25,13 +25,13 @@ module Crystalg::DataStructures
       self
     end
 
-    def pop!: T?
+    def pop! : T?
       result = @array.last?
       @array.pop?
       result
     end
 
-    def top: T?
+    def top : T?
       @array.last?
     end
 

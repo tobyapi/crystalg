@@ -27,7 +27,7 @@ describe Crystalg do
   it "randomized_meldable_heap remove" do
     heap = RandomizedMeldableHeap(Int32).new
     [10, 1, 2, 2, 2, 11, 2].each { |e| heap.push(e) }
-    
+
     heap.remove(2)
 
     heap.top.should eq 1
@@ -44,7 +44,7 @@ describe Crystalg do
     heap2 = RandomizedMeldableHeap(Int32).new
     [1, 2, 3].each { |e| heap1.push(e) }
     [4, 5, 6].each { |e| heap2.push(e) }
-    
+
     heap1.absorb(heap2)
 
     heap2.top.should eq nil

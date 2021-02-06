@@ -11,22 +11,21 @@ module Crystalg::Concurrent::Lock
 
     class QNode
       property locked, nxt
-      
+
       @locked : Atomic(Int8)
       @nxt : QNode?
-      
+
       def initialize
         @locked = Atomic(Int8).new(0)
         @nxt = nil
       end
     end
 
-    
     def initialize
       @tail = Atomic(QNode?).new(nil)
       @my_node = QNode.new
     end
-    
+
     def lock
       qnode = @my_node
       pred = @tail.swap(qnode)
@@ -35,7 +34,7 @@ module Crystalg::Concurrent::Lock
       pred.nxt = qnode
       loop { break if !qnode.locked }
     end
-    
+
     def unlock
       qnode = @my_node
       if qnode.nxt.nil?

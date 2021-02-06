@@ -4,7 +4,6 @@ require "time/span"
 module Crystalg::Concurrent::Lock
   # TimeOut Lock
   class TOLock
-
     class QNode
       property pred : QNode?
 

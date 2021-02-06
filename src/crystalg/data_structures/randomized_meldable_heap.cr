@@ -1,5 +1,5 @@
 module Crystalg::DataStructures
-  # A randomized meldable heap is a priority queue allowed merging heaps 
+  # A randomized meldable heap is a priority queue allowed merging heaps
   # by supporting internal method called meld.
   class RandomizedMeldableHeap(T)
     # :nodoc:
@@ -32,7 +32,7 @@ module Crystalg::DataStructures
       return q1 if q2.nil?
       q1, q2 = q2, q1 if @order == :min && q2.value < q1.value
       q1, q2 = q2, q1 if @order == :max && q1.value < q2.value
-      
+
       if @rng.get % 2 == 0
         q1.left = meld(q1.left, q2)
       else
@@ -46,7 +46,7 @@ module Crystalg::DataStructures
     # ```
     # heap = RandomizedMeldableHeap(Int32).new
     #
-    # heap.size # => 0
+    # heap.size         # => 0
     # heap.push(1).size # => 1
     # ```
     def size : Int32
@@ -90,16 +90,16 @@ module Crystalg::DataStructures
     # ```
     # heap = RandomizedMeldableHeap(Int32).new
     #
-    # heap.top # => nil
+    # heap.top         # => nil
     # heap.push(1).top # => 1
     # ```
     def top
       @root.as(Node(T)).value if !@root.nil?
     end
 
-    private def remove_rec(node : Node(T)?, value : T): Node(T)?
-      return nil if node.nil? 
-      return node if @order == :min && value < node.value 
+    private def remove_rec(node : Node(T)?, value : T) : Node(T)?
+      return nil if node.nil?
+      return node if @order == :min && value < node.value
       return node if @order == :max && node.value < value
       while !node.nil? && node.value == value
         node = meld(node.left, node.right)
@@ -118,8 +118,8 @@ module Crystalg::DataStructures
     # [10, 1, 2, 2, 2, 11, 2].each { |e| heap.push(e) }
     #
     # heap.remove(2)
-    # 
-    # heap.top # => 1
+    #
+    # heap.top     # => 1
     # heap.pop.top # => 10
     # heap.pop.top # => 11
     # heap.pop.top # => nil

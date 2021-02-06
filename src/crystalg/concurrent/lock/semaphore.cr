@@ -17,13 +17,13 @@ module Crystalg::Concurrent::Lock
     @state : Int32
     @mutex : ReentrantLock
     @condition : Thread::ConditionVariable
-    
+
     def initialize(@capacity)
       @state = 0
       @mutex = ReentrantLock.new
       @condition = Thread::ConditionVariable.new
     end
-    
+
     def acquire
       @mutex.lock
       begin
@@ -35,7 +35,7 @@ module Crystalg::Concurrent::Lock
         @mutex.unlock
       end
     end
-    
+
     def release
       @mutex.lock
       begin

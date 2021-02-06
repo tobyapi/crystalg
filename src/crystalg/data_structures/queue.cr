@@ -1,5 +1,5 @@
 module Crystalg::DataStructures
-  # A queue is a first-in-first-out data structure. In a FIFO data structure, 
+  # A queue is a first-in-first-out data structure. In a FIFO data structure,
   # the first element added to the queue will be the first one to be removed.
   #
   # ```
@@ -25,13 +25,13 @@ module Crystalg::DataStructures
       self
     end
 
-    def pop!: T?
+    def pop! : T?
       result = @array.first?
       @array.shift?
       result
     end
 
-    def top: T?
+    def top : T?
       @array.first?
     end
 

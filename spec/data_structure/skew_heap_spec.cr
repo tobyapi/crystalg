@@ -44,5 +44,5 @@ describe Crystalg do
       heap1.pop
       heap1.top.should eq e
     end
-  end  
+  end
 end

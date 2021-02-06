@@ -15,7 +15,7 @@ module Crystalg::DataStructures
   # left, right = tree.split(3) # left => [1, 2, 3], right => [4, 5]
   #
   # right.merge(left) # => [4, 5, 1, 2, 3]
-  # 
+  #
   # # reverses [left_index, right_index)
   # right.reverse(1, 4) # => [4, 2, 1, 5, 3]
   #
@@ -31,7 +31,7 @@ module Crystalg::DataStructures
       def initialize(
         @key : Int32,
         @value : T,
-        @left : Node(T)?  = nil,
+        @left : Node(T)? = nil,
         @right : Node(T)? = nil,
         @rev : Bool = false,
         @size : Int32 = 0
@@ -107,9 +107,9 @@ module Crystalg::DataStructures
     #
     # right.find(0) # => 4
     # right.find(1) # => 5
-    # left.find(2) # => 1
-    # left.find(3) # => 2
-    # left.find(4) # => 3
+    # left.find(2)  # => 1
+    # left.find(3)  # => 2
+    # left.find(4)  # => 3
     # ```
     def merge(other : RandomizedBinarySearchTree(T))
       @root = merge_rec(@root, other.@root)
@@ -133,7 +133,7 @@ module Crystalg::DataStructures
       end
     end
 
-    # Splits a tree to [0, index) and [index, n) by O(log n). 
+    # Splits a tree to [0, index) and [index, n) by O(log n).
     # After this method called, a receiver tree is empty.
     #
     # ```
@@ -143,9 +143,9 @@ module Crystalg::DataStructures
     #
     # left, right = tree.split(3)
     #
-    # left.find(0) # => 1
-    # left.find(1) # => 2
-    # left.find(2) # => 3
+    # left.find(0)  # => 1
+    # left.find(1)  # => 2
+    # left.find(2)  # => 3
     # right.find(0) # => 4
     # right.find(1) # => 5
     # ```
@@ -234,7 +234,7 @@ module Crystalg::DataStructures
     #
     # tree.find(0) # => 1
     # ```
-    def find(index : Int32): T?
+    def find(index : Int32) : T?
       result = find_rec(index, @root)
       return nil if result.nil?
       result.value

@@ -1,6 +1,6 @@
 module Crystalg::DataStructures
   # FenwickTree2D is FenwickTree extended 2D.
-  # 
+  #
   # ```
   # fenwick = FenwickTree2D(Int32).new(4, 3)
   #
@@ -25,11 +25,11 @@ module Crystalg::DataStructures
   #
   # # Sum of the above grid is:
   # # 0   0   0   0
-  # # 0   1   3   6 
+  # # 0   1   3   6
   # # 0   5  12  21
   # # 0  12  27  45
   # # 0  22  48  78
-  # 
+  #
   # fenwick.sum(0, 0) # => 0
   # fenwick.sum(2, 0) # => 0
   # fenwick.sum(2, 3) # => 27

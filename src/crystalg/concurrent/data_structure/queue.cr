@@ -2,20 +2,20 @@ module Crystalg::Concurrent::DataStructure
   class Node(T)
     getter value : T?
     property next : Atomic(Node(T)?)
-    
+
     def initialize(@value = nil)
       @next = Atomic(Node(T)?).new(nil)
     end
   end
-  
-  class Queue(T) 
+
+  class Queue(T)
     @head : Atomic(Node(T))
     @tail : Atomic(Node(T))
-    
+
     def initialize
       @head = @tail = Atomic(Node(T)).new(Node(T).new)
     end
-    
+
     def enqueue(value : T)
       node = Node(T).new(value)
       loop do

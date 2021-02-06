@@ -12,7 +12,7 @@ module Crystalg::Concurrent::Core
 
     @slot = Core::AtomicStampedReference(T).new(nil, 0)
 
-    def exchange(my_item : T, timeout : Time::Span): T?
+    def exchange(my_item : T, timeout : Time::Span) : T?
       start_time = Time.now
       loop do
         raise "timeout" if timeout < Time.now - start_time

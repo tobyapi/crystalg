@@ -16,7 +16,7 @@ module Crystalg::DataStructures
     setter root : Node(T)?
     @root : Node(T)? = nil
 
-    private def meld(a : Node(T)?, b : Node(T)?): Node(T)?
+    private def meld(a : Node(T)?, b : Node(T)?) : Node(T)?
       return b if a.nil?
       return a if b.nil?
       a, b = b, a if a.value > b.value
@@ -40,7 +40,7 @@ module Crystalg::DataStructures
           meld(@root.as(Node(T)), Node(T).new x)
         end
 
-        self
+      self
     end
 
     # Returns the higheset priority value or nil if heap is empty. `O(1)`.
@@ -48,7 +48,7 @@ module Crystalg::DataStructures
     # ```
     # heap = SkewHeap(Int32).new
     #
-    # heap.top # => nil
+    # heap.top         # => nil
     # heap.push(1).top # => 1
     # ```
     def top
@@ -71,7 +71,6 @@ module Crystalg::DataStructures
 
       self
     end
-
 
     # Adds all elements of the meldable heap Q passed as parameter to this heap, and then emptying Q. `O(log n)`.
     #
@@ -96,7 +95,7 @@ module Crystalg::DataStructures
     def absorb(other : SkewHeap(T))
       @root = meld(@root, other.@root)
       other.root = nil
-  
+
       self
     end
   end

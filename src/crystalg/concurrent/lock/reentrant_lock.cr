@@ -3,18 +3,18 @@ require "./lock"
 module Crystalg::Concurrent::Lock
   class ReentrantLock < Thread::Mutex
     include Lock
-    
+
     @lock : Thread::Mutex
     @condition : Thread::ConditionVariable
     @owner : UInt64
     @hold_count : Int32
-    
+
     def initialize(@lock = Thread::Mutex.new)
       @condition = Thread::ConditionVariable.new
       @owner = 0
       @hold_count = 0
     end
-    
+
     def lock
       me = Fiber.current.hash
       @lock.lock
@@ -32,7 +32,7 @@ module Crystalg::Concurrent::Lock
         @lock.unlock
       end
     end
-    
+
     def unlock
       @lock.lock
       begin

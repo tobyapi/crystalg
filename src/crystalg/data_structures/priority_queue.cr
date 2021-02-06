@@ -1,18 +1,17 @@
 module Crystalg::DataStructures
-
   # A PriorityQueue is a queue ordered by priority of elements.
   #
   # ```
   # min_heap = PriorityQueue(Int32).new
-  # [10, 8 , 2, 11].each { |e| min_heap.push(e) }
-  # min_heap.top # => 2
-  # min_heap.pop().top() # => 8
+  # [10, 8, 2, 11].each { |e| min_heap.push(e) }
+  # min_heap.top     # => 2
+  # min_heap.pop.top # => 8
   #
   # min_heap.pop! # => 8
-  # min_heap.top # => 10
+  # min_heap.top  # => 10
   #
   # max_heap = PriorityQueue(Int32).new(:max)
-  # [10, 8 , 2, 11].each { |e| max_heap.push(e) }
+  # [10, 8, 2, 11].each { |e| max_heap.push(e) }
   # max_heap.pop! # => 11
   # max_heap.pop! # => 10
   # max_heap.pop! # => 8
@@ -72,7 +71,7 @@ module Crystalg::DataStructures
     end
 
     # Removes the highest priority value based on `order` property and returns the removed value. Returns nil if PriorityQueue is empty.
-    def pop!: A?
+    def pop! : A?
       return if empty?
       result = top
       pop
@@ -80,12 +79,12 @@ module Crystalg::DataStructures
     end
 
     # Returns the highest priority value without removing the value. Returns nil if PriorityQueue is empty.
-    def top: A?
+    def top : A?
       @heap.first?
     end
 
     # Returns true if PriorityQueue is empty.
-    def empty?: Bool
+    def empty? : Bool
       @size == 0
     end
   end
